@@ -1,13 +1,13 @@
 syntax = "proto3";
 
-package config.v1;
+package captcha.v1;
 
 import "validation/v1/predefined_rules.proto";
 import "google/protobuf/duration.proto";
 import "buf/validate/validate.proto";
-import "common/v1/common.proto";
+import "types/v1/types.proto";
 import "enums/v1/message.proto";
-
+import "limiter/v1/limiter.proto";
 
 message CaptchaProvider {
   enums.v1.MessageSenderType sender = 1 [(buf.validate.field).enum.(validation.v1.not_unspecified) = true];
@@ -32,14 +32,9 @@ message CaptchaProvider {
     }
   ];
   // 验证码限流配置
-  repeated common.v1.LimitRule limits = 7 [(buf.validate.field).repeated.min_items = 1];
+  repeated limiter.v1.LimitRule limits = 7 [(buf.validate.field).repeated.min_items = 1];
 }
 
 message Captcha {
   repeated CaptchaProvider providers = 1;
-}
-
-message TokenVerify {
-  string prefix = 1;
-  google.protobuf.Duration keeping = 2;
 }

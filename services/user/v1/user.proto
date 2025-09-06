@@ -8,9 +8,10 @@ import "google/protobuf/any.proto";
 import "google/protobuf/timestamp.proto";
 import "buf/validate/validate.proto";
 import "validation/v1/predefined_rules.proto";
-import "common/v1/common.proto";
+import "types/v1/types.proto";
 import "google/type/date.proto";
-import "msg/v1/captcha.proto";
+import "captcha/v1/captcha.proto";
+import "limiter/v1/limiter.proto";
 
 message UserProfile {
   int64 uid = 1; // userid
@@ -40,9 +41,9 @@ message UserInfo {
   optional string avatar = 11; // 头像
   optional enums.v1.Gender gender = 12; // 性别
   optional google.type.Date birthday = 13; // 生日
-  optional common.v1.PhoneNumber phone_number = 14; // 手机
+  optional types.v1.PhoneNumber phone_number = 14; // 手机
   optional string email = 15;// 邮箱
-  optional common.v1.AdminRegion region = 16; // 行政区域
+  optional types.v1.AdminRegion region = 16; // 行政区域
   optional string addr = 17; // 详细地址
   optional string ext = 18; // 扩展字段，json格式，（由业务方自定义）
   bool phone_verify = 19; // 手机是否验证
@@ -67,7 +68,7 @@ message UserAuth {
 }
 
 message SendCaptchaReq {
-  msg.v1.SendCaptchaReq captcha_params = 2;
+  captcha.v1.SendCaptchaReq captcha_params = 2;
 }
 
 message SendCaptchaResp {
@@ -75,7 +76,7 @@ message SendCaptchaResp {
     // 验证码存取的key，使用这个key在kv存储中找验证码
     string token = 1;
     // 如果报错，这里有限制的原因
-    optional common.v1.LimitRule limit = 2;
+    optional limiter.v1.LimitRule limit = 2;
   }
   // 正常返回0，错误返回非0
   uint32 err_code = 1;
@@ -88,7 +89,7 @@ message SendCaptchaResp {
 
 message VerifyCaptchaReq {
   string biz = 1;
-  msg.v1.VerifyCaptchaReq param = 2;
+  captcha.v1.VerifyCaptchaReq param = 2;
 }
 
 message VerifyCaptchaResp {
@@ -126,11 +127,11 @@ message SignUpReq {
   // 生日
   optional google.type.Date birthday = 8;
   // 手机
-  optional common.v1.PhoneNumber phone = 9;
+  optional types.v1.PhoneNumber phone = 9;
   // 邮箱
   optional string email = 10 [(buf.validate.field).string.(validation.v1.optional_30) = true];
   // 行政区域
-  optional common.v1.AdminRegion region = 11;
+  optional types.v1.AdminRegion region = 11;
   // 详细地址
   optional string addr = 12 [(buf.validate.field).string.(validation.v1.optional_100) = true];
   // 状态
@@ -159,7 +160,7 @@ message SignUpReq {
 message SignUpResp {
   message Data {
     UserInfo user_info = 1;
-    optional common.v1.LimitRule rule = 2;
+    optional limiter.v1.LimitRule rule = 2;
   }
   // 正常返回0，错误返回非0
   uint32 err_code = 1;
@@ -181,7 +182,7 @@ message SignInReq {
   // 如果是微信登录这里是code
   string credential = 3 [(buf.validate.field).string.(validation.v1.required_50) = true];
   // 手机号,跟手机登录有关的手机号码必须填在这里
-  common.v1.PhoneNumber phone_number = 4;
+  types.v1.PhoneNumber phone_number = 4;
   // jwt除标准字段外的自定义字段
   google.protobuf.Any extra_jwt_claims = 5;
   // 如果通过验证码登录，这里是验证码在redis中的key
@@ -217,7 +218,7 @@ message SignInResp {
     string access_token = 1;
     string refresh_token = 2;
     UserInfo user_info = 3;
-    optional common.v1.LimitRule rule = 4;
+    optional limiter.v1.LimitRule rule = 4;
   }
   // 正常返回0，错误返回非0
   uint32 err_code = 1;
@@ -317,7 +318,7 @@ message ResetPasswordResp {
 
 message ChangePhoneReq {
   string change_token = 1;
-  common.v1.PhoneNumber phone = 2;
+  types.v1.PhoneNumber phone = 2;
   string captcha_token = 3;
   string captcha = 4;
 }
@@ -503,7 +504,7 @@ message ChangeUserExtResp {
 
 message VerifyPhoneReq {
   int64 uid = 1;
-  common.v1.PhoneNumber phone = 2;
+  types.v1.PhoneNumber phone = 2;
   string captcha_token = 3;
   string captcha = 4;
 }
@@ -652,7 +653,7 @@ message PagingGetUsersReq {
   optional string number = 5;
   optional string name = 6;
   optional enums.v1.Gender gender = 7;
-  optional common.v1.PhoneNumber phone = 8;
+  optional types.v1.PhoneNumber phone = 8;
   optional string email = 9;
   optional string country_code = 10;
   optional string province_code = 11;
@@ -710,11 +711,11 @@ message CreateUserReq {
   // 生日
   optional google.type.Date birthday = 7;
   // 手机
-  optional common.v1.PhoneNumber phone = 8;
+  optional types.v1.PhoneNumber phone = 8;
   // 邮箱
   optional string email = 9 [(buf.validate.field).string.(validation.v1.optional_30) = true];
   // 行政区域
-  optional common.v1.AdminRegion region = 10;
+  optional types.v1.AdminRegion region = 10;
   // 详细地址
   optional string addr = 11 [(buf.validate.field).string.(validation.v1.optional_100) = true];
   // 状态
@@ -788,11 +789,11 @@ message UpdateUserReq {
   // 生日
   optional google.type.Date birthday = 8;
   // 手机
-  optional common.v1.PhoneNumber phone = 9;
+  optional types.v1.PhoneNumber phone = 9;
   // 邮箱
   optional string email = 10 [(buf.validate.field).string.(validation.v1.optional_30) = true];
   // 行政区域
-  optional common.v1.AdminRegion region = 11;
+  optional types.v1.AdminRegion region = 11;
   // 详细地址
   optional string addr = 12 [(buf.validate.field).string.(validation.v1.optional_100) = true];
   // 状态
@@ -841,7 +842,7 @@ message BindUserAuthReq {
   optional string code = 4;
   optional string captcha_token = 5;
   optional string captcha = 6;
-  optional common.v1.PhoneNumber phone = 7;
+  optional types.v1.PhoneNumber phone = 7;
   optional string email = 8;
   string biz = 255;
 }

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package db.v1;
+
+import "google/protobuf/duration.proto";
+
+message Redis {
+  string addr = 1; // 连接地址 e.g. 127.0.0.1:6379
+  string user = 2;  // 用户名
+  string password = 3; // 密码
+  int32 db = 4; // redis db 1 - 16
+  int32 protocol = 5; // RESP版本：2或者3
+  string client_name = 6; // 客户端名称
+}
+
+message  DistributedLock {
+  google.protobuf.Duration ttl = 1;
+  string prefix = 2;
+}

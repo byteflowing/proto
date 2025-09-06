@@ -2,11 +2,15 @@ syntax = "proto3";
 
 package config.v1;
 
-import "config/v1/sms.proto";
-import "config/v1/mail.proto";
-import "config/v1/captcha.proto";
-import "config/v1/common.proto";
-import "config/v1/user.proto";
+import "config/v1/config.proto";
+import "captcha/v1/config.proto";
+import "db/v1/gorm.proto";
+import "db/v1/redis.proto";
+import "user/v1/config.proto";
+import "sms/v1/config.proto";
+import "mail/v1/config.proto";
+import "idx/v1/idx.proto";
+import "tencent/v1/config.proto";
 
 message Base {
   string listen_addr = 1;
@@ -15,14 +19,14 @@ message Base {
 
 message Config {
   Base base = 1;
-  config.v1.Sms sms = 2;
-  config.v1.Mail mail = 3;
-  config.v1.Captcha captcha = 4;
-  config.v1.GlobalId global_id = 5;
-  config.v1.ShortId short_id = 6;
-  config.v1.Wechat wechat = 7;
-  config.v1.Db db = 8;
-  config.v1.Redis redis = 9;
-  config.v1.DistributedLock distributed_lock = 10;
-  config.v1.User user = 100;
+  sms.v1.Sms sms = 2;
+  mail.v1.Mail mail = 3;
+  captcha.v1.Captcha captcha = 4;
+  idx.v1.GlobalId global_id = 5;
+  idx.v1.ShortId short_id = 6;
+  tencent.v1.Wechat wechat = 7;
+  db.v1.Db db = 8;
+  db.v1.Redis redis = 9;
+  db.v1.DistributedLock distributed_lock = 10;
+  user.v1.User user = 100;
 }

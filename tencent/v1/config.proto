@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package tencent.v1;
+
+import "buf/validate/validate.proto";
+
+message WechatCredential {
+  // appid
+  string appid = 1;
+  // secret
+  string secret = 2;
+}
+
+message Wechat {
+  repeated WechatCredential credentials = 1 [(buf.validate.field).repeated.min_items = 1];
+}

@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package msg.v1;
+package sms.v1;
 
 import "enums/v1/message.proto";
 import "buf/validate/validate.proto";
 import "validation/v1/predefined_rules.proto";
-import "common/v1/common.proto";
+import "types/v1/types.proto";
 
 message SendSmsReq {
   // 短信服务商
@@ -13,7 +13,7 @@ message SendSmsReq {
   // 账号
   string account = 2 [(buf.validate.field).string.(validation.v1.required_50) = true];
   // 手机号码
-  common.v1.PhoneNumber phone_number = 3 [(buf.validate.field).required = true];
+  types.v1.PhoneNumber phone_number = 3 [(buf.validate.field).required = true];
   // 手机签名(短信服务商申请)
   string sign_name = 4 [(buf.validate.field).string.(validation.v1.required_20) = true];
   // 模板编号(短信服务商申请)

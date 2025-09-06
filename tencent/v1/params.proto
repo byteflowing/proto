@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package common.v1;
+package tencent.v1;
 
 import "validation/v1/predefined_rules.proto";
 import "google/protobuf/timestamp.proto";
