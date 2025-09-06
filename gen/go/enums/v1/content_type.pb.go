@@ -78,8 +78,8 @@ const file_enums_v1_content_type_proto_rawDesc = "" +
 	"\vContentType\x12\x1c\n" +
 	"\x18CONTENT_TYPE_UNSPECIFIED\x10\x00\x12\x1a\n" +
 	"\x16CONTENT_TYPE_TEXT_HTML\x10\x01\x12\x1b\n" +
-	"\x17CONTENT_TYPE_TEXT_PLAIN\x10\x02B\x93\x01\n" +
-	"\fcom.enums.v1B\x10ContentTypeProtoP\x01Z0github.com/byteflowing/base/gen/enums/v1;enumsv1\xa2\x02\x03EXX\xaa\x02\bEnums.V1\xca\x02\bEnums\\V1\xe2\x02\x14Enums\\V1\\GPBMetadata\xea\x02\tEnums::V1b\x06proto3"
+	"\x17CONTENT_TYPE_TEXT_PLAIN\x10\x02B\x97\x01\n" +
+	"\fcom.enums.v1B\x10ContentTypeProtoP\x01Z4github.com/byteflowing/proto/gen/go/enums/v1;enumsv1\xa2\x02\x03EXX\xaa\x02\bEnums.V1\xca\x02\bEnums\\V1\xe2\x02\x14Enums\\V1\\GPBMetadata\xea\x02\tEnums::V1b\x06proto3"
 
 var (
 	file_enums_v1_content_type_proto_rawDescOnce sync.Once

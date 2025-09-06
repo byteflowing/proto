@@ -269,8 +269,8 @@ const file_validation_v1_predefined_rules_proto_rawDesc = "" +
 	"\x13string.optional.512\x12$this must be 512 or fewer characters\x1a\x12this.size() <= 512R\voptional512:\x99\x01\n" +
 	"\roptional_1000\x12\x19.buf.validate.StringRules\x18\xa0\x94= \x01(\bBW\xc2HT\n" +
 	"R\n" +
-	"\x14string.optional.1000\x12%this must be 1000 or fewer characters\x1a\x13this.size() <= 1000R\foptional1000B\xba\x01\n" +
-	"\x11com.validation.v1B\x14PredefinedRulesProtoP\x01Z:github.com/byteflowing/base/gen/validation/v1;validationv1\xa2\x02\x03VXX\xaa\x02\rValidation.V1\xca\x02\rValidation\\V1\xe2\x02\x19Validation\\V1\\GPBMetadata\xea\x02\x0eValidation::V1"
+	"\x14string.optional.1000\x12%this must be 1000 or fewer characters\x1a\x13this.size() <= 1000R\foptional1000B\xbe\x01\n" +
+	"\x11com.validation.v1B\x14PredefinedRulesProtoP\x01Z>github.com/byteflowing/proto/gen/go/validation/v1;validationv1\xa2\x02\x03VXX\xaa\x02\rValidation.V1\xca\x02\rValidation\\V1\xe2\x02\x19Validation\\V1\\GPBMetadata\xea\x02\x0eValidation::V1"
 
 var file_validation_v1_predefined_rules_proto_goTypes = []any{
 	(*validate.EnumRules)(nil),   // 0: buf.validate.EnumRules

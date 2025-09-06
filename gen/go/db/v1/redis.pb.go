@@ -173,9 +173,9 @@ const file_db_v1_redis_proto_rawDesc = "" +
 	"clientName\"V\n" +
 	"\x0fDistributedLock\x12+\n" +
 	"\x03ttl\x18\x01 \x01(\v2\x19.google.protobuf.DurationR\x03ttl\x12\x16\n" +
-	"\x06prefix\x18\x02 \x01(\tR\x06prefixBx\n" +
+	"\x06prefix\x18\x02 \x01(\tR\x06prefixB|\n" +
 	"\tcom.db.v1B\n" +
-	"RedisProtoP\x01Z*github.com/byteflowing/base/gen/db/v1;dbv1\xa2\x02\x03DXX\xaa\x02\x05Db.V1\xca\x02\x05Db\\V1\xe2\x02\x11Db\\V1\\GPBMetadata\xea\x02\x06Db::V1b\x06proto3"
+	"RedisProtoP\x01Z.github.com/byteflowing/proto/gen/go/db/v1;dbv1\xa2\x02\x03DXX\xaa\x02\x05Db.V1\xca\x02\x05Db\\V1\xe2\x02\x11Db\\V1\\GPBMetadata\xea\x02\x06Db::V1b\x06proto3"
 
 var (
 	file_db_v1_redis_proto_rawDescOnce sync.Once

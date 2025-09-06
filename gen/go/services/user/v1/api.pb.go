@@ -63,8 +63,8 @@ const file_services_user_v1_api_proto_rawDesc = "" +
 	"\vDeleteUsers\x12 .services.user.v1.DeleteUsersReq\x1a!.services.user.v1.DeleteUsersResp\x12R\n" +
 	"\vGetUserAuth\x12 .services.user.v1.GetUserAuthReq\x1a!.services.user.v1.GetUserAuthResp\x12[\n" +
 	"\x0eUnbindUserAuth\x12#.services.user.v1.UnbindUserAuthReq\x1a$.services.user.v1.UnbindUserAuthResp\x12U\n" +
-	"\fBindUserAuth\x12!.services.user.v1.BindUserAuthReq\x1a\".services.user.v1.BindUserAuthRespB\xbb\x01\n" +
-	"\x14com.services.user.v1B\bApiProtoP\x01Z7github.com/byteflowing/base/gen/services/user/v1;userv1\xa2\x02\x03SUX\xaa\x02\x10Services.User.V1\xca\x02\x10Services\\User\\V1\xe2\x02\x1cServices\\User\\V1\\GPBMetadata\xea\x02\x12Services::User::V1b\x06proto3"
+	"\fBindUserAuth\x12!.services.user.v1.BindUserAuthReq\x1a\".services.user.v1.BindUserAuthRespB\xbf\x01\n" +
+	"\x14com.services.user.v1B\bApiProtoP\x01Z;github.com/byteflowing/proto/gen/go/services/user/v1;userv1\xa2\x02\x03SUX\xaa\x02\x10Services.User.V1\xca\x02\x10Services\\User\\V1\xe2\x02\x1cServices\\User\\V1\\GPBMetadata\xea\x02\x12Services::User::V1b\x06proto3"
 
 var file_services_user_v1_api_proto_goTypes = []any{
 	(*SendCaptchaReq)(nil),          // 0: services.user.v1.SendCaptchaReq

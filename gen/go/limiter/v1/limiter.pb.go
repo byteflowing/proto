@@ -8,7 +8,7 @@ package limiterv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	_ "github.com/byteflowing/base/gen/validation/v1"
+	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
@@ -110,8 +110,8 @@ const file_limiter_v1_limiter_proto_rawDesc = "" +
 	"\xbaH\ar\x05С\xe9\x03\x01R\x03tag\x12$\n" +
 	"\vretry_after\x18\x04 \x01(\x03H\x00R\n" +
 	"retryAfter\x88\x01\x01B\x0e\n" +
-	"\f_retry_afterB\x9d\x01\n" +
-	"\x0ecom.limiter.v1B\fLimiterProtoP\x01Z4github.com/byteflowing/base/gen/limiter/v1;limiterv1\xa2\x02\x03LXX\xaa\x02\n" +
+	"\f_retry_afterB\xa1\x01\n" +
+	"\x0ecom.limiter.v1B\fLimiterProtoP\x01Z8github.com/byteflowing/proto/gen/go/limiter/v1;limiterv1\xa2\x02\x03LXX\xaa\x02\n" +
 	"Limiter.V1\xca\x02\n" +
 	"Limiter\\V1\xe2\x02\x16Limiter\\V1\\GPBMetadata\xea\x02\vLimiter::V1b\x06proto3"
 

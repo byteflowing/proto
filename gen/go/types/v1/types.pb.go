@@ -8,7 +8,7 @@ package typesv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	_ "github.com/byteflowing/base/gen/validation/v1"
+	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -165,9 +165,9 @@ const file_types_v1_types_proto_rawDesc = "" +
 	"\tcity_code\x18\x03 \x01(\tB\n" +
 	"\xbaH\ar\x05\x88\xa1\xe9\x03\x01R\bcityCode\x12/\n" +
 	"\rdistrict_code\x18\x04 \x01(\tB\n" +
-	"\xbaH\ar\x05\x88\xa1\xe9\x03\x01R\fdistrictCodeB\x8d\x01\n" +
+	"\xbaH\ar\x05\x88\xa1\xe9\x03\x01R\fdistrictCodeB\x91\x01\n" +
 	"\fcom.types.v1B\n" +
-	"TypesProtoP\x01Z0github.com/byteflowing/base/gen/types/v1;typesv1\xa2\x02\x03TXX\xaa\x02\bTypes.V1\xca\x02\bTypes\\V1\xe2\x02\x14Types\\V1\\GPBMetadata\xea\x02\tTypes::V1b\x06proto3"
+	"TypesProtoP\x01Z4github.com/byteflowing/proto/gen/go/types/v1;typesv1\xa2\x02\x03TXX\xaa\x02\bTypes.V1\xca\x02\bTypes\\V1\xe2\x02\x14Types\\V1\\GPBMetadata\xea\x02\tTypes::V1b\x06proto3"
 
 var (
 	file_types_v1_types_proto_rawDescOnce sync.Once

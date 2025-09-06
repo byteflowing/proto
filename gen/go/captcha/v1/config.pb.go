@@ -8,9 +8,9 @@ package captchav1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v1 "github.com/byteflowing/base/gen/enums/v1"
-	v11 "github.com/byteflowing/base/gen/limiter/v1"
-	_ "github.com/byteflowing/base/gen/validation/v1"
+	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
+	v11 "github.com/byteflowing/proto/gen/go/limiter/v1"
+	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
@@ -187,8 +187,8 @@ const file_captcha_v1_config_proto_rawDesc = "" +
 	"(\x01R\verrTryLimit\x127\n" +
 	"\x06limits\x18\a \x03(\v2\x15.limiter.v1.LimitRuleB\b\xbaH\x05\x92\x01\x02\b\x01R\x06limits\"D\n" +
 	"\aCaptcha\x129\n" +
-	"\tproviders\x18\x01 \x03(\v2\x1b.captcha.v1.CaptchaProviderR\tprovidersB\x9c\x01\n" +
-	"\x0ecom.captcha.v1B\vConfigProtoP\x01Z4github.com/byteflowing/base/gen/captcha/v1;captchav1\xa2\x02\x03CXX\xaa\x02\n" +
+	"\tproviders\x18\x01 \x03(\v2\x1b.captcha.v1.CaptchaProviderR\tprovidersB\xa0\x01\n" +
+	"\x0ecom.captcha.v1B\vConfigProtoP\x01Z8github.com/byteflowing/proto/gen/go/captcha/v1;captchav1\xa2\x02\x03CXX\xaa\x02\n" +
 	"Captcha.V1\xca\x02\n" +
 	"Captcha\\V1\xe2\x02\x16Captcha\\V1\\GPBMetadata\xea\x02\vCaptcha::V1b\x06proto3"
 

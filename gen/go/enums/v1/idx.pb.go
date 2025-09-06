@@ -74,8 +74,8 @@ const file_enums_v1_idx_proto_rawDesc = "" +
 	"\x12enums/v1/idx.proto\x12\benums.v1*H\n" +
 	"\fGlobalIdMode\x12\x1e\n" +
 	"\x1aGLOBAL_ID_MODE_UNSPECIFIED\x10\x00\x12\x18\n" +
-	"\x14GLOBAL_ID_MODE_LOCAL\x10\x01B\x8b\x01\n" +
-	"\fcom.enums.v1B\bIdxProtoP\x01Z0github.com/byteflowing/base/gen/enums/v1;enumsv1\xa2\x02\x03EXX\xaa\x02\bEnums.V1\xca\x02\bEnums\\V1\xe2\x02\x14Enums\\V1\\GPBMetadata\xea\x02\tEnums::V1b\x06proto3"
+	"\x14GLOBAL_ID_MODE_LOCAL\x10\x01B\x8f\x01\n" +
+	"\fcom.enums.v1B\bIdxProtoP\x01Z4github.com/byteflowing/proto/gen/go/enums/v1;enumsv1\xa2\x02\x03EXX\xaa\x02\bEnums.V1\xca\x02\bEnums\\V1\xe2\x02\x14Enums\\V1\\GPBMetadata\xea\x02\tEnums::V1b\x06proto3"
 
 var (
 	file_enums_v1_idx_proto_rawDescOnce sync.Once

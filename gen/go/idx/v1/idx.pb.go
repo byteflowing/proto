@@ -8,8 +8,8 @@ package idxv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v1 "github.com/byteflowing/base/gen/enums/v1"
-	_ "github.com/byteflowing/base/gen/validation/v1"
+	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
+	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -157,9 +157,9 @@ const file_idx_v1_idx_proto_rawDesc = "" +
 	"\n" +
 	"min_length\x18\x02 \x01(\x05R\tminLength\x12'\n" +
 	"\n" +
-	"block_list\x18\x03 \x03(\tB\b\xbaH\x05\x92\x01\x02\x18\x01R\tblockListB}\n" +
+	"block_list\x18\x03 \x03(\tB\b\xbaH\x05\x92\x01\x02\x18\x01R\tblockListB\x81\x01\n" +
 	"\n" +
-	"com.idx.v1B\bIdxProtoP\x01Z,github.com/byteflowing/base/gen/idx/v1;idxv1\xa2\x02\x03IXX\xaa\x02\x06Idx.V1\xca\x02\x06Idx\\V1\xe2\x02\x12Idx\\V1\\GPBMetadata\xea\x02\aIdx::V1b\x06proto3"
+	"com.idx.v1B\bIdxProtoP\x01Z0github.com/byteflowing/proto/gen/go/idx/v1;idxv1\xa2\x02\x03IXX\xaa\x02\x06Idx.V1\xca\x02\x06Idx\\V1\xe2\x02\x12Idx\\V1\\GPBMetadata\xea\x02\aIdx::V1b\x06proto3"
 
 var (
 	file_idx_v1_idx_proto_rawDescOnce sync.Once

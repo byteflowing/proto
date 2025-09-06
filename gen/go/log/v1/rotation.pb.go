@@ -118,9 +118,9 @@ const file_log_v1_rotation_proto_rawDesc = "" +
 	"maxBackups\x12\x1a\n" +
 	"\bcompress\x18\x05 \x01(\bR\bcompress\x12\x1d\n" +
 	"\n" +
-	"local_time\x18\x06 \x01(\bR\tlocalTimeB\x82\x01\n" +
+	"local_time\x18\x06 \x01(\bR\tlocalTimeB\x86\x01\n" +
 	"\n" +
-	"com.log.v1B\rRotationProtoP\x01Z,github.com/byteflowing/base/gen/log/v1;logv1\xa2\x02\x03LXX\xaa\x02\x06Log.V1\xca\x02\x06Log\\V1\xe2\x02\x12Log\\V1\\GPBMetadata\xea\x02\aLog::V1b\x06proto3"
+	"com.log.v1B\rRotationProtoP\x01Z0github.com/byteflowing/proto/gen/go/log/v1;logv1\xa2\x02\x03LXX\xaa\x02\x06Log.V1\xca\x02\x06Log\\V1\xe2\x02\x12Log\\V1\\GPBMetadata\xea\x02\aLog::V1b\x06proto3"
 
 var (
 	file_log_v1_rotation_proto_rawDescOnce sync.Once

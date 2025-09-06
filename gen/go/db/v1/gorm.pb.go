@@ -7,8 +7,8 @@
 package dbv1
 
 import (
-	v1 "github.com/byteflowing/base/gen/enums/v1"
-	v11 "github.com/byteflowing/base/gen/log/v1"
+	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
+	v11 "github.com/byteflowing/proto/gen/go/log/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -741,8 +741,8 @@ const file_db_v1_gorm_proto_rawDesc = "" +
 	"\tSqlConfig\x12)\n" +
 	"\adb_type\x18\x01 \x01(\x0e2\x10.enums.v1.DbTypeR\x06dbType\x12\x10\n" +
 	"\x03sql\x18\x02 \x03(\tR\x03sql\x12\x1b\n" +
-	"\tfile_path\x18\x03 \x03(\tR\bfilePathBw\n" +
-	"\tcom.db.v1B\tGormProtoP\x01Z*github.com/byteflowing/base/gen/db/v1;dbv1\xa2\x02\x03DXX\xaa\x02\x05Db.V1\xca\x02\x05Db\\V1\xe2\x02\x11Db\\V1\\GPBMetadata\xea\x02\x06Db::V1b\x06proto3"
+	"\tfile_path\x18\x03 \x03(\tR\bfilePathB{\n" +
+	"\tcom.db.v1B\tGormProtoP\x01Z.github.com/byteflowing/proto/gen/go/db/v1;dbv1\xa2\x02\x03DXX\xaa\x02\x05Db.V1\xca\x02\x05Db\\V1\xe2\x02\x11Db\\V1\\GPBMetadata\xea\x02\x06Db::V1b\x06proto3"
 
 var (
 	file_db_v1_gorm_proto_rawDescOnce sync.Once

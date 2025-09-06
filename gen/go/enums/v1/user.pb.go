@@ -504,8 +504,8 @@ const file_enums_v1_user_proto_rawDesc = "" +
 	"\x12GENDER_UNSPECIFIED\x10\x00\x12\x0f\n" +
 	"\vGENDER_MALE\x10\x01\x12\x11\n" +
 	"\rGENDER_FEMALE\x10\x02\x12\x10\n" +
-	"\fGENDER_OTHER\x10\x03B\x8c\x01\n" +
-	"\fcom.enums.v1B\tUserProtoP\x01Z0github.com/byteflowing/base/gen/enums/v1;enumsv1\xa2\x02\x03EXX\xaa\x02\bEnums.V1\xca\x02\bEnums\\V1\xe2\x02\x14Enums\\V1\\GPBMetadata\xea\x02\tEnums::V1b\x06proto3"
+	"\fGENDER_OTHER\x10\x03B\x90\x01\n" +
+	"\fcom.enums.v1B\tUserProtoP\x01Z4github.com/byteflowing/proto/gen/go/enums/v1;enumsv1\xa2\x02\x03EXX\xaa\x02\bEnums.V1\xca\x02\bEnums\\V1\xe2\x02\x14Enums\\V1\\GPBMetadata\xea\x02\tEnums::V1b\x06proto3"
 
 var (
 	file_enums_v1_user_proto_rawDescOnce sync.Once

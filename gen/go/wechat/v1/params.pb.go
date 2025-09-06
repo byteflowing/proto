@@ -8,7 +8,7 @@ package wechatv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	_ "github.com/byteflowing/base/gen/validation/v1"
+	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -664,8 +664,8 @@ const file_wechat_v1_params_proto_rawDesc = "" +
 	"\x18WechatGetPhoneNumberResp\x12!\n" +
 	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\x12*\n" +
 	"\x11pure_phone_number\x18\x02 \x01(\tR\x0fpurePhoneNumber\x12!\n" +
-	"\fcountry_code\x18\x03 \x01(\tR\vcountryCodeB\x95\x01\n" +
-	"\rcom.wechat.v1B\vParamsProtoP\x01Z2github.com/byteflowing/base/gen/wechat/v1;wechatv1\xa2\x02\x03WXX\xaa\x02\tWechat.V1\xca\x02\tWechat\\V1\xe2\x02\x15Wechat\\V1\\GPBMetadata\xea\x02\n" +
+	"\fcountry_code\x18\x03 \x01(\tR\vcountryCodeB\x99\x01\n" +
+	"\rcom.wechat.v1B\vParamsProtoP\x01Z6github.com/byteflowing/proto/gen/go/wechat/v1;wechatv1\xa2\x02\x03WXX\xaa\x02\tWechat.V1\xca\x02\tWechat\\V1\xe2\x02\x15Wechat\\V1\\GPBMetadata\xea\x02\n" +
 	"Wechat::V1b\x06proto3"
 
 var (

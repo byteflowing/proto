@@ -201,8 +201,8 @@ const file_enums_v1_db_proto_rawDesc = "" +
 	"\bDbLogOut\x12\x1a\n" +
 	"\x16DB_LOG_OUT_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11DB_LOG_OUT_STDOUT\x10\x01\x12\x13\n" +
-	"\x0fDB_LOG_OUT_FILE\x10\x02B\x8a\x01\n" +
-	"\fcom.enums.v1B\aDbProtoP\x01Z0github.com/byteflowing/base/gen/enums/v1;enumsv1\xa2\x02\x03EXX\xaa\x02\bEnums.V1\xca\x02\bEnums\\V1\xe2\x02\x14Enums\\V1\\GPBMetadata\xea\x02\tEnums::V1b\x06proto3"
+	"\x0fDB_LOG_OUT_FILE\x10\x02B\x8e\x01\n" +
+	"\fcom.enums.v1B\aDbProtoP\x01Z4github.com/byteflowing/proto/gen/go/enums/v1;enumsv1\xa2\x02\x03EXX\xaa\x02\bEnums.V1\xca\x02\bEnums\\V1\xe2\x02\x14Enums\\V1\\GPBMetadata\xea\x02\tEnums::V1b\x06proto3"
 
 var (
 	file_enums_v1_db_proto_rawDescOnce sync.Once

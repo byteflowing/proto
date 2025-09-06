@@ -8,11 +8,11 @@ package userv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v12 "github.com/byteflowing/base/gen/captcha/v1"
-	v1 "github.com/byteflowing/base/gen/enums/v1"
-	v13 "github.com/byteflowing/base/gen/limiter/v1"
-	v11 "github.com/byteflowing/base/gen/types/v1"
-	_ "github.com/byteflowing/base/gen/validation/v1"
+	v12 "github.com/byteflowing/proto/gen/go/captcha/v1"
+	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
+	v13 "github.com/byteflowing/proto/gen/go/limiter/v1"
+	v11 "github.com/byteflowing/proto/gen/go/types/v1"
+	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	date "google.golang.org/genproto/googleapis/type/date"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -7064,8 +7064,8 @@ const file_services_user_v1_user_proto_rawDesc = "" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +
 	"\n" +
-	"err_detail\x18\x03 \x01(\tR\terrDetailB\xbc\x01\n" +
-	"\x14com.services.user.v1B\tUserProtoP\x01Z7github.com/byteflowing/base/gen/services/user/v1;userv1\xa2\x02\x03SUX\xaa\x02\x10Services.User.V1\xca\x02\x10Services\\User\\V1\xe2\x02\x1cServices\\User\\V1\\GPBMetadata\xea\x02\x12Services::User::V1b\x06proto3"
+	"err_detail\x18\x03 \x01(\tR\terrDetailB\xc0\x01\n" +
+	"\x14com.services.user.v1B\tUserProtoP\x01Z;github.com/byteflowing/proto/gen/go/services/user/v1;userv1\xa2\x02\x03SUX\xaa\x02\x10Services.User.V1\xca\x02\x10Services\\User\\V1\xe2\x02\x1cServices\\User\\V1\\GPBMetadata\xea\x02\x12Services::User::V1b\x06proto3"
 
 var (
 	file_services_user_v1_user_proto_rawDescOnce sync.Once

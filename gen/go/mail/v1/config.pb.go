@@ -8,8 +8,8 @@ package mailv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v1 "github.com/byteflowing/base/gen/enums/v1"
-	_ "github.com/byteflowing/base/gen/validation/v1"
+	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
+	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
@@ -274,8 +274,8 @@ const file_mail_v1_config_proto_rawDesc = "" +
 	"\x0fmax_connections\x18\x05 \x01(\x03B\t\xbaH\x06\"\x04\x18d \x00R\x0emaxConnections\x12)\n" +
 	"\x04smtp\x18\x06 \x01(\v2\r.mail.v1.SMTPB\x06\xbaH\x03\xc8\x01\x01R\x04smtp\";\n" +
 	"\x04Mail\x123\n" +
-	"\tproviders\x18\x01 \x03(\v2\x15.mail.v1.MailProviderR\tprovidersB\x87\x01\n" +
-	"\vcom.mail.v1B\vConfigProtoP\x01Z.github.com/byteflowing/base/gen/mail/v1;mailv1\xa2\x02\x03MXX\xaa\x02\aMail.V1\xca\x02\aMail\\V1\xe2\x02\x13Mail\\V1\\GPBMetadata\xea\x02\bMail::V1b\x06proto3"
+	"\tproviders\x18\x01 \x03(\v2\x15.mail.v1.MailProviderR\tprovidersB\x8b\x01\n" +
+	"\vcom.mail.v1B\vConfigProtoP\x01Z2github.com/byteflowing/proto/gen/go/mail/v1;mailv1\xa2\x02\x03MXX\xaa\x02\aMail.V1\xca\x02\aMail\\V1\xe2\x02\x13Mail\\V1\\GPBMetadata\xea\x02\bMail::V1b\x06proto3"
 
 var (
 	file_mail_v1_config_proto_rawDescOnce sync.Once

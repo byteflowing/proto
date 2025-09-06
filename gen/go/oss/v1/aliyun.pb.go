@@ -24,9 +24,9 @@ var File_oss_v1_aliyun_proto protoreflect.FileDescriptor
 
 const file_oss_v1_aliyun_proto_rawDesc = "" +
 	"\n" +
-	"\x13oss/v1/aliyun.proto\x12\x06oss.v1B\x80\x01\n" +
+	"\x13oss/v1/aliyun.proto\x12\x06oss.v1B\x84\x01\n" +
 	"\n" +
-	"com.oss.v1B\vAliyunProtoP\x01Z,github.com/byteflowing/base/gen/oss/v1;ossv1\xa2\x02\x03OXX\xaa\x02\x06Oss.V1\xca\x02\x06Oss\\V1\xe2\x02\x12Oss\\V1\\GPBMetadata\xea\x02\aOss::V1b\x06proto3"
+	"com.oss.v1B\vAliyunProtoP\x01Z0github.com/byteflowing/proto/gen/go/oss/v1;ossv1\xa2\x02\x03OXX\xaa\x02\x06Oss.V1\xca\x02\x06Oss\\V1\xe2\x02\x12Oss\\V1\\GPBMetadata\xea\x02\aOss::V1b\x06proto3"
 
 var file_oss_v1_aliyun_proto_goTypes = []any{}
 var file_oss_v1_aliyun_proto_depIdxs = []int32{

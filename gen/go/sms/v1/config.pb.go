@@ -8,8 +8,8 @@ package smsv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v1 "github.com/byteflowing/base/gen/enums/v1"
-	_ "github.com/byteflowing/base/gen/validation/v1"
+	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
+	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -176,9 +176,9 @@ const file_sms_v1_config_proto_rawDesc = "" +
 	"\x05limit\x18\x06 \x01(\x03B\a\xbaH\x04\"\x02 \x00R\x05limitB\x11\n" +
 	"\x0f_security_token\"8\n" +
 	"\x03Sms\x121\n" +
-	"\tproviders\x18\x01 \x03(\v2\x13.sms.v1.SmsProviderR\tprovidersB\x80\x01\n" +
+	"\tproviders\x18\x01 \x03(\v2\x13.sms.v1.SmsProviderR\tprovidersB\x84\x01\n" +
 	"\n" +
-	"com.sms.v1B\vConfigProtoP\x01Z,github.com/byteflowing/base/gen/sms/v1;smsv1\xa2\x02\x03SXX\xaa\x02\x06Sms.V1\xca\x02\x06Sms\\V1\xe2\x02\x12Sms\\V1\\GPBMetadata\xea\x02\aSms::V1b\x06proto3"
+	"com.sms.v1B\vConfigProtoP\x01Z0github.com/byteflowing/proto/gen/go/sms/v1;smsv1\xa2\x02\x03SXX\xaa\x02\x06Sms.V1\xca\x02\x06Sms\\V1\xe2\x02\x12Sms\\V1\\GPBMetadata\xea\x02\aSms::V1b\x06proto3"
 
 var (
 	file_sms_v1_config_proto_rawDescOnce sync.Once

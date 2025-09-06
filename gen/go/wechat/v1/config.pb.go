@@ -129,8 +129,8 @@ const file_wechat_v1_config_proto_rawDesc = "" +
 	"\x05appid\x18\x01 \x01(\tR\x05appid\x12\x16\n" +
 	"\x06secret\x18\x02 \x01(\tR\x06secret\"Q\n" +
 	"\x06Wechat\x12G\n" +
-	"\vcredentials\x18\x01 \x03(\v2\x1b.wechat.v1.WechatCredentialB\b\xbaH\x05\x92\x01\x02\b\x01R\vcredentialsB\x95\x01\n" +
-	"\rcom.wechat.v1B\vConfigProtoP\x01Z2github.com/byteflowing/base/gen/wechat/v1;wechatv1\xa2\x02\x03WXX\xaa\x02\tWechat.V1\xca\x02\tWechat\\V1\xe2\x02\x15Wechat\\V1\\GPBMetadata\xea\x02\n" +
+	"\vcredentials\x18\x01 \x03(\v2\x1b.wechat.v1.WechatCredentialB\b\xbaH\x05\x92\x01\x02\b\x01R\vcredentialsB\x99\x01\n" +
+	"\rcom.wechat.v1B\vConfigProtoP\x01Z6github.com/byteflowing/proto/gen/go/wechat/v1;wechatv1\xa2\x02\x03WXX\xaa\x02\tWechat.V1\xca\x02\tWechat\\V1\xe2\x02\x15Wechat\\V1\\GPBMetadata\xea\x02\n" +
 	"Wechat::V1b\x06proto3"
 
 var (

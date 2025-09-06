@@ -4,7 +4,7 @@ managed:
   enabled: true
   override:
     - file_option: go_package_prefix
-      value: github.com/byteflowing/base/gen
+      value: github.com/byteflowing/proto/gen/go
   disable:
     - file_option: go_package
       module: buf.build/bufbuild/protovalidate

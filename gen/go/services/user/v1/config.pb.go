@@ -8,9 +8,9 @@ package userv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v11 "github.com/byteflowing/base/gen/enums/v1"
-	v1 "github.com/byteflowing/base/gen/limiter/v1"
-	_ "github.com/byteflowing/base/gen/validation/v1"
+	v11 "github.com/byteflowing/proto/gen/go/enums/v1"
+	v1 "github.com/byteflowing/proto/gen/go/limiter/v1"
+	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
@@ -486,8 +486,8 @@ const file_services_user_v1_config_proto_rawDesc = "" +
 	"\x11two_step_verifier\x18\b \x01(\v2\x1d.services.user.v1.TokenVerifyR\x0ftwoStepVerifier\x121\n" +
 	"\x05cache\x18\t \x01(\v2\x1b.services.user.v1.UserCacheR\x05cache\x12P\n" +
 	"\x12session_block_list\x18\n" +
-	" \x01(\v2\".services.user.v1.SessionBlockListR\x10sessionBlockListB\xbe\x01\n" +
-	"\x14com.services.user.v1B\vConfigProtoP\x01Z7github.com/byteflowing/base/gen/services/user/v1;userv1\xa2\x02\x03SUX\xaa\x02\x10Services.User.V1\xca\x02\x10Services\\User\\V1\xe2\x02\x1cServices\\User\\V1\\GPBMetadata\xea\x02\x12Services::User::V1b\x06proto3"
+	" \x01(\v2\".services.user.v1.SessionBlockListR\x10sessionBlockListB\xc2\x01\n" +
+	"\x14com.services.user.v1B\vConfigProtoP\x01Z;github.com/byteflowing/proto/gen/go/services/user/v1;userv1\xa2\x02\x03SUX\xaa\x02\x10Services.User.V1\xca\x02\x10Services\\User\\V1\xe2\x02\x1cServices\\User\\V1\\GPBMetadata\xea\x02\x12Services::User::V1b\x06proto3"
 
 var (
 	file_services_user_v1_config_proto_rawDescOnce sync.Once

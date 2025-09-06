@@ -8,8 +8,8 @@ package mailv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v1 "github.com/byteflowing/base/gen/enums/v1"
-	_ "github.com/byteflowing/base/gen/validation/v1"
+	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
+	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -295,8 +295,8 @@ const file_mail_v1_params_proto_rawDesc = "" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +
 	"\n" +
-	"err_detail\x18\x03 \x01(\tR\terrDetailB\x87\x01\n" +
-	"\vcom.mail.v1B\vParamsProtoP\x01Z.github.com/byteflowing/base/gen/mail/v1;mailv1\xa2\x02\x03MXX\xaa\x02\aMail.V1\xca\x02\aMail\\V1\xe2\x02\x13Mail\\V1\\GPBMetadata\xea\x02\bMail::V1b\x06proto3"
+	"err_detail\x18\x03 \x01(\tR\terrDetailB\x8b\x01\n" +
+	"\vcom.mail.v1B\vParamsProtoP\x01Z2github.com/byteflowing/proto/gen/go/mail/v1;mailv1\xa2\x02\x03MXX\xaa\x02\aMail.V1\xca\x02\aMail\\V1\xe2\x02\x13Mail\\V1\\GPBMetadata\xea\x02\bMail::V1b\x06proto3"
 
 var (
 	file_mail_v1_params_proto_rawDescOnce sync.Once

@@ -7,13 +7,13 @@
 package configv1
 
 import (
-	v12 "github.com/byteflowing/base/gen/captcha/v1"
-	v15 "github.com/byteflowing/base/gen/db/v1"
-	v13 "github.com/byteflowing/base/gen/idx/v1"
-	v11 "github.com/byteflowing/base/gen/mail/v1"
-	v16 "github.com/byteflowing/base/gen/services/user/v1"
-	v1 "github.com/byteflowing/base/gen/sms/v1"
-	v14 "github.com/byteflowing/base/gen/wechat/v1"
+	v12 "github.com/byteflowing/proto/gen/go/captcha/v1"
+	v15 "github.com/byteflowing/proto/gen/go/db/v1"
+	v13 "github.com/byteflowing/proto/gen/go/idx/v1"
+	v11 "github.com/byteflowing/proto/gen/go/mail/v1"
+	v16 "github.com/byteflowing/proto/gen/go/services/user/v1"
+	v1 "github.com/byteflowing/proto/gen/go/sms/v1"
+	v14 "github.com/byteflowing/proto/gen/go/wechat/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -226,8 +226,8 @@ const file_config_v1_config_proto_rawDesc = "" +
 	"\x05redis\x18\t \x01(\v2\x12.db.v1.RedisConfigR\x05redis\x12A\n" +
 	"\x10distributed_lock\x18\n" +
 	" \x01(\v2\x16.db.v1.DistributedLockR\x0fdistributedLock\x12*\n" +
-	"\x04user\x18d \x01(\v2\x16.services.user.v1.UserR\x04userB\x95\x01\n" +
-	"\rcom.config.v1B\vConfigProtoP\x01Z2github.com/byteflowing/base/gen/config/v1;configv1\xa2\x02\x03CXX\xaa\x02\tConfig.V1\xca\x02\tConfig\\V1\xe2\x02\x15Config\\V1\\GPBMetadata\xea\x02\n" +
+	"\x04user\x18d \x01(\v2\x16.services.user.v1.UserR\x04userB\x99\x01\n" +
+	"\rcom.config.v1B\vConfigProtoP\x01Z6github.com/byteflowing/proto/gen/go/config/v1;configv1\xa2\x02\x03CXX\xaa\x02\tConfig.V1\xca\x02\tConfig\\V1\xe2\x02\x15Config\\V1\\GPBMetadata\xea\x02\n" +
 	"Config::V1b\x06proto3"
 
 var (
