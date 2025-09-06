@@ -24,7 +24,11 @@ message WechatSignInResp {
   string union_id = 4;
 }
 
-message WechatGetAccessToken {
+message WechatGetAccessTokenReq {
+  bool force_fresh = 1;
+}
+
+message WechatGetAccessTokenResp {
   string access_token = 1;
   google.protobuf.Timestamp expiration = 2;
 }
@@ -44,11 +48,13 @@ message WechatCheckSignInStatusResp {
 
 message WechatResetSessionKeyReq {
   // appid
-  string appid = 1 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string appid = 1;
   // session_key
-  string session_key = 2 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string session_key = 2;
   // openid
-  string openid = 3 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string openid = 3;
+  // access_token
+  string access_token = 4;
 }
 
 message WechatResetSessionKeyResp {
@@ -58,11 +64,13 @@ message WechatResetSessionKeyResp {
 
 message WechatGetPhoneNumberReq {
   // appid
-  string appid = 1 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string appid = 1;
   // openid
-  string openid = 2 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string openid = 2;
   // 获取手机的授权码
-  string code = 3 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string code = 3;
+  // access_token
+  string access_token = 4;
 }
 
 message WechatGetPhoneNumberResp {

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package enums.v1;
+
+enum DbType {
+  DB_TYPE_UNSPECIFIED = 0;
+  DB_TYPE_MYSQL = 1;
+  DB_TYPE_POSTGRES = 2;
+  DB_TYPE_SQLSERVER = 3;
+  DB_TYPE_SQLITE = 4;
+}
+
+enum DbLogLevel {
+  DB_LOG_LEVEL_UNSPECIFIED = 0;
+  DB_LOG_LEVEL_SILENT = 1;
+  DB_LOG_LEVEL_ERROR = 2;
+  DB_LOG_LEVEL_WARN = 3;
+  DB_LOG_LEVEL_INFO = 4;
+}
+
+enum DbLogOut {
+  DB_LOG_OUT_UNSPECIFIED = 0;
+  DB_LOG_OUT_STDOUT = 1;
+  DB_LOG_OUT_FILE = 2;
+}

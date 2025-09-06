@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package log.v1;
 
-message Rotation {
+message RotationConfig {
   string log_file = 1; // 文件名
   uint32 max_size = 2; // 文件大小，单位M
   uint32 max_age = 3; // 最长保留天数

@@ -3,13 +3,13 @@ syntax = "proto3";
 package db.v1;
 
 import "log/v1/rotation.proto";
+import "enums/v1/db.proto";
 
 message DbLog {
   // 慢日志阈值，单位ms
   uint32 slow_threshold = 1;
   // 输出
-  // stdout, file
-  string out = 2;
+  enums.v1.DbLogOut out = 2;
   // 是否彩色打印日志
   bool colorful = 3;
   // 忽略RecordNotFoundError
@@ -17,13 +17,9 @@ message DbLog {
   // 不在日志中打印参数
   bool parameterized_queries = 5;
   // 日志级别
-  // silent
-  // error
-  // warn
-  // info
-  string level = 6;
+  enums.v1.DbLogLevel level = 6;
   // 日志轮转，仅当out为file时有效
-  log.v1.Rotation rotation = 7;
+  log.v1.RotationConfig rotation = 7;
 }
 
 message DbConn {
@@ -69,14 +65,22 @@ message DbSQLite {
   string db_path = 1;
 }
 
-message Db {
+message DbConfig {
   // 数据库类型
-  // "mysql" "postgres" "sqlserver" "sqlite"
-  string db_type = 1;
+  enums.v1.DbType db_type = 1;
   DbLog log = 2;
   DbConn conn = 3;
   DbMysql mysql = 4;
   DbPostgres postgres = 5;
   DbSQLServer sqlserver = 6;
   DbSQLite sqlite = 7;
+}
+
+message SqlConfig {
+  // 数据类型
+  enums.v1.DbType db_type = 1;
+  // sql语句
+  repeated string sql = 2;
+  // sql文件或者目录
+  repeated string file_path = 3;
 }

@@ -21,11 +21,11 @@ message Config {
   sms.v1.Sms sms = 2;
   mail.v1.Mail mail = 3;
   captcha.v1.Captcha captcha = 4;
-  idx.v1.GlobalId global_id = 5;
-  idx.v1.ShortId short_id = 6;
+  idx.v1.GlobalIdConfig global_id = 5;
+  idx.v1.ShortIdConfig short_id = 6;
   wechat.v1.Wechat wechat = 7;
-  db.v1.Db db = 8;
-  db.v1.Redis redis = 9;
+  db.v1.DbConfig db = 8;
+  db.v1.RedisConfig redis = 9;
   db.v1.DistributedLock distributed_lock = 10;
   services.user.v1.User user = 100;
 }

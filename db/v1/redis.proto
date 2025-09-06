@@ -4,7 +4,7 @@ package db.v1;
 
 import "google/protobuf/duration.proto";
 
-message Redis {
+message RedisConfig {
   string addr = 1; // 连接地址 e.g. 127.0.0.1:6379
   string user = 2;  // 用户名
   string password = 3; // 密码
