@@ -2,15 +2,14 @@ syntax = "proto3";
 
 package config.v1;
 
-import "config/v1/config.proto";
 import "captcha/v1/config.proto";
 import "db/v1/gorm.proto";
 import "db/v1/redis.proto";
-import "user/v1/config.proto";
+import "services/user/v1/config.proto";
 import "sms/v1/config.proto";
 import "mail/v1/config.proto";
 import "idx/v1/idx.proto";
-import "tencent/v1/config.proto";
+import "wechat/v1/config.proto";
 
 message Base {
   string listen_addr = 1;
@@ -24,9 +23,9 @@ message Config {
   captcha.v1.Captcha captcha = 4;
   idx.v1.GlobalId global_id = 5;
   idx.v1.ShortId short_id = 6;
-  tencent.v1.Wechat wechat = 7;
+  wechat.v1.Wechat wechat = 7;
   db.v1.Db db = 8;
   db.v1.Redis redis = 9;
   db.v1.DistributedLock distributed_lock = 10;
-  user.v1.User user = 100;
+  services.user.v1.User user = 100;
 }

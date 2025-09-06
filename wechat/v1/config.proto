@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tencent.v1;
+package wechat.v1;
 
 import "buf/validate/validate.proto";
 

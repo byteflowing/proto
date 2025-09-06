@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package user.v1;
+package services.user.v1;
 
-import "user/v1/user.proto";
+import "services/user/v1/user.proto";
 
 service UserService {
   rpc SendCaptcha(SendCaptchaReq) returns (SendCaptchaResp);

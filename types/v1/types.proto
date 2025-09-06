@@ -3,7 +3,6 @@ syntax = "proto3";
 package types.v1;
 
 import "validation/v1/predefined_rules.proto";
-import "google/protobuf/duration.proto";
 import "buf/validate/validate.proto";
 
 message PhoneNumber {

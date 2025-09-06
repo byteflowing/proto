@@ -55,7 +55,7 @@ message VerifyCaptchaReq {
   // 发送验证码的手机号或者邮箱等账号，根据sender_type来填写对应的号码
   oneof number {
     option (buf.validate.oneof).required = true;
-    types.v1.PhoneNumber phone_number = 4 [(buf.validate.field).string.len = 11];
+    types.v1.PhoneNumber phone_number = 4;
     string email = 5 [(buf.validate.field).string.email = true];
   };
 }

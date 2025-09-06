@@ -1,13 +1,11 @@
 syntax = "proto3";
 
-package user.v1;
+package services.user.v1;
 
 import "enums/v1/user.proto";
 import "validation/v1/predefined_rules.proto";
 import "buf/validate/validate.proto";
-import "types/v1/types.proto";
 import "google/protobuf/duration.proto";
-import "captcha/v1/captcha.proto";
 import "limiter/v1/limiter.proto";
 
 message UserAuthLimiter {
