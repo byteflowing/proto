@@ -7,13 +7,11 @@
 package captchav1
 
 import (
-	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
 	v14 "github.com/byteflowing/proto/gen/go/limiter/v1"
 	v12 "github.com/byteflowing/proto/gen/go/mail/v1"
 	v11 "github.com/byteflowing/proto/gen/go/sms/v1"
 	v13 "github.com/byteflowing/proto/gen/go/types/v1"
-	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -35,6 +33,8 @@ type SendCaptchaReq struct {
 	SenderType v1.MessageSenderType `protobuf:"varint,1,opt,name=sender_type,json=senderType,proto3,enum=enums.v1.MessageSenderType" json:"sender_type,omitempty"`
 	// 验证码内容
 	Captcha string `protobuf:"bytes,2,opt,name=captcha,proto3" json:"captcha,omitempty"`
+	// 验证码类型，业务方定义
+	CaptchaType string `protobuf:"bytes,3,opt,name=captcha_type,json=captchaType,proto3" json:"captcha_type,omitempty"`
 	// Types that are valid to be assigned to Sender:
 	//
 	//	*SendCaptchaReq_Sms
@@ -88,6 +88,13 @@ func (x *SendCaptchaReq) GetCaptcha() string {
 	return ""
 }
 
+func (x *SendCaptchaReq) GetCaptchaType() string {
+	if x != nil {
+		return x.CaptchaType
+	}
+	return ""
+}
+
 func (x *SendCaptchaReq) GetSender() isSendCaptchaReq_Sender {
 	if x != nil {
 		return x.Sender
@@ -119,12 +126,12 @@ type isSendCaptchaReq_Sender interface {
 
 type SendCaptchaReq_Sms struct {
 	// 如果sender_type是sms使用这个
-	Sms *v11.SendSmsReq `protobuf:"bytes,3,opt,name=sms,proto3,oneof"`
+	Sms *v11.SendSmsReq `protobuf:"bytes,4,opt,name=sms,proto3,oneof"`
 }
 
 type SendCaptchaReq_Mail struct {
 	// 如果sender_type是mail使用这个
-	Mail *v12.SendMailReq `protobuf:"bytes,4,opt,name=mail,proto3,oneof"`
+	Mail *v12.SendMailReq `protobuf:"bytes,5,opt,name=mail,proto3,oneof"`
 }
 
 func (*SendCaptchaReq_Sms) isSendCaptchaReq_Sender() {}
@@ -210,6 +217,8 @@ type VerifyCaptchaReq struct {
 	Token string `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
 	// 验证码
 	Captcha string `protobuf:"bytes,3,opt,name=captcha,proto3" json:"captcha,omitempty"`
+	// 验证码类型，业务方定义
+	CaptchaType string `protobuf:"bytes,4,opt,name=captcha_type,json=captchaType,proto3" json:"captcha_type,omitempty"`
 	// 发送验证码的手机号或者邮箱等账号，根据sender_type来填写对应的号码
 	//
 	// Types that are valid to be assigned to Number:
@@ -272,6 +281,13 @@ func (x *VerifyCaptchaReq) GetCaptcha() string {
 	return ""
 }
 
+func (x *VerifyCaptchaReq) GetCaptchaType() string {
+	if x != nil {
+		return x.CaptchaType
+	}
+	return ""
+}
+
 func (x *VerifyCaptchaReq) GetNumber() isVerifyCaptchaReq_Number {
 	if x != nil {
 		return x.Number
@@ -302,11 +318,11 @@ type isVerifyCaptchaReq_Number interface {
 }
 
 type VerifyCaptchaReq_PhoneNumber struct {
-	PhoneNumber *v13.PhoneNumber `protobuf:"bytes,4,opt,name=phone_number,json=phoneNumber,proto3,oneof"`
+	PhoneNumber *v13.PhoneNumber `protobuf:"bytes,5,opt,name=phone_number,json=phoneNumber,proto3,oneof"`
 }
 
 type VerifyCaptchaReq_Email struct {
-	Email string `protobuf:"bytes,5,opt,name=email,proto3,oneof"`
+	Email string `protobuf:"bytes,6,opt,name=email,proto3,oneof"`
 }
 
 func (*VerifyCaptchaReq_PhoneNumber) isVerifyCaptchaReq_Number() {}
@@ -435,14 +451,14 @@ var File_captcha_v1_captcha_proto protoreflect.FileDescriptor
 const file_captcha_v1_captcha_proto_rawDesc = "" +
 	"\n" +
 	"\x18captcha/v1/captcha.proto\x12\n" +
-	"captcha.v1\x1a\x16enums/v1/message.proto\x1a\x14mail/v1/params.proto\x1a\x13sms/v1/params.proto\x1a$validation/v1/predefined_rules.proto\x1a\x1bbuf/validate/validate.proto\x1a\x14types/v1/types.proto\x1a\x18limiter/v1/limiter.proto\"\xde\x01\n" +
-	"\x0eSendCaptchaReq\x12I\n" +
-	"\vsender_type\x18\x01 \x01(\x0e2\x1b.enums.v1.MessageSenderTypeB\v\xbaH\b\x82\x01\x05\xc8\xe2\xe8\x03\x01R\n" +
-	"senderType\x12#\n" +
-	"\acaptcha\x18\x02 \x01(\tB\t\xbaH\x06r\x04\x10\x01\x18\n" +
-	"R\acaptcha\x12&\n" +
-	"\x03sms\x18\x03 \x01(\v2\x12.sms.v1.SendSmsReqH\x00R\x03sms\x12*\n" +
-	"\x04mail\x18\x04 \x01(\v2\x14.mail.v1.SendMailReqH\x00R\x04mailB\b\n" +
+	"captcha.v1\x1a\x16enums/v1/message.proto\x1a\x14mail/v1/params.proto\x1a\x13sms/v1/params.proto\x1a\x14types/v1/types.proto\x1a\x18limiter/v1/limiter.proto\"\xe9\x01\n" +
+	"\x0eSendCaptchaReq\x12<\n" +
+	"\vsender_type\x18\x01 \x01(\x0e2\x1b.enums.v1.MessageSenderTypeR\n" +
+	"senderType\x12\x18\n" +
+	"\acaptcha\x18\x02 \x01(\tR\acaptcha\x12!\n" +
+	"\fcaptcha_type\x18\x03 \x01(\tR\vcaptchaType\x12&\n" +
+	"\x03sms\x18\x04 \x01(\v2\x12.sms.v1.SendSmsReqH\x00R\x03sms\x12*\n" +
+	"\x04mail\x18\x05 \x01(\v2\x14.mail.v1.SendMailReqH\x00R\x04mailB\b\n" +
 	"\x06sender\"\xe5\x01\n" +
 	"\x0fSendCaptchaResp\x12\x19\n" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
@@ -452,16 +468,16 @@ const file_captcha_v1_captcha_proto_rawDesc = "" +
 	"\x04data\x18\x04 \x01(\v2 .captcha.v1.SendCaptchaResp.DataR\x04data\x1aI\n" +
 	"\x04Data\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12+\n" +
-	"\x05limit\x18\x02 \x01(\v2\x15.limiter.v1.LimitRuleR\x05limit\"\x91\x02\n" +
-	"\x10VerifyCaptchaReq\x12I\n" +
-	"\vsender_type\x18\x01 \x01(\x0e2\x1b.enums.v1.MessageSenderTypeB\v\xbaH\b\x82\x01\x05\xc8\xe2\xe8\x03\x01R\n" +
-	"senderType\x12\x1e\n" +
-	"\x05token\x18\x02 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\x05token\x12$\n" +
-	"\acaptcha\x18\x03 \x01(\tB\n" +
-	"\xbaH\ar\x05\x90\xa1\xe9\x03\x01R\acaptcha\x12:\n" +
-	"\fphone_number\x18\x04 \x01(\v2\x15.types.v1.PhoneNumberH\x00R\vphoneNumber\x12\x1f\n" +
-	"\x05email\x18\x05 \x01(\tB\a\xbaH\x04r\x02`\x01H\x00R\x05emailB\x0f\n" +
-	"\x06number\x12\x05\xbaH\x02\b\x01\"f\n" +
+	"\x05limit\x18\x02 \x01(\v2\x15.limiter.v1.LimitRuleR\x05limit\"\x81\x02\n" +
+	"\x10VerifyCaptchaReq\x12<\n" +
+	"\vsender_type\x18\x01 \x01(\x0e2\x1b.enums.v1.MessageSenderTypeR\n" +
+	"senderType\x12\x14\n" +
+	"\x05token\x18\x02 \x01(\tR\x05token\x12\x18\n" +
+	"\acaptcha\x18\x03 \x01(\tR\acaptcha\x12!\n" +
+	"\fcaptcha_type\x18\x04 \x01(\tR\vcaptchaType\x12:\n" +
+	"\fphone_number\x18\x05 \x01(\v2\x15.types.v1.PhoneNumberH\x00R\vphoneNumber\x12\x16\n" +
+	"\x05email\x18\x06 \x01(\tH\x00R\x05emailB\b\n" +
+	"\x06number\"f\n" +
 	"\x11VerifyCaptchaResp\x12\x19\n" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +

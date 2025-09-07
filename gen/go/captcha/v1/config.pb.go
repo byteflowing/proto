@@ -7,10 +7,8 @@
 package captchav1
 
 import (
-	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
 	v11 "github.com/byteflowing/proto/gen/go/limiter/v1"
-	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
@@ -173,19 +171,16 @@ var File_captcha_v1_config_proto protoreflect.FileDescriptor
 const file_captcha_v1_config_proto_rawDesc = "" +
 	"\n" +
 	"\x17captcha/v1/config.proto\x12\n" +
-	"captcha.v1\x1a$validation/v1/predefined_rules.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1bbuf/validate/validate.proto\x1a\x16enums/v1/message.proto\x1a\x18limiter/v1/limiter.proto\"\xf7\x02\n" +
-	"\x0fCaptchaProvider\x12@\n" +
-	"\x06sender\x18\x01 \x01(\x0e2\x1b.enums.v1.MessageSenderTypeB\v\xbaH\b\x82\x01\x05\xc8\xe2\xe8\x03\x01R\x06sender\x12\"\n" +
-	"\x06prefix\x18\x02 \x01(\tB\n" +
-	"\xbaH\ar\x05\x90\xa1\xe9\x03\x01R\x06prefix\x12)\n" +
+	"captcha.v1\x1a\x1egoogle/protobuf/duration.proto\x1a\x16enums/v1/message.proto\x1a\x18limiter/v1/limiter.proto\"\xac\x02\n" +
+	"\x0fCaptchaProvider\x123\n" +
+	"\x06sender\x18\x01 \x01(\x0e2\x1b.enums.v1.MessageSenderTypeR\x06sender\x12\x16\n" +
+	"\x06prefix\x18\x02 \x01(\tR\x06prefix\x12\x1d\n" +
 	"\n" +
-	"err_prefix\x18\x03 \x01(\tB\n" +
-	"\xbaH\ar\x05\x90\xa1\xe9\x03\x01R\terrPrefix\x12D\n" +
-	"\akeeping\x18\x04 \x01(\v2\x19.google.protobuf.DurationB\x0f\xbaH\f\xaa\x01\t\"\x03\b\x90\x1c2\x02\b\x01R\akeeping\x12%\n" +
-	"\x0ecase_sensitive\x18\x05 \x01(\bR\rcaseSensitive\x12-\n" +
-	"\rerr_try_limit\x18\x06 \x01(\x05B\t\xbaH\x06\x1a\x04\x18\n" +
-	"(\x01R\verrTryLimit\x127\n" +
-	"\x06limits\x18\a \x03(\v2\x15.limiter.v1.LimitRuleB\b\xbaH\x05\x92\x01\x02\b\x01R\x06limits\"D\n" +
+	"err_prefix\x18\x03 \x01(\tR\terrPrefix\x123\n" +
+	"\akeeping\x18\x04 \x01(\v2\x19.google.protobuf.DurationR\akeeping\x12%\n" +
+	"\x0ecase_sensitive\x18\x05 \x01(\bR\rcaseSensitive\x12\"\n" +
+	"\rerr_try_limit\x18\x06 \x01(\x05R\verrTryLimit\x12-\n" +
+	"\x06limits\x18\a \x03(\v2\x15.limiter.v1.LimitRuleR\x06limits\"D\n" +
 	"\aCaptcha\x129\n" +
 	"\tproviders\x18\x01 \x03(\v2\x1b.captcha.v1.CaptchaProviderR\tprovidersB\xa0\x01\n" +
 	"\x0ecom.captcha.v1B\vConfigProtoP\x01Z8github.com/byteflowing/proto/gen/go/captcha/v1;captchav1\xa2\x02\x03CXX\xaa\x02\n" +
