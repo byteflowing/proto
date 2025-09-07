@@ -1756,6 +1756,8 @@ type ResetPasswordReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ResetToken    string                 `protobuf:"bytes,1,opt,name=reset_token,json=resetToken,proto3" json:"reset_token,omitempty"`
 	NewPassword   string                 `protobuf:"bytes,2,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
+	CaptchaType   string                 `protobuf:"bytes,3,opt,name=captcha_type,json=captchaType,proto3" json:"captcha_type,omitempty"`
+	CaptchaSender v1.MessageSenderType   `protobuf:"varint,4,opt,name=captcha_sender,json=captchaSender,proto3,enum=enums.v1.MessageSenderType" json:"captcha_sender,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1802,6 +1804,20 @@ func (x *ResetPasswordReq) GetNewPassword() string {
 		return x.NewPassword
 	}
 	return ""
+}
+
+func (x *ResetPasswordReq) GetCaptchaType() string {
+	if x != nil {
+		return x.CaptchaType
+	}
+	return ""
+}
+
+func (x *ResetPasswordReq) GetCaptchaSender() v1.MessageSenderType {
+	if x != nil {
+		return x.CaptchaSender
+	}
+	return v1.MessageSenderType(0)
 }
 
 type ResetPasswordResp struct {
@@ -1873,6 +1889,7 @@ type ChangePhoneReq struct {
 	Phone         *v11.PhoneNumber       `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
 	CaptchaToken  string                 `protobuf:"bytes,3,opt,name=captcha_token,json=captchaToken,proto3" json:"captcha_token,omitempty"`
 	Captcha       string                 `protobuf:"bytes,4,opt,name=captcha,proto3" json:"captcha,omitempty"`
+	CaptchaType   string                 `protobuf:"bytes,5,opt,name=captcha_type,json=captchaType,proto3" json:"captcha_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1931,6 +1948,13 @@ func (x *ChangePhoneReq) GetCaptchaToken() string {
 func (x *ChangePhoneReq) GetCaptcha() string {
 	if x != nil {
 		return x.Captcha
+	}
+	return ""
+}
+
+func (x *ChangePhoneReq) GetCaptchaType() string {
+	if x != nil {
+		return x.CaptchaType
 	}
 	return ""
 }
@@ -2001,10 +2025,11 @@ func (x *ChangePhoneResp) GetErrDetail() string {
 type ChangeEmailReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Sender        v1.MessageSenderType   `protobuf:"varint,1,opt,name=sender,proto3,enum=enums.v1.MessageSenderType" json:"sender,omitempty"`
-	ChangeToken   string                 `protobuf:"bytes,2,opt,name=change_token,json=changeToken,proto3" json:"change_token,omitempty"`
-	NewEmail      string                 `protobuf:"bytes,3,opt,name=new_email,json=newEmail,proto3" json:"new_email,omitempty"`
-	CaptchaToken  string                 `protobuf:"bytes,4,opt,name=captcha_token,json=captchaToken,proto3" json:"captcha_token,omitempty"`
-	Captcha       string                 `protobuf:"bytes,5,opt,name=captcha,proto3" json:"captcha,omitempty"`
+	CaptchaType   string                 `protobuf:"bytes,2,opt,name=captcha_type,json=captchaType,proto3" json:"captcha_type,omitempty"`
+	ChangeToken   string                 `protobuf:"bytes,3,opt,name=change_token,json=changeToken,proto3" json:"change_token,omitempty"`
+	NewEmail      string                 `protobuf:"bytes,4,opt,name=new_email,json=newEmail,proto3" json:"new_email,omitempty"`
+	CaptchaToken  string                 `protobuf:"bytes,5,opt,name=captcha_token,json=captchaToken,proto3" json:"captcha_token,omitempty"`
+	Captcha       string                 `protobuf:"bytes,6,opt,name=captcha,proto3" json:"captcha,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2044,6 +2069,13 @@ func (x *ChangeEmailReq) GetSender() v1.MessageSenderType {
 		return x.Sender
 	}
 	return v1.MessageSenderType(0)
+}
+
+func (x *ChangeEmailReq) GetCaptchaType() string {
+	if x != nil {
+		return x.CaptchaType
+	}
+	return ""
 }
 
 func (x *ChangeEmailReq) GetChangeToken() string {
@@ -3388,6 +3420,7 @@ type VerifyPhoneReq struct {
 	Phone         *v11.PhoneNumber       `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
 	CaptchaToken  string                 `protobuf:"bytes,3,opt,name=captcha_token,json=captchaToken,proto3" json:"captcha_token,omitempty"`
 	Captcha       string                 `protobuf:"bytes,4,opt,name=captcha,proto3" json:"captcha,omitempty"`
+	CaptchaType   string                 `protobuf:"bytes,5,opt,name=captcha_type,json=captchaType,proto3" json:"captcha_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3446,6 +3479,13 @@ func (x *VerifyPhoneReq) GetCaptchaToken() string {
 func (x *VerifyPhoneReq) GetCaptcha() string {
 	if x != nil {
 		return x.Captcha
+	}
+	return ""
+}
+
+func (x *VerifyPhoneReq) GetCaptchaType() string {
+	if x != nil {
+		return x.CaptchaType
 	}
 	return ""
 }
@@ -3519,6 +3559,7 @@ type VerifyEmailReq struct {
 	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
 	CaptchaToken  string                 `protobuf:"bytes,3,opt,name=captcha_token,json=captchaToken,proto3" json:"captcha_token,omitempty"`
 	Captcha       string                 `protobuf:"bytes,4,opt,name=captcha,proto3" json:"captcha,omitempty"`
+	CaptchaType   string                 `protobuf:"bytes,5,opt,name=captcha_type,json=captchaType,proto3" json:"captcha_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3577,6 +3618,13 @@ func (x *VerifyEmailReq) GetCaptchaToken() string {
 func (x *VerifyEmailReq) GetCaptcha() string {
 	if x != nil {
 		return x.Captcha
+	}
+	return ""
+}
+
+func (x *VerifyEmailReq) GetCaptchaType() string {
+	if x != nil {
+		return x.CaptchaType
 	}
 	return ""
 }
@@ -5480,6 +5528,7 @@ type BindUserAuthReq struct {
 	Captcha       *string                `protobuf:"bytes,6,opt,name=captcha,proto3,oneof" json:"captcha,omitempty"`
 	Phone         *v11.PhoneNumber       `protobuf:"bytes,7,opt,name=phone,proto3,oneof" json:"phone,omitempty"`
 	Email         *string                `protobuf:"bytes,8,opt,name=email,proto3,oneof" json:"email,omitempty"`
+	CaptchaType   *string                `protobuf:"bytes,9,opt,name=captcha_type,json=captchaType,proto3,oneof" json:"captcha_type,omitempty"`
 	Biz           string                 `protobuf:"bytes,255,opt,name=biz,proto3" json:"biz,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -5567,6 +5616,13 @@ func (x *BindUserAuthReq) GetPhone() *v11.PhoneNumber {
 func (x *BindUserAuthReq) GetEmail() string {
 	if x != nil && x.Email != nil {
 		return *x.Email
+	}
+	return ""
+}
+
+func (x *BindUserAuthReq) GetCaptchaType() string {
+	if x != nil && x.CaptchaType != nil {
+		return *x.CaptchaType
 	}
 	return ""
 }
@@ -6622,32 +6678,36 @@ const file_services_user_v1_user_proto_rawDesc = "" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +
 	"\n" +
-	"err_detail\x18\x03 \x01(\tR\terrDetail\"V\n" +
+	"err_detail\x18\x03 \x01(\tR\terrDetail\"\xbd\x01\n" +
 	"\x10ResetPasswordReq\x12\x1f\n" +
 	"\vreset_token\x18\x01 \x01(\tR\n" +
 	"resetToken\x12!\n" +
-	"\fnew_password\x18\x02 \x01(\tR\vnewPassword\"f\n" +
+	"\fnew_password\x18\x02 \x01(\tR\vnewPassword\x12!\n" +
+	"\fcaptcha_type\x18\x03 \x01(\tR\vcaptchaType\x12B\n" +
+	"\x0ecaptcha_sender\x18\x04 \x01(\x0e2\x1b.enums.v1.MessageSenderTypeR\rcaptchaSender\"f\n" +
 	"\x11ResetPasswordResp\x12\x19\n" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +
 	"\n" +
-	"err_detail\x18\x03 \x01(\tR\terrDetail\"\x9f\x01\n" +
+	"err_detail\x18\x03 \x01(\tR\terrDetail\"\xc2\x01\n" +
 	"\x0eChangePhoneReq\x12!\n" +
 	"\fchange_token\x18\x01 \x01(\tR\vchangeToken\x12+\n" +
 	"\x05phone\x18\x02 \x01(\v2\x15.types.v1.PhoneNumberR\x05phone\x12#\n" +
 	"\rcaptcha_token\x18\x03 \x01(\tR\fcaptchaToken\x12\x18\n" +
-	"\acaptcha\x18\x04 \x01(\tR\acaptcha\"d\n" +
+	"\acaptcha\x18\x04 \x01(\tR\acaptcha\x12!\n" +
+	"\fcaptcha_type\x18\x05 \x01(\tR\vcaptchaType\"d\n" +
 	"\x0fChangePhoneResp\x12\x19\n" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +
 	"\n" +
-	"err_detail\x18\x03 \x01(\tR\terrDetail\"\xc4\x01\n" +
+	"err_detail\x18\x03 \x01(\tR\terrDetail\"\xe7\x01\n" +
 	"\x0eChangeEmailReq\x123\n" +
 	"\x06sender\x18\x01 \x01(\x0e2\x1b.enums.v1.MessageSenderTypeR\x06sender\x12!\n" +
-	"\fchange_token\x18\x02 \x01(\tR\vchangeToken\x12\x1b\n" +
-	"\tnew_email\x18\x03 \x01(\tR\bnewEmail\x12#\n" +
-	"\rcaptcha_token\x18\x04 \x01(\tR\fcaptchaToken\x12\x18\n" +
-	"\acaptcha\x18\x05 \x01(\tR\acaptcha\"d\n" +
+	"\fcaptcha_type\x18\x02 \x01(\tR\vcaptchaType\x12!\n" +
+	"\fchange_token\x18\x03 \x01(\tR\vchangeToken\x12\x1b\n" +
+	"\tnew_email\x18\x04 \x01(\tR\bnewEmail\x12#\n" +
+	"\rcaptcha_token\x18\x05 \x01(\tR\fcaptchaToken\x12\x18\n" +
+	"\acaptcha\x18\x06 \x01(\tR\acaptcha\"d\n" +
 	"\x0fChangeEmailResp\x12\x19\n" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +
@@ -6741,22 +6801,24 @@ const file_services_user_v1_user_proto_rawDesc = "" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +
 	"\n" +
-	"err_detail\x18\x03 \x01(\tR\terrDetail\"\x8e\x01\n" +
+	"err_detail\x18\x03 \x01(\tR\terrDetail\"\xb1\x01\n" +
 	"\x0eVerifyPhoneReq\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\x03R\x03uid\x12+\n" +
 	"\x05phone\x18\x02 \x01(\v2\x15.types.v1.PhoneNumberR\x05phone\x12#\n" +
 	"\rcaptcha_token\x18\x03 \x01(\tR\fcaptchaToken\x12\x18\n" +
-	"\acaptcha\x18\x04 \x01(\tR\acaptcha\"d\n" +
+	"\acaptcha\x18\x04 \x01(\tR\acaptcha\x12!\n" +
+	"\fcaptcha_type\x18\x05 \x01(\tR\vcaptchaType\"d\n" +
 	"\x0fVerifyPhoneResp\x12\x19\n" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +
 	"\n" +
-	"err_detail\x18\x03 \x01(\tR\terrDetail\"w\n" +
+	"err_detail\x18\x03 \x01(\tR\terrDetail\"\x9a\x01\n" +
 	"\x0eVerifyEmailReq\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\x03R\x03uid\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12#\n" +
 	"\rcaptcha_token\x18\x03 \x01(\tR\fcaptchaToken\x12\x18\n" +
-	"\acaptcha\x18\x04 \x01(\tR\acaptcha\"d\n" +
+	"\acaptcha\x18\x04 \x01(\tR\acaptcha\x12!\n" +
+	"\fcaptcha_type\x18\x05 \x01(\tR\vcaptchaType\"d\n" +
 	"\x0fVerifyEmailResp\x12\x19\n" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +
@@ -7032,7 +7094,7 @@ const file_services_user_v1_user_proto_rawDesc = "" +
 	"err_detail\x18\x03 \x01(\tR\terrDetail\x12:\n" +
 	"\x04data\x18\x04 \x01(\v2&.services.user.v1.GetUserAuthResp.DataR\x04data\x1a6\n" +
 	"\x04Data\x12.\n" +
-	"\x04auth\x18\x01 \x03(\v2\x1a.services.user.v1.UserAuthR\x04auth\"\xef\x02\n" +
+	"\x04auth\x18\x01 \x03(\v2\x1a.services.user.v1.UserAuthR\x04auth\"\xa8\x03\n" +
 	"\x0fBindUserAuthReq\x12&\n" +
 	"\x04type\x18\x01 \x01(\x0e2\x12.enums.v1.AuthTypeR\x04type\x12\x10\n" +
 	"\x03uid\x18\x02 \x01(\x03R\x03uid\x12\x1a\n" +
@@ -7041,7 +7103,8 @@ const file_services_user_v1_user_proto_rawDesc = "" +
 	"\rcaptcha_token\x18\x05 \x01(\tH\x02R\fcaptchaToken\x88\x01\x01\x12\x1d\n" +
 	"\acaptcha\x18\x06 \x01(\tH\x03R\acaptcha\x88\x01\x01\x120\n" +
 	"\x05phone\x18\a \x01(\v2\x15.types.v1.PhoneNumberH\x04R\x05phone\x88\x01\x01\x12\x19\n" +
-	"\x05email\x18\b \x01(\tH\x05R\x05email\x88\x01\x01\x12\x11\n" +
+	"\x05email\x18\b \x01(\tH\x05R\x05email\x88\x01\x01\x12&\n" +
+	"\fcaptcha_type\x18\t \x01(\tH\x06R\vcaptchaType\x88\x01\x01\x12\x11\n" +
 	"\x03biz\x18\xff\x01 \x01(\tR\x03bizB\t\n" +
 	"\a_app_idB\a\n" +
 	"\x05_codeB\x10\n" +
@@ -7049,7 +7112,8 @@ const file_services_user_v1_user_proto_rawDesc = "" +
 	"\n" +
 	"\b_captchaB\b\n" +
 	"\x06_phoneB\b\n" +
-	"\x06_email\"e\n" +
+	"\x06_emailB\x0f\n" +
+	"\r_captcha_type\"e\n" +
 	"\x10BindUserAuthResp\x12\x19\n" +
 	"\berr_code\x18\x01 \x01(\rR\aerrCode\x12\x17\n" +
 	"\aerr_msg\x18\x02 \x01(\tR\x06errMsg\x12\x1d\n" +
@@ -7220,69 +7284,70 @@ var file_services_user_v1_user_proto_depIdxs = []int32{
 	97,  // 33: services.user.v1.SignOutByUidReq.reason:type_name -> enums.v1.SessionStatus
 	86,  // 34: services.user.v1.RefreshReq.extra_jwt_claims:type_name -> google.protobuf.Any
 	78,  // 35: services.user.v1.RefreshResp.data:type_name -> services.user.v1.RefreshResp.Data
-	91,  // 36: services.user.v1.ChangePhoneReq.phone:type_name -> types.v1.PhoneNumber
-	98,  // 37: services.user.v1.ChangeEmailReq.sender:type_name -> enums.v1.MessageSenderType
-	89,  // 38: services.user.v1.ChangeUserGenderReq.gender:type_name -> enums.v1.Gender
-	90,  // 39: services.user.v1.ChangeUserBirthdayReq.birthday:type_name -> google.type.Date
-	91,  // 40: services.user.v1.VerifyPhoneReq.phone:type_name -> types.v1.PhoneNumber
-	87,  // 41: services.user.v1.ChangeUserStatusReq.status:type_name -> enums.v1.UserStatus
-	99,  // 42: services.user.v1.VerifyTokenReq.type:type_name -> enums.v1.TokenType
-	79,  // 43: services.user.v1.VerifyTokenResp.data:type_name -> services.user.v1.VerifyTokenResp.Data
-	85,  // 44: services.user.v1.SignInLog.type:type_name -> enums.v1.AuthType
-	97,  // 45: services.user.v1.SignInLog.status:type_name -> enums.v1.SessionStatus
-	93,  // 46: services.user.v1.SignInLog.access_expired_at:type_name -> google.protobuf.Timestamp
-	93,  // 47: services.user.v1.SignInLog.refresh_expired_at:type_name -> google.protobuf.Timestamp
-	93,  // 48: services.user.v1.SignInLog.updated_at:type_name -> google.protobuf.Timestamp
-	93,  // 49: services.user.v1.SignInLog.created_at:type_name -> google.protobuf.Timestamp
-	80,  // 50: services.user.v1.GetActiveSignInLogsResp.data:type_name -> services.user.v1.GetActiveSignInLogsResp.Data
-	85,  // 51: services.user.v1.PagingGetSignInLogsReq.types:type_name -> enums.v1.AuthType
-	97,  // 52: services.user.v1.PagingGetSignInLogsReq.statuses:type_name -> enums.v1.SessionStatus
-	81,  // 53: services.user.v1.PagingGetSignInLogsResp.data:type_name -> services.user.v1.PagingGetSignInLogsResp.Data
-	89,  // 54: services.user.v1.PagingGetUsersReq.gender:type_name -> enums.v1.Gender
-	91,  // 55: services.user.v1.PagingGetUsersReq.phone:type_name -> types.v1.PhoneNumber
-	85,  // 56: services.user.v1.PagingGetUsersReq.sign_up_type:type_name -> enums.v1.AuthType
-	87,  // 57: services.user.v1.PagingGetUsersReq.status:type_name -> enums.v1.UserStatus
-	88,  // 58: services.user.v1.PagingGetUsersReq.source:type_name -> enums.v1.UserSource
-	90,  // 59: services.user.v1.PagingGetUsersReq.birthday_start:type_name -> google.type.Date
-	90,  // 60: services.user.v1.PagingGetUsersReq.birthday_end:type_name -> google.type.Date
-	93,  // 61: services.user.v1.PagingGetUsersReq.created_at_start:type_name -> google.protobuf.Timestamp
-	93,  // 62: services.user.v1.PagingGetUsersReq.created_at_end:type_name -> google.protobuf.Timestamp
-	93,  // 63: services.user.v1.PagingGetUsersReq.updated_at_start:type_name -> google.protobuf.Timestamp
-	93,  // 64: services.user.v1.PagingGetUsersReq.updated_at_end:type_name -> google.protobuf.Timestamp
-	93,  // 65: services.user.v1.PagingGetUsersReq.deleted_at_start:type_name -> google.protobuf.Timestamp
-	93,  // 66: services.user.v1.PagingGetUsersReq.deleted_at_end:type_name -> google.protobuf.Timestamp
-	82,  // 67: services.user.v1.PagingGetUsersResp.data:type_name -> services.user.v1.PagingGetUsersResp.Data
-	89,  // 68: services.user.v1.CreateUserReq.gender:type_name -> enums.v1.Gender
-	90,  // 69: services.user.v1.CreateUserReq.birthday:type_name -> google.type.Date
-	91,  // 70: services.user.v1.CreateUserReq.phone:type_name -> types.v1.PhoneNumber
-	92,  // 71: services.user.v1.CreateUserReq.region:type_name -> types.v1.AdminRegion
-	87,  // 72: services.user.v1.CreateUserReq.status:type_name -> enums.v1.UserStatus
-	88,  // 73: services.user.v1.CreateUserReq.source:type_name -> enums.v1.UserSource
-	83,  // 74: services.user.v1.CreateUserResp.data:type_name -> services.user.v1.CreateUserResp.Data
-	89,  // 75: services.user.v1.UpdateUserReq.gender:type_name -> enums.v1.Gender
-	90,  // 76: services.user.v1.UpdateUserReq.birthday:type_name -> google.type.Date
-	91,  // 77: services.user.v1.UpdateUserReq.phone:type_name -> types.v1.PhoneNumber
-	92,  // 78: services.user.v1.UpdateUserReq.region:type_name -> types.v1.AdminRegion
-	87,  // 79: services.user.v1.UpdateUserReq.status:type_name -> enums.v1.UserStatus
-	88,  // 80: services.user.v1.UpdateUserReq.source:type_name -> enums.v1.UserSource
-	84,  // 81: services.user.v1.GetUserAuthResp.data:type_name -> services.user.v1.GetUserAuthResp.Data
-	85,  // 82: services.user.v1.BindUserAuthReq.type:type_name -> enums.v1.AuthType
-	91,  // 83: services.user.v1.BindUserAuthReq.phone:type_name -> types.v1.PhoneNumber
-	100, // 84: services.user.v1.SendCaptchaResp.Data.limit:type_name -> limiter.v1.LimitRule
-	1,   // 85: services.user.v1.SignUpResp.Data.user_info:type_name -> services.user.v1.UserInfo
-	100, // 86: services.user.v1.SignUpResp.Data.rule:type_name -> limiter.v1.LimitRule
-	1,   // 87: services.user.v1.SignInResp.Data.user_info:type_name -> services.user.v1.UserInfo
-	100, // 88: services.user.v1.SignInResp.Data.rule:type_name -> limiter.v1.LimitRule
-	0,   // 89: services.user.v1.VerifyTokenResp.Data.user_info:type_name -> services.user.v1.UserProfile
-	53,  // 90: services.user.v1.GetActiveSignInLogsResp.Data.logs:type_name -> services.user.v1.SignInLog
-	53,  // 91: services.user.v1.PagingGetSignInLogsResp.Data.logs:type_name -> services.user.v1.SignInLog
-	1,   // 92: services.user.v1.PagingGetUsersResp.Data.users:type_name -> services.user.v1.UserInfo
-	2,   // 93: services.user.v1.GetUserAuthResp.Data.auth:type_name -> services.user.v1.UserAuth
-	94,  // [94:94] is the sub-list for method output_type
-	94,  // [94:94] is the sub-list for method input_type
-	94,  // [94:94] is the sub-list for extension type_name
-	94,  // [94:94] is the sub-list for extension extendee
-	0,   // [0:94] is the sub-list for field type_name
+	98,  // 36: services.user.v1.ResetPasswordReq.captcha_sender:type_name -> enums.v1.MessageSenderType
+	91,  // 37: services.user.v1.ChangePhoneReq.phone:type_name -> types.v1.PhoneNumber
+	98,  // 38: services.user.v1.ChangeEmailReq.sender:type_name -> enums.v1.MessageSenderType
+	89,  // 39: services.user.v1.ChangeUserGenderReq.gender:type_name -> enums.v1.Gender
+	90,  // 40: services.user.v1.ChangeUserBirthdayReq.birthday:type_name -> google.type.Date
+	91,  // 41: services.user.v1.VerifyPhoneReq.phone:type_name -> types.v1.PhoneNumber
+	87,  // 42: services.user.v1.ChangeUserStatusReq.status:type_name -> enums.v1.UserStatus
+	99,  // 43: services.user.v1.VerifyTokenReq.type:type_name -> enums.v1.TokenType
+	79,  // 44: services.user.v1.VerifyTokenResp.data:type_name -> services.user.v1.VerifyTokenResp.Data
+	85,  // 45: services.user.v1.SignInLog.type:type_name -> enums.v1.AuthType
+	97,  // 46: services.user.v1.SignInLog.status:type_name -> enums.v1.SessionStatus
+	93,  // 47: services.user.v1.SignInLog.access_expired_at:type_name -> google.protobuf.Timestamp
+	93,  // 48: services.user.v1.SignInLog.refresh_expired_at:type_name -> google.protobuf.Timestamp
+	93,  // 49: services.user.v1.SignInLog.updated_at:type_name -> google.protobuf.Timestamp
+	93,  // 50: services.user.v1.SignInLog.created_at:type_name -> google.protobuf.Timestamp
+	80,  // 51: services.user.v1.GetActiveSignInLogsResp.data:type_name -> services.user.v1.GetActiveSignInLogsResp.Data
+	85,  // 52: services.user.v1.PagingGetSignInLogsReq.types:type_name -> enums.v1.AuthType
+	97,  // 53: services.user.v1.PagingGetSignInLogsReq.statuses:type_name -> enums.v1.SessionStatus
+	81,  // 54: services.user.v1.PagingGetSignInLogsResp.data:type_name -> services.user.v1.PagingGetSignInLogsResp.Data
+	89,  // 55: services.user.v1.PagingGetUsersReq.gender:type_name -> enums.v1.Gender
+	91,  // 56: services.user.v1.PagingGetUsersReq.phone:type_name -> types.v1.PhoneNumber
+	85,  // 57: services.user.v1.PagingGetUsersReq.sign_up_type:type_name -> enums.v1.AuthType
+	87,  // 58: services.user.v1.PagingGetUsersReq.status:type_name -> enums.v1.UserStatus
+	88,  // 59: services.user.v1.PagingGetUsersReq.source:type_name -> enums.v1.UserSource
+	90,  // 60: services.user.v1.PagingGetUsersReq.birthday_start:type_name -> google.type.Date
+	90,  // 61: services.user.v1.PagingGetUsersReq.birthday_end:type_name -> google.type.Date
+	93,  // 62: services.user.v1.PagingGetUsersReq.created_at_start:type_name -> google.protobuf.Timestamp
+	93,  // 63: services.user.v1.PagingGetUsersReq.created_at_end:type_name -> google.protobuf.Timestamp
+	93,  // 64: services.user.v1.PagingGetUsersReq.updated_at_start:type_name -> google.protobuf.Timestamp
+	93,  // 65: services.user.v1.PagingGetUsersReq.updated_at_end:type_name -> google.protobuf.Timestamp
+	93,  // 66: services.user.v1.PagingGetUsersReq.deleted_at_start:type_name -> google.protobuf.Timestamp
+	93,  // 67: services.user.v1.PagingGetUsersReq.deleted_at_end:type_name -> google.protobuf.Timestamp
+	82,  // 68: services.user.v1.PagingGetUsersResp.data:type_name -> services.user.v1.PagingGetUsersResp.Data
+	89,  // 69: services.user.v1.CreateUserReq.gender:type_name -> enums.v1.Gender
+	90,  // 70: services.user.v1.CreateUserReq.birthday:type_name -> google.type.Date
+	91,  // 71: services.user.v1.CreateUserReq.phone:type_name -> types.v1.PhoneNumber
+	92,  // 72: services.user.v1.CreateUserReq.region:type_name -> types.v1.AdminRegion
+	87,  // 73: services.user.v1.CreateUserReq.status:type_name -> enums.v1.UserStatus
+	88,  // 74: services.user.v1.CreateUserReq.source:type_name -> enums.v1.UserSource
+	83,  // 75: services.user.v1.CreateUserResp.data:type_name -> services.user.v1.CreateUserResp.Data
+	89,  // 76: services.user.v1.UpdateUserReq.gender:type_name -> enums.v1.Gender
+	90,  // 77: services.user.v1.UpdateUserReq.birthday:type_name -> google.type.Date
+	91,  // 78: services.user.v1.UpdateUserReq.phone:type_name -> types.v1.PhoneNumber
+	92,  // 79: services.user.v1.UpdateUserReq.region:type_name -> types.v1.AdminRegion
+	87,  // 80: services.user.v1.UpdateUserReq.status:type_name -> enums.v1.UserStatus
+	88,  // 81: services.user.v1.UpdateUserReq.source:type_name -> enums.v1.UserSource
+	84,  // 82: services.user.v1.GetUserAuthResp.data:type_name -> services.user.v1.GetUserAuthResp.Data
+	85,  // 83: services.user.v1.BindUserAuthReq.type:type_name -> enums.v1.AuthType
+	91,  // 84: services.user.v1.BindUserAuthReq.phone:type_name -> types.v1.PhoneNumber
+	100, // 85: services.user.v1.SendCaptchaResp.Data.limit:type_name -> limiter.v1.LimitRule
+	1,   // 86: services.user.v1.SignUpResp.Data.user_info:type_name -> services.user.v1.UserInfo
+	100, // 87: services.user.v1.SignUpResp.Data.rule:type_name -> limiter.v1.LimitRule
+	1,   // 88: services.user.v1.SignInResp.Data.user_info:type_name -> services.user.v1.UserInfo
+	100, // 89: services.user.v1.SignInResp.Data.rule:type_name -> limiter.v1.LimitRule
+	0,   // 90: services.user.v1.VerifyTokenResp.Data.user_info:type_name -> services.user.v1.UserProfile
+	53,  // 91: services.user.v1.GetActiveSignInLogsResp.Data.logs:type_name -> services.user.v1.SignInLog
+	53,  // 92: services.user.v1.PagingGetSignInLogsResp.Data.logs:type_name -> services.user.v1.SignInLog
+	1,   // 93: services.user.v1.PagingGetUsersResp.Data.users:type_name -> services.user.v1.UserInfo
+	2,   // 94: services.user.v1.GetUserAuthResp.Data.auth:type_name -> services.user.v1.UserAuth
+	95,  // [95:95] is the sub-list for method output_type
+	95,  // [95:95] is the sub-list for method input_type
+	95,  // [95:95] is the sub-list for extension type_name
+	95,  // [95:95] is the sub-list for extension extendee
+	0,   // [0:95] is the sub-list for field type_name
 }
 
 func init() { file_services_user_v1_user_proto_init() }

@@ -305,6 +305,8 @@ message ChangePasswordResp {
 message ResetPasswordReq {
   string reset_token = 1;
   string new_password = 2;
+  string captcha_type = 3;
+  enums.v1.MessageSenderType captcha_sender = 4;
 }
 
 message ResetPasswordResp {
@@ -321,6 +323,7 @@ message ChangePhoneReq {
   types.v1.PhoneNumber phone = 2;
   string captcha_token = 3;
   string captcha = 4;
+  string captcha_type = 5;
 }
 
 message ChangePhoneResp {
@@ -334,10 +337,11 @@ message ChangePhoneResp {
 
 message ChangeEmailReq {
   enums.v1.MessageSenderType sender = 1;
-  string change_token = 2;
-  string new_email = 3;
-  string captcha_token = 4;
-  string captcha = 5;
+  string captcha_type = 2;
+  string change_token = 3;
+  string new_email = 4;
+  string captcha_token = 5;
+  string captcha = 6;
 }
 
 message ChangeEmailResp {
@@ -507,6 +511,7 @@ message VerifyPhoneReq {
   types.v1.PhoneNumber phone = 2;
   string captcha_token = 3;
   string captcha = 4;
+  string captcha_type = 5;
 }
 
 message VerifyPhoneResp {
@@ -523,6 +528,7 @@ message VerifyEmailReq {
   string email = 2;
   string captcha_token = 3;
   string captcha = 4;
+  string captcha_type = 5;
 }
 
 message VerifyEmailResp {
@@ -844,6 +850,7 @@ message BindUserAuthReq {
   optional string captcha = 6;
   optional types.v1.PhoneNumber phone = 7;
   optional string email = 8;
+  optional string captcha_type = 9;
   string biz = 255;
 }
 
