@@ -154,6 +154,7 @@ message SignUpReq {
   string captcha = 21 [(buf.validate.field).string.(validation.v1.required_10) = true];
   // 验证码token
   string captcha_token = 22 [(buf.validate.field).string.uuid = true];
+  string captcha_type = 23;
   string biz = 255;
 }
 
@@ -195,6 +196,7 @@ message SignInReq {
   optional string user_agent = 9 [(buf.validate.field).string.(validation.v1.optional_255) = true];
   // 设备信息
   optional string device = 10 [(buf.validate.field).string.(validation.v1.optional_255) = true];
+  string captcha_type = 23;
   string biz = 255;
 }
 

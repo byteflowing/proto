@@ -782,6 +782,7 @@ type SignUpReq struct {
 	Captcha string `protobuf:"bytes,21,opt,name=captcha,proto3" json:"captcha,omitempty"`
 	// 验证码token
 	CaptchaToken  string `protobuf:"bytes,22,opt,name=captcha_token,json=captchaToken,proto3" json:"captcha_token,omitempty"`
+	CaptchaType   string `protobuf:"bytes,23,opt,name=captcha_type,json=captchaType,proto3" json:"captcha_type,omitempty"`
 	Biz           string `protobuf:"bytes,255,opt,name=biz,proto3" json:"biz,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -971,6 +972,13 @@ func (x *SignUpReq) GetCaptchaToken() string {
 	return ""
 }
 
+func (x *SignUpReq) GetCaptchaType() string {
+	if x != nil {
+		return x.CaptchaType
+	}
+	return ""
+}
+
 func (x *SignUpReq) GetBiz() string {
 	if x != nil {
 		return x.Biz
@@ -1074,6 +1082,7 @@ type SignInReq struct {
 	UserAgent *string `protobuf:"bytes,9,opt,name=user_agent,json=userAgent,proto3,oneof" json:"user_agent,omitempty"`
 	// 设备信息
 	Device        *string `protobuf:"bytes,10,opt,name=device,proto3,oneof" json:"device,omitempty"`
+	CaptchaType   string  `protobuf:"bytes,23,opt,name=captcha_type,json=captchaType,proto3" json:"captcha_type,omitempty"`
 	Biz           string  `protobuf:"bytes,255,opt,name=biz,proto3" json:"biz,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1175,6 +1184,13 @@ func (x *SignInReq) GetUserAgent() string {
 func (x *SignInReq) GetDevice() string {
 	if x != nil && x.Device != nil {
 		return *x.Device
+	}
+	return ""
+}
+
+func (x *SignInReq) GetCaptchaType() string {
+	if x != nil {
+		return x.CaptchaType
 	}
 	return ""
 }
@@ -6527,7 +6543,7 @@ const file_services_user_v1_user_proto_rawDesc = "" +
 	"err_detail\x18\x03 \x01(\tR\terrDetail\x12<\n" +
 	"\x04data\x18\x04 \x01(\v2(.services.user.v1.VerifyCaptchaResp.DataR\x04data\x1a\x1c\n" +
 	"\x04Data\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\"\xab\t\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\"\xce\t\n" +
 	"\tSignUpReq\x12;\n" +
 	"\tauth_type\x18\x01 \x01(\x0e2\x12.enums.v1.AuthTypeB\n" +
 	"\xbaH\a\x82\x01\x04\x18\x04\x18\x05R\bauthType\x12'\n" +
@@ -6563,7 +6579,8 @@ const file_services_user_v1_user_proto_rawDesc = "" +
 	"\x03ext\x18\x14 \x01(\tH\x12R\x03ext\x88\x01\x01\x12$\n" +
 	"\acaptcha\x18\x15 \x01(\tB\n" +
 	"\xbaH\ar\x05\x88\xa1\xe9\x03\x01R\acaptcha\x12-\n" +
-	"\rcaptcha_token\x18\x16 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\fcaptchaToken\x12\x11\n" +
+	"\rcaptcha_token\x18\x16 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\fcaptchaToken\x12!\n" +
+	"\fcaptcha_type\x18\x17 \x01(\tR\vcaptchaType\x12\x11\n" +
 	"\x03biz\x18\xff\x01 \x01(\tR\x03bizB\t\n" +
 	"\a_numberB\a\n" +
 	"\x05_nameB\b\n" +
@@ -6594,7 +6611,7 @@ const file_services_user_v1_user_proto_rawDesc = "" +
 	"\x04Data\x127\n" +
 	"\tuser_info\x18\x01 \x01(\v2\x1a.services.user.v1.UserInfoR\buserInfo\x12.\n" +
 	"\x04rule\x18\x02 \x01(\v2\x15.limiter.v1.LimitRuleH\x00R\x04rule\x88\x01\x01B\a\n" +
-	"\x05_rule\"\xc6\x04\n" +
+	"\x05_rule\"\xe9\x04\n" +
 	"\tSignInReq\x12<\n" +
 	"\tauth_type\x18\x01 \x01(\x0e2\x12.enums.v1.AuthTypeB\v\xbaH\b\x82\x01\x05\xc8\xe2\xe8\x03\x01R\bauthType\x12*\n" +
 	"\n" +
@@ -6616,7 +6633,8 @@ const file_services_user_v1_user_proto_rawDesc = "" +
 	"\xbaH\ar\x05\xf0\xa1\xe9\x03\x01H\x03R\tuserAgent\x88\x01\x01\x12'\n" +
 	"\x06device\x18\n" +
 	" \x01(\tB\n" +
-	"\xbaH\ar\x05\xf0\xa1\xe9\x03\x01H\x04R\x06device\x88\x01\x01\x12\x11\n" +
+	"\xbaH\ar\x05\xf0\xa1\xe9\x03\x01H\x04R\x06device\x88\x01\x01\x12!\n" +
+	"\fcaptcha_type\x18\x17 \x01(\tR\vcaptchaType\x12\x11\n" +
 	"\x03biz\x18\xff\x01 \x01(\tR\x03bizB\x10\n" +
 	"\x0e_captcha_tokenB\x05\n" +
 	"\x03_ipB\v\n" +
