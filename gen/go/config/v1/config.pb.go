@@ -208,7 +208,7 @@ var File_config_v1_config_proto protoreflect.FileDescriptor
 
 const file_config_v1_config_proto_rawDesc = "" +
 	"\n" +
-	"\x16config/v1/config.proto\x12\tconfig.v1\x1a\x17captcha/v1/config.proto\x1a\x10db/v1/gorm.proto\x1a\x11db/v1/redis.proto\x1a\x1dservices/user/v1/config.proto\x1a\x13sms/v1/config.proto\x1a\x14mail/v1/config.proto\x1a\x10idx/v1/idx.proto\x1a\x16wechat/v1/config.proto\"H\n" +
+	"\x16config/v1/config.proto\x12\tconfig.v1\x1a\x17captcha/v1/config.proto\x1a\x0edb/v1/db.proto\x1a\x11db/v1/redis.proto\x1a\x1dservices/user/v1/config.proto\x1a\x13sms/v1/config.proto\x1a\x14mail/v1/config.proto\x1a\x10idx/v1/idx.proto\x1a\x16wechat/v1/config.proto\"H\n" +
 	"\x04Base\x12\x1f\n" +
 	"\vlisten_addr\x18\x01 \x01(\tR\n" +
 	"listenAddr\x12\x1f\n" +

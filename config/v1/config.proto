@@ -3,7 +3,7 @@ syntax = "proto3";
 package config.v1;
 
 import "captcha/v1/config.proto";
-import "db/v1/gorm.proto";
+import "db/v1/db.proto";
 import "db/v1/redis.proto";
 import "services/user/v1/config.proto";
 import "sms/v1/config.proto";

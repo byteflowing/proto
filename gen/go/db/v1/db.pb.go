@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.8
 // 	protoc        (unknown)
-// source: db/v1/gorm.proto
+// source: db/v1/db.proto
 
 package dbv1
 
@@ -45,7 +45,7 @@ type DbLog struct {
 
 func (x *DbLog) Reset() {
 	*x = DbLog{}
-	mi := &file_db_v1_gorm_proto_msgTypes[0]
+	mi := &file_db_v1_db_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -57,7 +57,7 @@ func (x *DbLog) String() string {
 func (*DbLog) ProtoMessage() {}
 
 func (x *DbLog) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_gorm_proto_msgTypes[0]
+	mi := &file_db_v1_db_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -70,7 +70,7 @@ func (x *DbLog) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbLog.ProtoReflect.Descriptor instead.
 func (*DbLog) Descriptor() ([]byte, []int) {
-	return file_db_v1_gorm_proto_rawDescGZIP(), []int{0}
+	return file_db_v1_db_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *DbLog) GetSlowThreshold() uint32 {
@@ -134,7 +134,7 @@ type DbConn struct {
 
 func (x *DbConn) Reset() {
 	*x = DbConn{}
-	mi := &file_db_v1_gorm_proto_msgTypes[1]
+	mi := &file_db_v1_db_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -146,7 +146,7 @@ func (x *DbConn) String() string {
 func (*DbConn) ProtoMessage() {}
 
 func (x *DbConn) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_gorm_proto_msgTypes[1]
+	mi := &file_db_v1_db_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -159,7 +159,7 @@ func (x *DbConn) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbConn.ProtoReflect.Descriptor instead.
 func (*DbConn) Descriptor() ([]byte, []int) {
-	return file_db_v1_gorm_proto_rawDescGZIP(), []int{1}
+	return file_db_v1_db_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *DbConn) GetConnMaxLifeTime() int32 {
@@ -208,7 +208,7 @@ type DbMysql struct {
 
 func (x *DbMysql) Reset() {
 	*x = DbMysql{}
-	mi := &file_db_v1_gorm_proto_msgTypes[2]
+	mi := &file_db_v1_db_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -220,7 +220,7 @@ func (x *DbMysql) String() string {
 func (*DbMysql) ProtoMessage() {}
 
 func (x *DbMysql) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_gorm_proto_msgTypes[2]
+	mi := &file_db_v1_db_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -233,7 +233,7 @@ func (x *DbMysql) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbMysql.ProtoReflect.Descriptor instead.
 func (*DbMysql) Descriptor() ([]byte, []int) {
-	return file_db_v1_gorm_proto_rawDescGZIP(), []int{2}
+	return file_db_v1_db_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *DbMysql) GetHost() string {
@@ -322,7 +322,7 @@ type DbPostgres struct {
 
 func (x *DbPostgres) Reset() {
 	*x = DbPostgres{}
-	mi := &file_db_v1_gorm_proto_msgTypes[3]
+	mi := &file_db_v1_db_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -334,7 +334,7 @@ func (x *DbPostgres) String() string {
 func (*DbPostgres) ProtoMessage() {}
 
 func (x *DbPostgres) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_gorm_proto_msgTypes[3]
+	mi := &file_db_v1_db_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -347,7 +347,7 @@ func (x *DbPostgres) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbPostgres.ProtoReflect.Descriptor instead.
 func (*DbPostgres) Descriptor() ([]byte, []int) {
-	return file_db_v1_gorm_proto_rawDescGZIP(), []int{3}
+	return file_db_v1_db_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *DbPostgres) GetHost() string {
@@ -419,7 +419,7 @@ type DbSQLServer struct {
 
 func (x *DbSQLServer) Reset() {
 	*x = DbSQLServer{}
-	mi := &file_db_v1_gorm_proto_msgTypes[4]
+	mi := &file_db_v1_db_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -431,7 +431,7 @@ func (x *DbSQLServer) String() string {
 func (*DbSQLServer) ProtoMessage() {}
 
 func (x *DbSQLServer) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_gorm_proto_msgTypes[4]
+	mi := &file_db_v1_db_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -444,7 +444,7 @@ func (x *DbSQLServer) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbSQLServer.ProtoReflect.Descriptor instead.
 func (*DbSQLServer) Descriptor() ([]byte, []int) {
-	return file_db_v1_gorm_proto_rawDescGZIP(), []int{4}
+	return file_db_v1_db_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *DbSQLServer) GetHost() string {
@@ -491,7 +491,7 @@ type DbSQLite struct {
 
 func (x *DbSQLite) Reset() {
 	*x = DbSQLite{}
-	mi := &file_db_v1_gorm_proto_msgTypes[5]
+	mi := &file_db_v1_db_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -503,7 +503,7 @@ func (x *DbSQLite) String() string {
 func (*DbSQLite) ProtoMessage() {}
 
 func (x *DbSQLite) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_gorm_proto_msgTypes[5]
+	mi := &file_db_v1_db_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -516,7 +516,7 @@ func (x *DbSQLite) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbSQLite.ProtoReflect.Descriptor instead.
 func (*DbSQLite) Descriptor() ([]byte, []int) {
-	return file_db_v1_gorm_proto_rawDescGZIP(), []int{5}
+	return file_db_v1_db_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *DbSQLite) GetDbPath() string {
@@ -542,7 +542,7 @@ type DbConfig struct {
 
 func (x *DbConfig) Reset() {
 	*x = DbConfig{}
-	mi := &file_db_v1_gorm_proto_msgTypes[6]
+	mi := &file_db_v1_db_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -554,7 +554,7 @@ func (x *DbConfig) String() string {
 func (*DbConfig) ProtoMessage() {}
 
 func (x *DbConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_gorm_proto_msgTypes[6]
+	mi := &file_db_v1_db_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -567,7 +567,7 @@ func (x *DbConfig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbConfig.ProtoReflect.Descriptor instead.
 func (*DbConfig) Descriptor() ([]byte, []int) {
-	return file_db_v1_gorm_proto_rawDescGZIP(), []int{6}
+	return file_db_v1_db_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *DbConfig) GetDbType() v1.DbType {
@@ -633,7 +633,7 @@ type SqlConfig struct {
 
 func (x *SqlConfig) Reset() {
 	*x = SqlConfig{}
-	mi := &file_db_v1_gorm_proto_msgTypes[7]
+	mi := &file_db_v1_db_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -645,7 +645,7 @@ func (x *SqlConfig) String() string {
 func (*SqlConfig) ProtoMessage() {}
 
 func (x *SqlConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_gorm_proto_msgTypes[7]
+	mi := &file_db_v1_db_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -658,7 +658,7 @@ func (x *SqlConfig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SqlConfig.ProtoReflect.Descriptor instead.
 func (*SqlConfig) Descriptor() ([]byte, []int) {
-	return file_db_v1_gorm_proto_rawDescGZIP(), []int{7}
+	return file_db_v1_db_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *SqlConfig) GetDbType() v1.DbType {
@@ -682,11 +682,11 @@ func (x *SqlConfig) GetFilePath() []string {
 	return nil
 }
 
-var File_db_v1_gorm_proto protoreflect.FileDescriptor
+var File_db_v1_db_proto protoreflect.FileDescriptor
 
-const file_db_v1_gorm_proto_rawDesc = "" +
+const file_db_v1_db_proto_rawDesc = "" +
 	"\n" +
-	"\x10db/v1/gorm.proto\x12\x05db.v1\x1a\x15log/v1/rotation.proto\x1a\x11enums/v1/db.proto\"\xc3\x02\n" +
+	"\x0edb/v1/db.proto\x12\x05db.v1\x1a\x15log/v1/rotation.proto\x1a\x11enums/v1/db.proto\"\xc3\x02\n" +
 	"\x05DbLog\x12%\n" +
 	"\x0eslow_threshold\x18\x01 \x01(\rR\rslowThreshold\x12$\n" +
 	"\x03out\x18\x02 \x01(\x0e2\x12.enums.v1.DbLogOutR\x03out\x12\x1a\n" +
@@ -741,23 +741,23 @@ const file_db_v1_gorm_proto_rawDesc = "" +
 	"\tSqlConfig\x12)\n" +
 	"\adb_type\x18\x01 \x01(\x0e2\x10.enums.v1.DbTypeR\x06dbType\x12\x10\n" +
 	"\x03sql\x18\x02 \x03(\tR\x03sql\x12\x1b\n" +
-	"\tfile_path\x18\x03 \x03(\tR\bfilePathB{\n" +
-	"\tcom.db.v1B\tGormProtoP\x01Z.github.com/byteflowing/proto/gen/go/db/v1;dbv1\xa2\x02\x03DXX\xaa\x02\x05Db.V1\xca\x02\x05Db\\V1\xe2\x02\x11Db\\V1\\GPBMetadata\xea\x02\x06Db::V1b\x06proto3"
+	"\tfile_path\x18\x03 \x03(\tR\bfilePathBy\n" +
+	"\tcom.db.v1B\aDbProtoP\x01Z.github.com/byteflowing/proto/gen/go/db/v1;dbv1\xa2\x02\x03DXX\xaa\x02\x05Db.V1\xca\x02\x05Db\\V1\xe2\x02\x11Db\\V1\\GPBMetadata\xea\x02\x06Db::V1b\x06proto3"
 
 var (
-	file_db_v1_gorm_proto_rawDescOnce sync.Once
-	file_db_v1_gorm_proto_rawDescData []byte
+	file_db_v1_db_proto_rawDescOnce sync.Once
+	file_db_v1_db_proto_rawDescData []byte
 )
 
-func file_db_v1_gorm_proto_rawDescGZIP() []byte {
-	file_db_v1_gorm_proto_rawDescOnce.Do(func() {
-		file_db_v1_gorm_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_db_v1_gorm_proto_rawDesc), len(file_db_v1_gorm_proto_rawDesc)))
+func file_db_v1_db_proto_rawDescGZIP() []byte {
+	file_db_v1_db_proto_rawDescOnce.Do(func() {
+		file_db_v1_db_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_db_v1_db_proto_rawDesc), len(file_db_v1_db_proto_rawDesc)))
 	})
-	return file_db_v1_gorm_proto_rawDescData
+	return file_db_v1_db_proto_rawDescData
 }
 
-var file_db_v1_gorm_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_db_v1_gorm_proto_goTypes = []any{
+var file_db_v1_db_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_db_v1_db_proto_goTypes = []any{
 	(*DbLog)(nil),              // 0: db.v1.DbLog
 	(*DbConn)(nil),             // 1: db.v1.DbConn
 	(*DbMysql)(nil),            // 2: db.v1.DbMysql
@@ -771,7 +771,7 @@ var file_db_v1_gorm_proto_goTypes = []any{
 	(*v11.RotationConfig)(nil), // 10: log.v1.RotationConfig
 	(v1.DbType)(0),             // 11: enums.v1.DbType
 }
-var file_db_v1_gorm_proto_depIdxs = []int32{
+var file_db_v1_db_proto_depIdxs = []int32{
 	8,  // 0: db.v1.DbLog.out:type_name -> enums.v1.DbLogOut
 	9,  // 1: db.v1.DbLog.level:type_name -> enums.v1.DbLogLevel
 	10, // 2: db.v1.DbLog.rotation:type_name -> log.v1.RotationConfig
@@ -790,26 +790,26 @@ var file_db_v1_gorm_proto_depIdxs = []int32{
 	0,  // [0:11] is the sub-list for field type_name
 }
 
-func init() { file_db_v1_gorm_proto_init() }
-func file_db_v1_gorm_proto_init() {
-	if File_db_v1_gorm_proto != nil {
+func init() { file_db_v1_db_proto_init() }
+func file_db_v1_db_proto_init() {
+	if File_db_v1_db_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_db_v1_gorm_proto_rawDesc), len(file_db_v1_gorm_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_db_v1_db_proto_rawDesc), len(file_db_v1_db_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_db_v1_gorm_proto_goTypes,
-		DependencyIndexes: file_db_v1_gorm_proto_depIdxs,
-		MessageInfos:      file_db_v1_gorm_proto_msgTypes,
+		GoTypes:           file_db_v1_db_proto_goTypes,
+		DependencyIndexes: file_db_v1_db_proto_depIdxs,
+		MessageInfos:      file_db_v1_db_proto_msgTypes,
 	}.Build()
-	File_db_v1_gorm_proto = out.File
-	file_db_v1_gorm_proto_goTypes = nil
-	file_db_v1_gorm_proto_depIdxs = nil
+	File_db_v1_db_proto = out.File
+	file_db_v1_db_proto_goTypes = nil
+	file_db_v1_db_proto_depIdxs = nil
 }
