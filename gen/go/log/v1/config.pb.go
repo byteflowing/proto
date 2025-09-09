@@ -82,6 +82,98 @@ func (x *LogOutput) GetLogFile() *RotationConfig {
 	return nil
 }
 
+type LogKeyConfig struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	NameKey       string                 `protobuf:"bytes,1,opt,name=name_key,json=nameKey,proto3" json:"name_key,omitempty"`
+	LevelKey      string                 `protobuf:"bytes,2,opt,name=level_key,json=levelKey,proto3" json:"level_key,omitempty"`
+	MessageKey    string                 `protobuf:"bytes,3,opt,name=message_key,json=messageKey,proto3" json:"message_key,omitempty"`
+	TimeKey       string                 `protobuf:"bytes,4,opt,name=time_key,json=timeKey,proto3" json:"time_key,omitempty"`
+	CallerKey     string                 `protobuf:"bytes,5,opt,name=caller_key,json=callerKey,proto3" json:"caller_key,omitempty"`
+	StackTraceKey string                 `protobuf:"bytes,6,opt,name=stack_trace_key,json=stackTraceKey,proto3" json:"stack_trace_key,omitempty"`
+	FunctionKey   string                 `protobuf:"bytes,7,opt,name=function_key,json=functionKey,proto3" json:"function_key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogKeyConfig) Reset() {
+	*x = LogKeyConfig{}
+	mi := &file_log_v1_config_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogKeyConfig) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogKeyConfig) ProtoMessage() {}
+
+func (x *LogKeyConfig) ProtoReflect() protoreflect.Message {
+	mi := &file_log_v1_config_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogKeyConfig.ProtoReflect.Descriptor instead.
+func (*LogKeyConfig) Descriptor() ([]byte, []int) {
+	return file_log_v1_config_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *LogKeyConfig) GetNameKey() string {
+	if x != nil {
+		return x.NameKey
+	}
+	return ""
+}
+
+func (x *LogKeyConfig) GetLevelKey() string {
+	if x != nil {
+		return x.LevelKey
+	}
+	return ""
+}
+
+func (x *LogKeyConfig) GetMessageKey() string {
+	if x != nil {
+		return x.MessageKey
+	}
+	return ""
+}
+
+func (x *LogKeyConfig) GetTimeKey() string {
+	if x != nil {
+		return x.TimeKey
+	}
+	return ""
+}
+
+func (x *LogKeyConfig) GetCallerKey() string {
+	if x != nil {
+		return x.CallerKey
+	}
+	return ""
+}
+
+func (x *LogKeyConfig) GetStackTraceKey() string {
+	if x != nil {
+		return x.StackTraceKey
+	}
+	return ""
+}
+
+func (x *LogKeyConfig) GetFunctionKey() string {
+	if x != nil {
+		return x.FunctionKey
+	}
+	return ""
+}
+
 type LogConfig struct {
 	state              protoimpl.MessageState `protogen:"open.v1"`
 	Mode               v1.LogMode             `protobuf:"varint,1,opt,name=mode,proto3,enum=enums.v1.LogMode" json:"mode,omitempty"`
@@ -92,14 +184,20 @@ type LogConfig struct {
 	CallerSkip         int32                  `protobuf:"varint,6,opt,name=caller_skip,json=callerSkip,proto3" json:"caller_skip,omitempty"`
 	AddStackTraceLevel v1.LogLevel            `protobuf:"varint,7,opt,name=add_stack_trace_level,json=addStackTraceLevel,proto3,enum=enums.v1.LogLevel" json:"add_stack_trace_level,omitempty"`
 	ServiceName        string                 `protobuf:"bytes,8,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
-	Outputs            []*LogOutput           `protobuf:"bytes,9,rep,name=outputs,proto3" json:"outputs,omitempty"`
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	// 如果需要将logId放入ctx中
+	// 设置这个key，调用Ctx开头的日志记录方法会去ctx中查找logID,然后一并记录到日志中
+	CtxLogIdKey string `protobuf:"bytes,9,opt,name=ctx_log_id_key,json=ctxLogIdKey,proto3" json:"ctx_log_id_key,omitempty"`
+	// log_id在日志中的field名称
+	LogIdKey      string        `protobuf:"bytes,10,opt,name=log_id_key,json=logIdKey,proto3" json:"log_id_key,omitempty"`
+	Keys          *LogKeyConfig `protobuf:"bytes,11,opt,name=keys,proto3" json:"keys,omitempty"`
+	Outputs       []*LogOutput  `protobuf:"bytes,12,rep,name=outputs,proto3" json:"outputs,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *LogConfig) Reset() {
 	*x = LogConfig{}
-	mi := &file_log_v1_config_proto_msgTypes[1]
+	mi := &file_log_v1_config_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -111,7 +209,7 @@ func (x *LogConfig) String() string {
 func (*LogConfig) ProtoMessage() {}
 
 func (x *LogConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_log_v1_config_proto_msgTypes[1]
+	mi := &file_log_v1_config_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -124,7 +222,7 @@ func (x *LogConfig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LogConfig.ProtoReflect.Descriptor instead.
 func (*LogConfig) Descriptor() ([]byte, []int) {
-	return file_log_v1_config_proto_rawDescGZIP(), []int{1}
+	return file_log_v1_config_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *LogConfig) GetMode() v1.LogMode {
@@ -183,6 +281,27 @@ func (x *LogConfig) GetServiceName() string {
 	return ""
 }
 
+func (x *LogConfig) GetCtxLogIdKey() string {
+	if x != nil {
+		return x.CtxLogIdKey
+	}
+	return ""
+}
+
+func (x *LogConfig) GetLogIdKey() string {
+	if x != nil {
+		return x.LogIdKey
+	}
+	return ""
+}
+
+func (x *LogConfig) GetKeys() *LogKeyConfig {
+	if x != nil {
+		return x.Keys
+	}
+	return nil
+}
+
 func (x *LogConfig) GetOutputs() []*LogOutput {
 	if x != nil {
 		return x.Outputs
@@ -198,7 +317,17 @@ const file_log_v1_config_proto_rawDesc = "" +
 	"\tLogOutput\x12(\n" +
 	"\x06output\x18\x01 \x01(\x0e2\x10.enums.v1.LogOutR\x06output\x12*\n" +
 	"\x06levels\x18\x02 \x03(\x0e2\x12.enums.v1.LogLevelR\x06levels\x121\n" +
-	"\blog_file\x18\x03 \x01(\v2\x16.log.v1.RotationConfigR\alogFile\"\x89\x03\n" +
+	"\blog_file\x18\x03 \x01(\v2\x16.log.v1.RotationConfigR\alogFile\"\xec\x01\n" +
+	"\fLogKeyConfig\x12\x19\n" +
+	"\bname_key\x18\x01 \x01(\tR\anameKey\x12\x1b\n" +
+	"\tlevel_key\x18\x02 \x01(\tR\blevelKey\x12\x1f\n" +
+	"\vmessage_key\x18\x03 \x01(\tR\n" +
+	"messageKey\x12\x19\n" +
+	"\btime_key\x18\x04 \x01(\tR\atimeKey\x12\x1d\n" +
+	"\n" +
+	"caller_key\x18\x05 \x01(\tR\tcallerKey\x12&\n" +
+	"\x0fstack_trace_key\x18\x06 \x01(\tR\rstackTraceKey\x12!\n" +
+	"\ffunction_key\x18\a \x01(\tR\vfunctionKey\"\xf6\x03\n" +
 	"\tLogConfig\x12%\n" +
 	"\x04mode\x18\x01 \x01(\x0e2\x11.enums.v1.LogModeR\x04mode\x12+\n" +
 	"\x06format\x18\x02 \x01(\x0e2\x13.enums.v1.LogFormatR\x06format\x12(\n" +
@@ -208,8 +337,13 @@ const file_log_v1_config_proto_rawDesc = "" +
 	"\vcaller_skip\x18\x06 \x01(\x05R\n" +
 	"callerSkip\x12E\n" +
 	"\x15add_stack_trace_level\x18\a \x01(\x0e2\x12.enums.v1.LogLevelR\x12addStackTraceLevel\x12!\n" +
-	"\fservice_name\x18\b \x01(\tR\vserviceName\x12+\n" +
-	"\aoutputs\x18\t \x03(\v2\x11.log.v1.LogOutputR\aoutputsB\x84\x01\n" +
+	"\fservice_name\x18\b \x01(\tR\vserviceName\x12#\n" +
+	"\x0ectx_log_id_key\x18\t \x01(\tR\vctxLogIdKey\x12\x1c\n" +
+	"\n" +
+	"log_id_key\x18\n" +
+	" \x01(\tR\blogIdKey\x12(\n" +
+	"\x04keys\x18\v \x01(\v2\x14.log.v1.LogKeyConfigR\x04keys\x12+\n" +
+	"\aoutputs\x18\f \x03(\v2\x11.log.v1.LogOutputR\aoutputsB\x84\x01\n" +
 	"\n" +
 	"com.log.v1B\vConfigProtoP\x01Z0github.com/byteflowing/proto/gen/go/log/v1;logv1\xa2\x02\x03LXX\xaa\x02\x06Log.V1\xca\x02\x06Log\\V1\xe2\x02\x12Log\\V1\\GPBMetadata\xea\x02\aLog::V1b\x06proto3"
 
@@ -225,30 +359,32 @@ func file_log_v1_config_proto_rawDescGZIP() []byte {
 	return file_log_v1_config_proto_rawDescData
 }
 
-var file_log_v1_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_log_v1_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_log_v1_config_proto_goTypes = []any{
 	(*LogOutput)(nil),      // 0: log.v1.LogOutput
-	(*LogConfig)(nil),      // 1: log.v1.LogConfig
-	(v1.LogOut)(0),         // 2: enums.v1.LogOut
-	(v1.LogLevel)(0),       // 3: enums.v1.LogLevel
-	(*RotationConfig)(nil), // 4: log.v1.RotationConfig
-	(v1.LogMode)(0),        // 5: enums.v1.LogMode
-	(v1.LogFormat)(0),      // 6: enums.v1.LogFormat
+	(*LogKeyConfig)(nil),   // 1: log.v1.LogKeyConfig
+	(*LogConfig)(nil),      // 2: log.v1.LogConfig
+	(v1.LogOut)(0),         // 3: enums.v1.LogOut
+	(v1.LogLevel)(0),       // 4: enums.v1.LogLevel
+	(*RotationConfig)(nil), // 5: log.v1.RotationConfig
+	(v1.LogMode)(0),        // 6: enums.v1.LogMode
+	(v1.LogFormat)(0),      // 7: enums.v1.LogFormat
 }
 var file_log_v1_config_proto_depIdxs = []int32{
-	2, // 0: log.v1.LogOutput.output:type_name -> enums.v1.LogOut
-	3, // 1: log.v1.LogOutput.levels:type_name -> enums.v1.LogLevel
-	4, // 2: log.v1.LogOutput.log_file:type_name -> log.v1.RotationConfig
-	5, // 3: log.v1.LogConfig.mode:type_name -> enums.v1.LogMode
-	6, // 4: log.v1.LogConfig.format:type_name -> enums.v1.LogFormat
-	3, // 5: log.v1.LogConfig.level:type_name -> enums.v1.LogLevel
-	3, // 6: log.v1.LogConfig.add_stack_trace_level:type_name -> enums.v1.LogLevel
-	0, // 7: log.v1.LogConfig.outputs:type_name -> log.v1.LogOutput
-	8, // [8:8] is the sub-list for method output_type
-	8, // [8:8] is the sub-list for method input_type
-	8, // [8:8] is the sub-list for extension type_name
-	8, // [8:8] is the sub-list for extension extendee
-	0, // [0:8] is the sub-list for field type_name
+	3, // 0: log.v1.LogOutput.output:type_name -> enums.v1.LogOut
+	4, // 1: log.v1.LogOutput.levels:type_name -> enums.v1.LogLevel
+	5, // 2: log.v1.LogOutput.log_file:type_name -> log.v1.RotationConfig
+	6, // 3: log.v1.LogConfig.mode:type_name -> enums.v1.LogMode
+	7, // 4: log.v1.LogConfig.format:type_name -> enums.v1.LogFormat
+	4, // 5: log.v1.LogConfig.level:type_name -> enums.v1.LogLevel
+	4, // 6: log.v1.LogConfig.add_stack_trace_level:type_name -> enums.v1.LogLevel
+	1, // 7: log.v1.LogConfig.keys:type_name -> log.v1.LogKeyConfig
+	0, // 8: log.v1.LogConfig.outputs:type_name -> log.v1.LogOutput
+	9, // [9:9] is the sub-list for method output_type
+	9, // [9:9] is the sub-list for method input_type
+	9, // [9:9] is the sub-list for extension type_name
+	9, // [9:9] is the sub-list for extension extendee
+	0, // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_log_v1_config_proto_init() }
@@ -263,7 +399,7 @@ func file_log_v1_config_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_log_v1_config_proto_rawDesc), len(file_log_v1_config_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

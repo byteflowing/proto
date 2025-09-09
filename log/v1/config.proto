@@ -11,6 +11,16 @@ message LogOutput {
   log.v1.RotationConfig log_file = 3;
 }
 
+message LogKeyConfig {
+  string name_key = 1;
+  string level_key = 2;
+  string message_key = 3;
+  string time_key = 4;
+  string caller_key = 5;
+  string stack_trace_key = 6;
+  string function_key = 7;
+}
+
 message LogConfig {
     enums.v1.LogMode mode = 1;
     enums.v1.LogFormat format = 2;
@@ -20,5 +30,11 @@ message LogConfig {
     int32 caller_skip = 6;
     enums.v1.LogLevel add_stack_trace_level = 7;
     string service_name = 8;
-    repeated LogOutput outputs = 9;
+    // 如果需要将logId放入ctx中
+    // 设置这个key，调用Ctx开头的日志记录方法会去ctx中查找logID,然后一并记录到日志中
+    string ctx_log_id_key = 9;
+    // log_id在日志中的field名称
+    string log_id_key = 10;
+    LogKeyConfig keys = 11;
+    repeated LogOutput outputs = 12;
 }
