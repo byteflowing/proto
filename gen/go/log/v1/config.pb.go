@@ -92,7 +92,7 @@ type LogConfig struct {
 	CallerSkip         int32                  `protobuf:"varint,6,opt,name=caller_skip,json=callerSkip,proto3" json:"caller_skip,omitempty"`
 	AddStackTraceLevel v1.LogLevel            `protobuf:"varint,7,opt,name=add_stack_trace_level,json=addStackTraceLevel,proto3,enum=enums.v1.LogLevel" json:"add_stack_trace_level,omitempty"`
 	ServiceName        string                 `protobuf:"bytes,8,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
-	Output             *LogOutput             `protobuf:"bytes,9,opt,name=output,proto3" json:"output,omitempty"`
+	Output             []*LogOutput           `protobuf:"bytes,9,rep,name=output,proto3" json:"output,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -183,7 +183,7 @@ func (x *LogConfig) GetServiceName() string {
 	return ""
 }
 
-func (x *LogConfig) GetOutput() *LogOutput {
+func (x *LogConfig) GetOutput() []*LogOutput {
 	if x != nil {
 		return x.Output
 	}
@@ -209,7 +209,7 @@ const file_log_v1_config_proto_rawDesc = "" +
 	"callerSkip\x12E\n" +
 	"\x15add_stack_trace_level\x18\a \x01(\x0e2\x12.enums.v1.LogLevelR\x12addStackTraceLevel\x12!\n" +
 	"\fservice_name\x18\b \x01(\tR\vserviceName\x12)\n" +
-	"\x06output\x18\t \x01(\v2\x11.log.v1.LogOutputR\x06outputB\x84\x01\n" +
+	"\x06output\x18\t \x03(\v2\x11.log.v1.LogOutputR\x06outputB\x84\x01\n" +
 	"\n" +
 	"com.log.v1B\vConfigProtoP\x01Z0github.com/byteflowing/proto/gen/go/log/v1;logv1\xa2\x02\x03LXX\xaa\x02\x06Log.V1\xca\x02\x06Log\\V1\xe2\x02\x12Log\\V1\\GPBMetadata\xea\x02\aLog::V1b\x06proto3"
 

@@ -20,5 +20,5 @@ message LogConfig {
     int32 caller_skip = 6;
     enums.v1.LogLevel add_stack_trace_level = 7;
     string service_name = 8;
-    LogOutput output = 9;
+    repeated LogOutput output = 9;
 }
