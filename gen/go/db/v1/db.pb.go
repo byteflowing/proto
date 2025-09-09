@@ -28,7 +28,7 @@ type DbLog struct {
 	// 慢日志阈值，单位ms
 	SlowThreshold uint32 `protobuf:"varint,1,opt,name=slow_threshold,json=slowThreshold,proto3" json:"slow_threshold,omitempty"`
 	// 输出
-	Out v1.DbLogOut `protobuf:"varint,2,opt,name=out,proto3,enum=enums.v1.DbLogOut" json:"out,omitempty"`
+	Out v1.LogOut `protobuf:"varint,2,opt,name=out,proto3,enum=enums.v1.LogOut" json:"out,omitempty"`
 	// 是否彩色打印日志
 	Colorful bool `protobuf:"varint,3,opt,name=colorful,proto3" json:"colorful,omitempty"`
 	// 忽略RecordNotFoundError
@@ -80,11 +80,11 @@ func (x *DbLog) GetSlowThreshold() uint32 {
 	return 0
 }
 
-func (x *DbLog) GetOut() v1.DbLogOut {
+func (x *DbLog) GetOut() v1.LogOut {
 	if x != nil {
 		return x.Out
 	}
-	return v1.DbLogOut(0)
+	return v1.LogOut(0)
 }
 
 func (x *DbLog) GetColorful() bool {
@@ -686,10 +686,10 @@ var File_db_v1_db_proto protoreflect.FileDescriptor
 
 const file_db_v1_db_proto_rawDesc = "" +
 	"\n" +
-	"\x0edb/v1/db.proto\x12\x05db.v1\x1a\x15log/v1/rotation.proto\x1a\x11enums/v1/db.proto\"\xc3\x02\n" +
+	"\x0edb/v1/db.proto\x12\x05db.v1\x1a\x15log/v1/rotation.proto\x1a\x12enums/v1/log.proto\x1a\x11enums/v1/db.proto\"\xc1\x02\n" +
 	"\x05DbLog\x12%\n" +
-	"\x0eslow_threshold\x18\x01 \x01(\rR\rslowThreshold\x12$\n" +
-	"\x03out\x18\x02 \x01(\x0e2\x12.enums.v1.DbLogOutR\x03out\x12\x1a\n" +
+	"\x0eslow_threshold\x18\x01 \x01(\rR\rslowThreshold\x12\"\n" +
+	"\x03out\x18\x02 \x01(\x0e2\x10.enums.v1.LogOutR\x03out\x12\x1a\n" +
 	"\bcolorful\x18\x03 \x01(\bR\bcolorful\x12<\n" +
 	"\x1bignore_record_not_found_err\x18\x04 \x01(\bR\x17ignoreRecordNotFoundErr\x123\n" +
 	"\x15parameterized_queries\x18\x05 \x01(\bR\x14parameterizedQueries\x12*\n" +
@@ -766,13 +766,13 @@ var file_db_v1_db_proto_goTypes = []any{
 	(*DbSQLite)(nil),           // 5: db.v1.DbSQLite
 	(*DbConfig)(nil),           // 6: db.v1.DbConfig
 	(*SqlConfig)(nil),          // 7: db.v1.SqlConfig
-	(v1.DbLogOut)(0),           // 8: enums.v1.DbLogOut
+	(v1.LogOut)(0),             // 8: enums.v1.LogOut
 	(v1.DbLogLevel)(0),         // 9: enums.v1.DbLogLevel
 	(*v11.RotationConfig)(nil), // 10: log.v1.RotationConfig
 	(v1.DbType)(0),             // 11: enums.v1.DbType
 }
 var file_db_v1_db_proto_depIdxs = []int32{
-	8,  // 0: db.v1.DbLog.out:type_name -> enums.v1.DbLogOut
+	8,  // 0: db.v1.DbLog.out:type_name -> enums.v1.LogOut
 	9,  // 1: db.v1.DbLog.level:type_name -> enums.v1.DbLogLevel
 	10, // 2: db.v1.DbLog.rotation:type_name -> log.v1.RotationConfig
 	11, // 3: db.v1.DbConfig.db_type:type_name -> enums.v1.DbType

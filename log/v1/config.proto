@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package log.v1;
+
+import "enums/v1/log.proto";
+import "log/v1/rotation.proto";
+
+message LogOutput {
+  enums.v1.LogOut output = 1;
+  repeated enums.v1.LogLevel levels = 2;
+  log.v1.RotationConfig log_file = 3;
+}
+
+message LogConfig {
+    enums.v1.LogMode mode = 1;
+    enums.v1.LogFormat format = 2;
+    enums.v1.LogLevel level = 3;
+    bool ReportCaller = 4;
+    string service_name = 5;
+    LogOutput output = 6;
+}

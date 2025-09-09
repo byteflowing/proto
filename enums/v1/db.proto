@@ -17,9 +17,3 @@ enum DbLogLevel {
   DB_LOG_LEVEL_WARN = 3;
   DB_LOG_LEVEL_INFO = 4;
 }
-
-enum DbLogOut {
-  DB_LOG_OUT_UNSPECIFIED = 0;
-  DB_LOG_OUT_STDOUT = 1;
-  DB_LOG_OUT_FILE = 2;
-}

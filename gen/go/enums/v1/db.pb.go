@@ -131,55 +131,6 @@ func (DbLogLevel) EnumDescriptor() ([]byte, []int) {
 	return file_enums_v1_db_proto_rawDescGZIP(), []int{1}
 }
 
-type DbLogOut int32
-
-const (
-	DbLogOut_DB_LOG_OUT_UNSPECIFIED DbLogOut = 0
-	DbLogOut_DB_LOG_OUT_STDOUT      DbLogOut = 1
-	DbLogOut_DB_LOG_OUT_FILE        DbLogOut = 2
-)
-
-// Enum value maps for DbLogOut.
-var (
-	DbLogOut_name = map[int32]string{
-		0: "DB_LOG_OUT_UNSPECIFIED",
-		1: "DB_LOG_OUT_STDOUT",
-		2: "DB_LOG_OUT_FILE",
-	}
-	DbLogOut_value = map[string]int32{
-		"DB_LOG_OUT_UNSPECIFIED": 0,
-		"DB_LOG_OUT_STDOUT":      1,
-		"DB_LOG_OUT_FILE":        2,
-	}
-)
-
-func (x DbLogOut) Enum() *DbLogOut {
-	p := new(DbLogOut)
-	*p = x
-	return p
-}
-
-func (x DbLogOut) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (DbLogOut) Descriptor() protoreflect.EnumDescriptor {
-	return file_enums_v1_db_proto_enumTypes[2].Descriptor()
-}
-
-func (DbLogOut) Type() protoreflect.EnumType {
-	return &file_enums_v1_db_proto_enumTypes[2]
-}
-
-func (x DbLogOut) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use DbLogOut.Descriptor instead.
-func (DbLogOut) EnumDescriptor() ([]byte, []int) {
-	return file_enums_v1_db_proto_rawDescGZIP(), []int{2}
-}
-
 var File_enums_v1_db_proto protoreflect.FileDescriptor
 
 const file_enums_v1_db_proto_rawDesc = "" +
@@ -197,11 +148,7 @@ const file_enums_v1_db_proto_rawDesc = "" +
 	"\x13DB_LOG_LEVEL_SILENT\x10\x01\x12\x16\n" +
 	"\x12DB_LOG_LEVEL_ERROR\x10\x02\x12\x15\n" +
 	"\x11DB_LOG_LEVEL_WARN\x10\x03\x12\x15\n" +
-	"\x11DB_LOG_LEVEL_INFO\x10\x04*R\n" +
-	"\bDbLogOut\x12\x1a\n" +
-	"\x16DB_LOG_OUT_UNSPECIFIED\x10\x00\x12\x15\n" +
-	"\x11DB_LOG_OUT_STDOUT\x10\x01\x12\x13\n" +
-	"\x0fDB_LOG_OUT_FILE\x10\x02B\x8e\x01\n" +
+	"\x11DB_LOG_LEVEL_INFO\x10\x04B\x8e\x01\n" +
 	"\fcom.enums.v1B\aDbProtoP\x01Z4github.com/byteflowing/proto/gen/go/enums/v1;enumsv1\xa2\x02\x03EXX\xaa\x02\bEnums.V1\xca\x02\bEnums\\V1\xe2\x02\x14Enums\\V1\\GPBMetadata\xea\x02\tEnums::V1b\x06proto3"
 
 var (
@@ -216,11 +163,10 @@ func file_enums_v1_db_proto_rawDescGZIP() []byte {
 	return file_enums_v1_db_proto_rawDescData
 }
 
-var file_enums_v1_db_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+var file_enums_v1_db_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_enums_v1_db_proto_goTypes = []any{
 	(DbType)(0),     // 0: enums.v1.DbType
 	(DbLogLevel)(0), // 1: enums.v1.DbLogLevel
-	(DbLogOut)(0),   // 2: enums.v1.DbLogOut
 }
 var file_enums_v1_db_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -240,7 +186,7 @@ func file_enums_v1_db_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_enums_v1_db_proto_rawDesc), len(file_enums_v1_db_proto_rawDesc)),
-			NumEnums:      3,
+			NumEnums:      2,
 			NumMessages:   0,
 			NumExtensions: 0,
 			NumServices:   0,

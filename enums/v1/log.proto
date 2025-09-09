@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package enums.v1;
+
+enum LogMode {
+  LOG_MODE_UNSPECIFIED = 0;
+  LOG_MODE_DEV = 1;
+  LOG_MODE_PROD = 2;
+}
+
+
+enum LogLevel {
+  LOG_LEVEL_UNSPECIFIED = 0;
+  LOG_LEVEL_DEBUG = 1;
+  LOG_LEVEL_INFO = 2;
+  LOG_LEVEL_WARN = 3;
+  LOG_LEVEL_ERROR = 4;
+  LOG_LEVEL_PANIC = 5;
+  LOG_LEVEL_FATAL = 6;
+}
+
+enum LogOut {
+  LOG_OUT_UNSPECIFIED = 0;
+  LOG_OUT_STDOUT = 1;
+  LOG_OUT_FILE = 2;
+}
+
+enum LogFormat {
+  LOG_FORMAT_UNSPECIFIED = 0;
+  LOG_FORMAT_JSON = 1;
+  LOG_FORMAT_CONSOLE = 2;
+}
