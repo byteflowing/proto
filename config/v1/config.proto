@@ -10,6 +10,7 @@ import "sms/v1/config.proto";
 import "mail/v1/config.proto";
 import "idx/v1/idx.proto";
 import "wechat/v1/config.proto";
+import "log/v1/config.proto";
 
 message Base {
   string listen_addr = 1;
@@ -27,5 +28,6 @@ message Config {
   db.v1.DbConfig db = 8;
   db.v1.RedisConfig redis = 9;
   db.v1.DistributedLock distributed_lock = 10;
+  log.v1.LogConfig log_config = 11;
   services.user.v1.User user = 100;
 }

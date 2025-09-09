@@ -10,8 +10,9 @@ import (
 	v12 "github.com/byteflowing/proto/gen/go/captcha/v1"
 	v15 "github.com/byteflowing/proto/gen/go/db/v1"
 	v13 "github.com/byteflowing/proto/gen/go/idx/v1"
+	v16 "github.com/byteflowing/proto/gen/go/log/v1"
 	v11 "github.com/byteflowing/proto/gen/go/mail/v1"
-	v16 "github.com/byteflowing/proto/gen/go/services/user/v1"
+	v17 "github.com/byteflowing/proto/gen/go/services/user/v1"
 	v1 "github.com/byteflowing/proto/gen/go/sms/v1"
 	v14 "github.com/byteflowing/proto/gen/go/wechat/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -92,7 +93,8 @@ type Config struct {
 	Db              *v15.DbConfig          `protobuf:"bytes,8,opt,name=db,proto3" json:"db,omitempty"`
 	Redis           *v15.RedisConfig       `protobuf:"bytes,9,opt,name=redis,proto3" json:"redis,omitempty"`
 	DistributedLock *v15.DistributedLock   `protobuf:"bytes,10,opt,name=distributed_lock,json=distributedLock,proto3" json:"distributed_lock,omitempty"`
-	User            *v16.User              `protobuf:"bytes,100,opt,name=user,proto3" json:"user,omitempty"`
+	LogConfig       *v16.LogConfig         `protobuf:"bytes,11,opt,name=log_config,json=logConfig,proto3" json:"log_config,omitempty"`
+	User            *v17.User              `protobuf:"bytes,100,opt,name=user,proto3" json:"user,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -197,7 +199,14 @@ func (x *Config) GetDistributedLock() *v15.DistributedLock {
 	return nil
 }
 
-func (x *Config) GetUser() *v16.User {
+func (x *Config) GetLogConfig() *v16.LogConfig {
+	if x != nil {
+		return x.LogConfig
+	}
+	return nil
+}
+
+func (x *Config) GetUser() *v17.User {
 	if x != nil {
 		return x.User
 	}
@@ -208,12 +217,12 @@ var File_config_v1_config_proto protoreflect.FileDescriptor
 
 const file_config_v1_config_proto_rawDesc = "" +
 	"\n" +
-	"\x16config/v1/config.proto\x12\tconfig.v1\x1a\x17captcha/v1/config.proto\x1a\x0edb/v1/db.proto\x1a\x11db/v1/redis.proto\x1a\x1dservices/user/v1/config.proto\x1a\x13sms/v1/config.proto\x1a\x14mail/v1/config.proto\x1a\x10idx/v1/idx.proto\x1a\x16wechat/v1/config.proto\"H\n" +
+	"\x16config/v1/config.proto\x12\tconfig.v1\x1a\x17captcha/v1/config.proto\x1a\x0edb/v1/db.proto\x1a\x11db/v1/redis.proto\x1a\x1dservices/user/v1/config.proto\x1a\x13sms/v1/config.proto\x1a\x14mail/v1/config.proto\x1a\x10idx/v1/idx.proto\x1a\x16wechat/v1/config.proto\x1a\x13log/v1/config.proto\"H\n" +
 	"\x04Base\x12\x1f\n" +
 	"\vlisten_addr\x18\x01 \x01(\tR\n" +
 	"listenAddr\x12\x1f\n" +
 	"\vlisten_port\x18\x02 \x01(\x05R\n" +
-	"listenPort\"\xea\x03\n" +
+	"listenPort\"\x9c\x04\n" +
 	"\x06Config\x12#\n" +
 	"\x04base\x18\x01 \x01(\v2\x0f.config.v1.BaseR\x04base\x12\x1d\n" +
 	"\x03sms\x18\x02 \x01(\v2\v.sms.v1.SmsR\x03sms\x12!\n" +
@@ -225,7 +234,9 @@ const file_config_v1_config_proto_rawDesc = "" +
 	"\x02db\x18\b \x01(\v2\x0f.db.v1.DbConfigR\x02db\x12(\n" +
 	"\x05redis\x18\t \x01(\v2\x12.db.v1.RedisConfigR\x05redis\x12A\n" +
 	"\x10distributed_lock\x18\n" +
-	" \x01(\v2\x16.db.v1.DistributedLockR\x0fdistributedLock\x12*\n" +
+	" \x01(\v2\x16.db.v1.DistributedLockR\x0fdistributedLock\x120\n" +
+	"\n" +
+	"log_config\x18\v \x01(\v2\x11.log.v1.LogConfigR\tlogConfig\x12*\n" +
 	"\x04user\x18d \x01(\v2\x16.services.user.v1.UserR\x04userB\x99\x01\n" +
 	"\rcom.config.v1B\vConfigProtoP\x01Z6github.com/byteflowing/proto/gen/go/config/v1;configv1\xa2\x02\x03CXX\xaa\x02\tConfig.V1\xca\x02\tConfig\\V1\xe2\x02\x15Config\\V1\\GPBMetadata\xea\x02\n" +
 	"Config::V1b\x06proto3"
@@ -255,7 +266,8 @@ var file_config_v1_config_proto_goTypes = []any{
 	(*v15.DbConfig)(nil),        // 8: db.v1.DbConfig
 	(*v15.RedisConfig)(nil),     // 9: db.v1.RedisConfig
 	(*v15.DistributedLock)(nil), // 10: db.v1.DistributedLock
-	(*v16.User)(nil),            // 11: services.user.v1.User
+	(*v16.LogConfig)(nil),       // 11: log.v1.LogConfig
+	(*v17.User)(nil),            // 12: services.user.v1.User
 }
 var file_config_v1_config_proto_depIdxs = []int32{
 	0,  // 0: config.v1.Config.base:type_name -> config.v1.Base
@@ -268,12 +280,13 @@ var file_config_v1_config_proto_depIdxs = []int32{
 	8,  // 7: config.v1.Config.db:type_name -> db.v1.DbConfig
 	9,  // 8: config.v1.Config.redis:type_name -> db.v1.RedisConfig
 	10, // 9: config.v1.Config.distributed_lock:type_name -> db.v1.DistributedLock
-	11, // 10: config.v1.Config.user:type_name -> services.user.v1.User
-	11, // [11:11] is the sub-list for method output_type
-	11, // [11:11] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	11, // 10: config.v1.Config.log_config:type_name -> log.v1.LogConfig
+	12, // 11: config.v1.Config.user:type_name -> services.user.v1.User
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_config_v1_config_proto_init() }
