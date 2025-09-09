@@ -16,8 +16,9 @@ message LogConfig {
     enums.v1.LogFormat format = 2;
     enums.v1.LogLevel level = 3;
     bool report_caller = 4;
-    int32 caller_skip = 5;
-    enums.v1.LogLevel add_stack_trace_level = 6;
-    string service_name = 7;
-    LogOutput output = 8;
+    bool short_caller = 5;
+    int32 caller_skip = 6;
+    enums.v1.LogLevel add_stack_trace_level = 7;
+    string service_name = 8;
+    LogOutput output = 9;
 }
