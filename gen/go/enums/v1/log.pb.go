@@ -136,7 +136,8 @@ type LogOut int32
 const (
 	LogOut_LOG_OUT_UNSPECIFIED LogOut = 0
 	LogOut_LOG_OUT_STDOUT      LogOut = 1
-	LogOut_LOG_OUT_FILE        LogOut = 2
+	LogOut_LOG_OUT_STDERR      LogOut = 2
+	LogOut_LOG_OUT_FILE        LogOut = 3
 )
 
 // Enum value maps for LogOut.
@@ -144,12 +145,14 @@ var (
 	LogOut_name = map[int32]string{
 		0: "LOG_OUT_UNSPECIFIED",
 		1: "LOG_OUT_STDOUT",
-		2: "LOG_OUT_FILE",
+		2: "LOG_OUT_STDERR",
+		3: "LOG_OUT_FILE",
 	}
 	LogOut_value = map[string]int32{
 		"LOG_OUT_UNSPECIFIED": 0,
 		"LOG_OUT_STDOUT":      1,
-		"LOG_OUT_FILE":        2,
+		"LOG_OUT_STDERR":      2,
+		"LOG_OUT_FILE":        3,
 	}
 )
 
@@ -245,11 +248,12 @@ const file_enums_v1_log_proto_rawDesc = "" +
 	"\x0eLOG_LEVEL_WARN\x10\x03\x12\x13\n" +
 	"\x0fLOG_LEVEL_ERROR\x10\x04\x12\x13\n" +
 	"\x0fLOG_LEVEL_PANIC\x10\x05\x12\x13\n" +
-	"\x0fLOG_LEVEL_FATAL\x10\x06*G\n" +
+	"\x0fLOG_LEVEL_FATAL\x10\x06*[\n" +
 	"\x06LogOut\x12\x17\n" +
 	"\x13LOG_OUT_UNSPECIFIED\x10\x00\x12\x12\n" +
-	"\x0eLOG_OUT_STDOUT\x10\x01\x12\x10\n" +
-	"\fLOG_OUT_FILE\x10\x02*T\n" +
+	"\x0eLOG_OUT_STDOUT\x10\x01\x12\x12\n" +
+	"\x0eLOG_OUT_STDERR\x10\x02\x12\x10\n" +
+	"\fLOG_OUT_FILE\x10\x03*T\n" +
 	"\tLogFormat\x12\x1a\n" +
 	"\x16LOG_FORMAT_UNSPECIFIED\x10\x00\x12\x13\n" +
 	"\x0fLOG_FORMAT_JSON\x10\x01\x12\x16\n" +

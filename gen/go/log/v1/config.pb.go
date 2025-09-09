@@ -92,7 +92,7 @@ type LogConfig struct {
 	CallerSkip         int32                  `protobuf:"varint,6,opt,name=caller_skip,json=callerSkip,proto3" json:"caller_skip,omitempty"`
 	AddStackTraceLevel v1.LogLevel            `protobuf:"varint,7,opt,name=add_stack_trace_level,json=addStackTraceLevel,proto3,enum=enums.v1.LogLevel" json:"add_stack_trace_level,omitempty"`
 	ServiceName        string                 `protobuf:"bytes,8,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
-	Output             []*LogOutput           `protobuf:"bytes,9,rep,name=output,proto3" json:"output,omitempty"`
+	Outputs            []*LogOutput           `protobuf:"bytes,9,rep,name=outputs,proto3" json:"outputs,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -183,9 +183,9 @@ func (x *LogConfig) GetServiceName() string {
 	return ""
 }
 
-func (x *LogConfig) GetOutput() []*LogOutput {
+func (x *LogConfig) GetOutputs() []*LogOutput {
 	if x != nil {
-		return x.Output
+		return x.Outputs
 	}
 	return nil
 }
@@ -198,7 +198,7 @@ const file_log_v1_config_proto_rawDesc = "" +
 	"\tLogOutput\x12(\n" +
 	"\x06output\x18\x01 \x01(\x0e2\x10.enums.v1.LogOutR\x06output\x12*\n" +
 	"\x06levels\x18\x02 \x03(\x0e2\x12.enums.v1.LogLevelR\x06levels\x121\n" +
-	"\blog_file\x18\x03 \x01(\v2\x16.log.v1.RotationConfigR\alogFile\"\x87\x03\n" +
+	"\blog_file\x18\x03 \x01(\v2\x16.log.v1.RotationConfigR\alogFile\"\x89\x03\n" +
 	"\tLogConfig\x12%\n" +
 	"\x04mode\x18\x01 \x01(\x0e2\x11.enums.v1.LogModeR\x04mode\x12+\n" +
 	"\x06format\x18\x02 \x01(\x0e2\x13.enums.v1.LogFormatR\x06format\x12(\n" +
@@ -208,8 +208,8 @@ const file_log_v1_config_proto_rawDesc = "" +
 	"\vcaller_skip\x18\x06 \x01(\x05R\n" +
 	"callerSkip\x12E\n" +
 	"\x15add_stack_trace_level\x18\a \x01(\x0e2\x12.enums.v1.LogLevelR\x12addStackTraceLevel\x12!\n" +
-	"\fservice_name\x18\b \x01(\tR\vserviceName\x12)\n" +
-	"\x06output\x18\t \x03(\v2\x11.log.v1.LogOutputR\x06outputB\x84\x01\n" +
+	"\fservice_name\x18\b \x01(\tR\vserviceName\x12+\n" +
+	"\aoutputs\x18\t \x03(\v2\x11.log.v1.LogOutputR\aoutputsB\x84\x01\n" +
 	"\n" +
 	"com.log.v1B\vConfigProtoP\x01Z0github.com/byteflowing/proto/gen/go/log/v1;logv1\xa2\x02\x03LXX\xaa\x02\x06Log.V1\xca\x02\x06Log\\V1\xe2\x02\x12Log\\V1\\GPBMetadata\xea\x02\aLog::V1b\x06proto3"
 
@@ -243,7 +243,7 @@ var file_log_v1_config_proto_depIdxs = []int32{
 	6, // 4: log.v1.LogConfig.format:type_name -> enums.v1.LogFormat
 	3, // 5: log.v1.LogConfig.level:type_name -> enums.v1.LogLevel
 	3, // 6: log.v1.LogConfig.add_stack_trace_level:type_name -> enums.v1.LogLevel
-	0, // 7: log.v1.LogConfig.output:type_name -> log.v1.LogOutput
+	0, // 7: log.v1.LogConfig.outputs:type_name -> log.v1.LogOutput
 	8, // [8:8] is the sub-list for method output_type
 	8, // [8:8] is the sub-list for method input_type
 	8, // [8:8] is the sub-list for extension type_name
