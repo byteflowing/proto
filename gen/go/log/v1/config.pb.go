@@ -83,15 +83,17 @@ func (x *LogOutput) GetLogFile() *RotationConfig {
 }
 
 type LogConfig struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Mode          v1.LogMode             `protobuf:"varint,1,opt,name=mode,proto3,enum=enums.v1.LogMode" json:"mode,omitempty"`
-	Format        v1.LogFormat           `protobuf:"varint,2,opt,name=format,proto3,enum=enums.v1.LogFormat" json:"format,omitempty"`
-	Level         v1.LogLevel            `protobuf:"varint,3,opt,name=level,proto3,enum=enums.v1.LogLevel" json:"level,omitempty"`
-	ReportCaller  bool                   `protobuf:"varint,4,opt,name=ReportCaller,proto3" json:"ReportCaller,omitempty"`
-	ServiceName   string                 `protobuf:"bytes,5,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
-	Output        *LogOutput             `protobuf:"bytes,6,opt,name=output,proto3" json:"output,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Mode               v1.LogMode             `protobuf:"varint,1,opt,name=mode,proto3,enum=enums.v1.LogMode" json:"mode,omitempty"`
+	Format             v1.LogFormat           `protobuf:"varint,2,opt,name=format,proto3,enum=enums.v1.LogFormat" json:"format,omitempty"`
+	Level              v1.LogLevel            `protobuf:"varint,3,opt,name=level,proto3,enum=enums.v1.LogLevel" json:"level,omitempty"`
+	ReportCaller       bool                   `protobuf:"varint,4,opt,name=report_caller,json=reportCaller,proto3" json:"report_caller,omitempty"`
+	CallerSkip         int32                  `protobuf:"varint,5,opt,name=caller_skip,json=callerSkip,proto3" json:"caller_skip,omitempty"`
+	AddStackTraceLevel v1.LogLevel            `protobuf:"varint,6,opt,name=add_stack_trace_level,json=addStackTraceLevel,proto3,enum=enums.v1.LogLevel" json:"add_stack_trace_level,omitempty"`
+	ServiceName        string                 `protobuf:"bytes,7,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
+	Output             *LogOutput             `protobuf:"bytes,8,opt,name=output,proto3" json:"output,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *LogConfig) Reset() {
@@ -152,6 +154,20 @@ func (x *LogConfig) GetReportCaller() bool {
 	return false
 }
 
+func (x *LogConfig) GetCallerSkip() int32 {
+	if x != nil {
+		return x.CallerSkip
+	}
+	return 0
+}
+
+func (x *LogConfig) GetAddStackTraceLevel() v1.LogLevel {
+	if x != nil {
+		return x.AddStackTraceLevel
+	}
+	return v1.LogLevel(0)
+}
+
 func (x *LogConfig) GetServiceName() string {
 	if x != nil {
 		return x.ServiceName
@@ -174,14 +190,17 @@ const file_log_v1_config_proto_rawDesc = "" +
 	"\tLogOutput\x12(\n" +
 	"\x06output\x18\x01 \x01(\x0e2\x10.enums.v1.LogOutR\x06output\x12*\n" +
 	"\x06levels\x18\x02 \x03(\x0e2\x12.enums.v1.LogLevelR\x06levels\x121\n" +
-	"\blog_file\x18\x03 \x01(\v2\x16.log.v1.RotationConfigR\alogFile\"\xfb\x01\n" +
+	"\blog_file\x18\x03 \x01(\v2\x16.log.v1.RotationConfigR\alogFile\"\xe4\x02\n" +
 	"\tLogConfig\x12%\n" +
 	"\x04mode\x18\x01 \x01(\x0e2\x11.enums.v1.LogModeR\x04mode\x12+\n" +
 	"\x06format\x18\x02 \x01(\x0e2\x13.enums.v1.LogFormatR\x06format\x12(\n" +
-	"\x05level\x18\x03 \x01(\x0e2\x12.enums.v1.LogLevelR\x05level\x12\"\n" +
-	"\fReportCaller\x18\x04 \x01(\bR\fReportCaller\x12!\n" +
-	"\fservice_name\x18\x05 \x01(\tR\vserviceName\x12)\n" +
-	"\x06output\x18\x06 \x01(\v2\x11.log.v1.LogOutputR\x06outputB\x84\x01\n" +
+	"\x05level\x18\x03 \x01(\x0e2\x12.enums.v1.LogLevelR\x05level\x12#\n" +
+	"\rreport_caller\x18\x04 \x01(\bR\freportCaller\x12\x1f\n" +
+	"\vcaller_skip\x18\x05 \x01(\x05R\n" +
+	"callerSkip\x12E\n" +
+	"\x15add_stack_trace_level\x18\x06 \x01(\x0e2\x12.enums.v1.LogLevelR\x12addStackTraceLevel\x12!\n" +
+	"\fservice_name\x18\a \x01(\tR\vserviceName\x12)\n" +
+	"\x06output\x18\b \x01(\v2\x11.log.v1.LogOutputR\x06outputB\x84\x01\n" +
 	"\n" +
 	"com.log.v1B\vConfigProtoP\x01Z0github.com/byteflowing/proto/gen/go/log/v1;logv1\xa2\x02\x03LXX\xaa\x02\x06Log.V1\xca\x02\x06Log\\V1\xe2\x02\x12Log\\V1\\GPBMetadata\xea\x02\aLog::V1b\x06proto3"
 
@@ -214,12 +233,13 @@ var file_log_v1_config_proto_depIdxs = []int32{
 	5, // 3: log.v1.LogConfig.mode:type_name -> enums.v1.LogMode
 	6, // 4: log.v1.LogConfig.format:type_name -> enums.v1.LogFormat
 	3, // 5: log.v1.LogConfig.level:type_name -> enums.v1.LogLevel
-	0, // 6: log.v1.LogConfig.output:type_name -> log.v1.LogOutput
-	7, // [7:7] is the sub-list for method output_type
-	7, // [7:7] is the sub-list for method input_type
-	7, // [7:7] is the sub-list for extension type_name
-	7, // [7:7] is the sub-list for extension extendee
-	0, // [0:7] is the sub-list for field type_name
+	3, // 6: log.v1.LogConfig.add_stack_trace_level:type_name -> enums.v1.LogLevel
+	0, // 7: log.v1.LogConfig.output:type_name -> log.v1.LogOutput
+	8, // [8:8] is the sub-list for method output_type
+	8, // [8:8] is the sub-list for method input_type
+	8, // [8:8] is the sub-list for extension type_name
+	8, // [8:8] is the sub-list for extension extendee
+	0, // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_log_v1_config_proto_init() }
