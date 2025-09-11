@@ -188,11 +188,13 @@ type LogConfig struct {
 	// 设置这个key，调用Ctx开头的日志记录方法会去ctx中查找logID,然后一并记录到日志中
 	CtxLogIdKey string `protobuf:"bytes,9,opt,name=ctx_log_id_key,json=ctxLogIdKey,proto3" json:"ctx_log_id_key,omitempty"`
 	// log_id在日志中的field名称
-	LogIdKey      string        `protobuf:"bytes,10,opt,name=log_id_key,json=logIdKey,proto3" json:"log_id_key,omitempty"`
-	Keys          *LogKeyConfig `protobuf:"bytes,11,opt,name=keys,proto3" json:"keys,omitempty"`
-	Outputs       []*LogOutput  `protobuf:"bytes,12,rep,name=outputs,proto3" json:"outputs,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	LogIdKey string        `protobuf:"bytes,10,opt,name=log_id_key,json=logIdKey,proto3" json:"log_id_key,omitempty"`
+	Keys     *LogKeyConfig `protobuf:"bytes,11,opt,name=keys,proto3" json:"keys,omitempty"`
+	// 是否将所有错误日志记录，默认只记录非业务逻辑产生的错误日志
+	RecordAllErrors bool         `protobuf:"varint,12,opt,name=record_all_errors,json=recordAllErrors,proto3" json:"record_all_errors,omitempty"`
+	Outputs         []*LogOutput `protobuf:"bytes,13,rep,name=outputs,proto3" json:"outputs,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *LogConfig) Reset() {
@@ -302,6 +304,13 @@ func (x *LogConfig) GetKeys() *LogKeyConfig {
 	return nil
 }
 
+func (x *LogConfig) GetRecordAllErrors() bool {
+	if x != nil {
+		return x.RecordAllErrors
+	}
+	return false
+}
+
 func (x *LogConfig) GetOutputs() []*LogOutput {
 	if x != nil {
 		return x.Outputs
@@ -327,7 +336,7 @@ const file_log_v1_config_proto_rawDesc = "" +
 	"\n" +
 	"caller_key\x18\x05 \x01(\tR\tcallerKey\x12&\n" +
 	"\x0fstack_trace_key\x18\x06 \x01(\tR\rstackTraceKey\x12!\n" +
-	"\ffunction_key\x18\a \x01(\tR\vfunctionKey\"\xf6\x03\n" +
+	"\ffunction_key\x18\a \x01(\tR\vfunctionKey\"\xa2\x04\n" +
 	"\tLogConfig\x12%\n" +
 	"\x04mode\x18\x01 \x01(\x0e2\x11.enums.v1.LogModeR\x04mode\x12+\n" +
 	"\x06format\x18\x02 \x01(\x0e2\x13.enums.v1.LogFormatR\x06format\x12(\n" +
@@ -342,8 +351,9 @@ const file_log_v1_config_proto_rawDesc = "" +
 	"\n" +
 	"log_id_key\x18\n" +
 	" \x01(\tR\blogIdKey\x12(\n" +
-	"\x04keys\x18\v \x01(\v2\x14.log.v1.LogKeyConfigR\x04keys\x12+\n" +
-	"\aoutputs\x18\f \x03(\v2\x11.log.v1.LogOutputR\aoutputsB\x84\x01\n" +
+	"\x04keys\x18\v \x01(\v2\x14.log.v1.LogKeyConfigR\x04keys\x12*\n" +
+	"\x11record_all_errors\x18\f \x01(\bR\x0frecordAllErrors\x12+\n" +
+	"\aoutputs\x18\r \x03(\v2\x11.log.v1.LogOutputR\aoutputsB\x84\x01\n" +
 	"\n" +
 	"com.log.v1B\vConfigProtoP\x01Z0github.com/byteflowing/proto/gen/go/log/v1;logv1\xa2\x02\x03LXX\xaa\x02\x06Log.V1\xca\x02\x06Log\\V1\xe2\x02\x12Log\\V1\\GPBMetadata\xea\x02\aLog::V1b\x06proto3"
 

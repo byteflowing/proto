@@ -36,5 +36,7 @@ message LogConfig {
     // log_id在日志中的field名称
     string log_id_key = 10;
     LogKeyConfig keys = 11;
-    repeated LogOutput outputs = 12;
+    // 是否将所有错误日志记录，默认只记录非业务逻辑产生的错误日志
+    bool record_all_errors = 12;
+    repeated LogOutput outputs = 13;
 }

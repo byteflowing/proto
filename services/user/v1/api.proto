@@ -38,6 +38,6 @@ service UserService {
   rpc DeleteUser(DeleteUserReq) returns (DeleteUserResp);
   rpc DeleteUsers(DeleteUsersReq) returns (DeleteUsersResp);
   rpc GetUserAuth(GetUserAuthReq) returns (GetUserAuthResp);
-  rpc  UnbindUserAuth(UnbindUserAuthReq) returns (UnbindUserAuthResp);
+  rpc UnbindUserAuth(UnbindUserAuthReq) returns (UnbindUserAuthResp);
   rpc BindUserAuth(BindUserAuthReq) returns (BindUserAuthResp);
 }
