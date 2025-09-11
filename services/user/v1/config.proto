@@ -45,11 +45,10 @@ message UserConfig {
   string listen_addr = 1;
   int32 listen_port = 2;
   int32 password_hasher = 3;
-  string session_block_list_prefix = 4;
-  repeated enums.v1.AuthType enable_auth = 5;
-  UserAuthLimiterConfig auth_limiter = 6;
-  UserJwtConfig jwt = 7;
-  TokenVerifyConfig two_step_verifier = 8;
-  UserCacheConfig cache = 9;
-  SessionBlockListConfig session_block_list = 10;
+  repeated enums.v1.AuthType enable_auth = 4;
+  UserAuthLimiterConfig auth_limiter = 5;
+  UserJwtConfig jwt = 6;
+  TokenVerifyConfig two_step_verifier = 7;
+  UserCacheConfig cache = 8;
+  SessionBlockListConfig session_block_list = 9;
 }
