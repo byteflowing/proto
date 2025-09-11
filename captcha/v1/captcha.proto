@@ -7,11 +7,14 @@ import "mail/v1/params.proto";
 import "sms/v1/params.proto";
 import "types/v1/types.proto";
 import "limiter/v1/limiter.proto";
+import "validation/v1/predefined_rules.proto";
+import "buf/validate/validate.proto";
+import "common/v1/common.proto";
 
 message SendCaptchaReq {
   // 发送验证的程序
   // sms, email等等
-  enums.v1.MessageSenderType sender_type = 1;
+  enums.v1.MessageSenderType sender_type = 1[(buf.validate.field).enum.(validation.v1.not_unspecified) = true];
   // 验证码内容
   string captcha = 2;
   // 验证码类型，业务方定义
@@ -25,24 +28,16 @@ message SendCaptchaReq {
 }
 
 message SendCaptchaResp {
-  message Data {
-    // 验证码存取的key，使用这个key在kv存储中找验证码
-    string token = 1;
-    // 如果报错，这里有限制的原因
-    limiter.v1.LimitRule limit = 2;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  // 验证码存取的key，使用这个key在kv存储中找验证码
+  string token = 1;
+  // 如果报错，这里有限制的原因
+  limiter.v1.LimitRule limit = 2;
+  common.v1.CommonResp common = 255;
 }
 
 message VerifyCaptchaReq {
   // 验证码发送程序
-  enums.v1.MessageSenderType sender_type = 1;
+  enums.v1.MessageSenderType sender_type = 1[(buf.validate.field).enum.(validation.v1.not_unspecified) = true];
   // 发送验证码时返回的token
   string token = 2;
   // 验证码
@@ -57,10 +52,5 @@ message VerifyCaptchaReq {
 }
 
 message VerifyCaptchaResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }

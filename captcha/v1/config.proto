@@ -22,6 +22,6 @@ message CaptchaProvider {
   repeated limiter.v1.LimitRule limits = 7;
 }
 
-message Captcha {
+message CaptchaConfig {
   repeated CaptchaProvider providers = 1;
 }

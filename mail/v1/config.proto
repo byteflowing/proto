@@ -48,6 +48,6 @@ message MailProvider {
   SMTP smtp = 6 [(buf.validate.field).required = true];
 }
 
-message Mail {
+message MailConfig {
   repeated MailProvider providers = 1;
 }

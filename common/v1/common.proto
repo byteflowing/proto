@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package common.v1;
+
+message CommonResp {
+  uint32 err_code = 1;
+  string err_message = 2;
+  string err_detail = 3;
+}

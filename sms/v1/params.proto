@@ -6,6 +6,7 @@ import "enums/v1/message.proto";
 import "buf/validate/validate.proto";
 import "validation/v1/predefined_rules.proto";
 import "types/v1/types.proto";
+import "common/v1/common.proto";
 
 message SendSmsReq {
   // 短信服务商
@@ -31,10 +32,5 @@ message SendSmsReq {
 }
 
 message SendSmsResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }

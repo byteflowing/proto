@@ -12,6 +12,7 @@ import "types/v1/types.proto";
 import "google/type/date.proto";
 import "captcha/v1/captcha.proto";
 import "limiter/v1/limiter.proto";
+import "common/v1/common.proto";
 
 message UserProfile {
   int64 uid = 1; // userid
@@ -72,19 +73,11 @@ message SendCaptchaReq {
 }
 
 message SendCaptchaResp {
-  message Data {
-    // 验证码存取的key，使用这个key在kv存储中找验证码
-    string token = 1;
-    // 如果报错，这里有限制的原因
-    optional limiter.v1.LimitRule limit = 2;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  // 验证码存取的key，使用这个key在kv存储中找验证码
+  string token = 1;
+  // 如果报错，这里有限制的原因
+  optional limiter.v1.LimitRule limit = 2;
+  common.v1.CommonResp common = 255;
 }
 
 message VerifyCaptchaReq {
@@ -93,16 +86,8 @@ message VerifyCaptchaReq {
 }
 
 message VerifyCaptchaResp {
-  message Data {
-    string token = 1;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  string token = 1;
+  common.v1.CommonResp common = 255;
 }
 
 message SignUpReq {
@@ -159,17 +144,9 @@ message SignUpReq {
 }
 
 message SignUpResp {
-  message Data {
-    UserInfo user_info = 1;
-    optional limiter.v1.LimitRule rule = 2;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  UserInfo user_info = 1;
+  optional limiter.v1.LimitRule rule = 2;
+  common.v1.CommonResp common = 255;
 }
 
 message SignInReq {
@@ -201,34 +178,26 @@ message SignInReq {
 }
 
 message SignInResp {
-  message Data {
-    // jwt token
-    // uid 用户id（自定义字段）
-    // type token类型（自定义字段：access，refresh）
-    // auth_type 认证类型
-    // appid 客户端id（如微信的appid，目前仅微信登录有值）
-    // openid 微信登录的openid
-    // unionid 微信登录的unionid(若有)
-    // extra 调用方添加的自定义字段
-    // iss 签发方
-    // sub user表number字段
-    // aud 暂时不用
-    // exp 过期时间秒级时间戳
-    // nbf 暂时使用签发时间填充(立刻生效)秒级时间戳
-    // iat 签发时间秒级时间戳
-    // jti 使用uuid填充代表session_id
-    string access_token = 1;
-    string refresh_token = 2;
-    UserInfo user_info = 3;
-    optional limiter.v1.LimitRule rule = 4;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 5;
+  // jwt token
+  // uid 用户id（自定义字段）
+  // type token类型（自定义字段：access，refresh）
+  // auth_type 认证类型
+  // appid 客户端id（如微信的appid，目前仅微信登录有值）
+  // openid 微信登录的openid
+  // unionid 微信登录的unionid(若有)
+  // extra 调用方添加的自定义字段
+  // iss 签发方
+  // sub user表number字段
+  // aud 暂时不用
+  // exp 过期时间秒级时间戳
+  // nbf 暂时使用签发时间填充(立刻生效)秒级时间戳
+  // iat 签发时间秒级时间戳
+  // jti 使用uuid填充代表session_id
+  string access_token = 1;
+  string refresh_token = 2;
+  UserInfo user_info = 3;
+  optional limiter.v1.LimitRule rule = 4;
+  common.v1.CommonResp common = 255;
 }
 
 message SignOutReq {
@@ -242,12 +211,7 @@ message SignOutReq {
 }
 
 message SignOutResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message SignOutByUidReq {
@@ -257,12 +221,7 @@ message SignOutByUidReq {
 }
 
 message SignOutByUidResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message RefreshReq {
@@ -273,19 +232,11 @@ message RefreshReq {
 }
 
 message RefreshResp {
-  message Data {
-    // 新的access_token
-    string new_access_token = 1;
-    // 新的refresh_token
-    string new_refresh_token = 2;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  // 新的access_token
+  string new_access_token = 1;
+  // 新的refresh_token
+  string new_refresh_token = 2;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangePasswordReq {
@@ -296,12 +247,7 @@ message ChangePasswordReq {
 }
 
 message ChangePasswordResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ResetPasswordReq {
@@ -312,12 +258,7 @@ message ResetPasswordReq {
 }
 
 message ResetPasswordResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangePhoneReq {
@@ -329,12 +270,7 @@ message ChangePhoneReq {
 }
 
 message ChangePhoneResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeEmailReq {
@@ -347,21 +283,11 @@ message ChangeEmailReq {
 }
 
 message ChangeEmailResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserStatusResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserAvatarReq {
@@ -370,12 +296,7 @@ message ChangeUserAvatarReq {
 }
 
 message ChangeUserAvatarResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserGenderReq {
@@ -384,12 +305,7 @@ message ChangeUserGenderReq {
 }
 
 message ChangeUserGenderResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserBirthdayReq {
@@ -398,12 +314,7 @@ message ChangeUserBirthdayReq {
 }
 
 message ChangeUserBirthdayResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserNameReq {
@@ -412,12 +323,7 @@ message ChangeUserNameReq {
 }
 
 message ChangeUserNameResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserAliasReq {
@@ -426,12 +332,7 @@ message ChangeUserAliasReq {
 }
 
 message ChangeUserAliasResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserNumberReq {
@@ -440,12 +341,7 @@ message ChangeUserNumberReq {
 }
 
 message ChangeUserNumberResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserAddressReq {
@@ -458,12 +354,7 @@ message ChangeUserAddressReq {
 }
 
 message ChangeUserAddressResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserTypeReq {
@@ -472,12 +363,7 @@ message ChangeUserTypeReq {
 }
 
 message ChangeUserTypeResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserLevelReq {
@@ -486,12 +372,7 @@ message ChangeUserLevelReq {
 }
 
 message ChangeUserLevelResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserExtReq {
@@ -500,12 +381,7 @@ message ChangeUserExtReq {
 }
 
 message ChangeUserExtResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message VerifyPhoneReq {
@@ -517,12 +393,7 @@ message VerifyPhoneReq {
 }
 
 message VerifyPhoneResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message VerifyEmailReq {
@@ -534,12 +405,7 @@ message VerifyEmailReq {
 }
 
 message VerifyEmailResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message ChangeUserStatusReq {
@@ -553,16 +419,8 @@ message VerifyTokenReq {
 }
 
 message VerifyTokenResp {
-  message Data {
-    optional UserProfile user_info = 1;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  UserProfile user_info = 1;
+  common.v1.CommonResp common = 255;
 }
 
 message SignInLog {
@@ -603,16 +461,8 @@ message GetActiveSignInLogsReq {
 }
 
 message GetActiveSignInLogsResp {
-  message Data {
-    repeated SignInLog logs = 1;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  repeated SignInLog logs = 1;
+  common.v1.CommonResp common = 255;
 }
 
 message PagingGetSignInLogsReq {
@@ -637,20 +487,12 @@ message PagingGetSignInLogsReq {
 }
 
 message PagingGetSignInLogsResp {
-  message Data {
-    repeated SignInLog logs = 1;
-    uint32 page = 2;
-    uint32 size = 3;
-    uint64 total = 4;
-    uint32 total_pages = 5;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  repeated SignInLog logs = 1;
+  uint32 page = 2;
+  uint32 size = 3;
+  uint64 total = 4;
+  uint32 total_pages = 5;
+  common.v1.CommonResp common = 255;
 }
 
 message PagingGetUsersReq {
@@ -687,20 +529,12 @@ message PagingGetUsersReq {
 }
 
 message PagingGetUsersResp {
-  message Data {
-    repeated UserInfo users = 1;
-    uint32 page = 2;
-    uint32 size = 3;
-    uint64 total = 4;
-    uint32 total_pages = 5;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  repeated UserInfo users = 1;
+  uint32 page = 2;
+  uint32 size = 3;
+  uint64 total = 4;
+  uint32 total_pages = 5;
+  common.v1.CommonResp common = 255;
 }
 
 message CreateUserReq {
@@ -741,16 +575,8 @@ message CreateUserReq {
 }
 
 message CreateUserResp {
- message Data {
-   int64 uid = 1;
- }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  int64 uid = 1;
+  common.v1.CommonResp common = 255;
 }
 
 message DeleteUserReq {
@@ -758,12 +584,7 @@ message DeleteUserReq {
 }
 
 message DeleteUserResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message DeleteUsersReq {
@@ -771,12 +592,7 @@ message DeleteUsersReq {
 }
 
 message DeleteUsersResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message UpdateUserReq {
@@ -818,12 +634,7 @@ message UpdateUserReq {
 }
 
 message UpdateUserResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message GetUserAuthReq {
@@ -831,16 +642,8 @@ message GetUserAuthReq {
 }
 
 message GetUserAuthResp {
-  message Data {
-    repeated UserAuth auth = 1;
-  }
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
-  Data data = 4;
+  repeated UserAuth auth = 1;
+  common.v1.CommonResp common = 255;
 }
 
 message BindUserAuthReq {
@@ -857,12 +660,7 @@ message BindUserAuthReq {
 }
 
 message BindUserAuthResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }
 
 message UnbindUserAuthReq {
@@ -871,10 +669,5 @@ message UnbindUserAuthReq {
 }
 
 message UnbindUserAuthResp {
-  // 正常返回0，错误返回非0
-  uint32 err_code = 1;
-  // 正常返回OK, 错误返回错误内容
-  string err_msg = 2;
-  // 开发模式，返回详细错误信息
-  string err_detail = 3;
+  common.v1.CommonResp common = 255;
 }

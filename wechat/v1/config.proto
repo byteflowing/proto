@@ -11,6 +11,6 @@ message WechatCredential {
   string secret = 2;
 }
 
-message Wechat {
+message WechatConfig {
   repeated WechatCredential credentials = 1 [(buf.validate.field).repeated.min_items = 1];
 }

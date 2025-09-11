@@ -22,6 +22,6 @@ message SmsProvider {
   int64 limit = 6 [(buf.validate.field).int64.gt = 0];
 }
 
-message Sms {
+message SmsConfig {
   repeated SmsProvider providers = 1;
 }

@@ -19,15 +19,15 @@ message Base {
 
 message Config {
   Base base = 1;
-  sms.v1.Sms sms = 2;
-  mail.v1.Mail mail = 3;
-  captcha.v1.Captcha captcha = 4;
+  sms.v1.SmsConfig sms = 2;
+  mail.v1.MailConfig mail = 3;
+  captcha.v1.CaptchaConfig captcha = 4;
   idx.v1.GlobalIdConfig global_id = 5;
   idx.v1.ShortIdConfig short_id = 6;
-  wechat.v1.Wechat wechat = 7;
+  wechat.v1.WechatConfig wechat = 7;
   db.v1.DbConfig db = 8;
   db.v1.RedisConfig redis = 9;
   db.v1.DistributedLock distributed_lock = 10;
   log.v1.LogConfig log_config = 11;
-  services.user.v1.User user = 100;
+  services.user.v1.UserConfig user = 100;
 }

@@ -8,7 +8,7 @@ import "buf/validate/validate.proto";
 import "google/protobuf/duration.proto";
 import "limiter/v1/limiter.proto";
 
-message UserAuthLimiter {
+message UserAuthLimiterConfig {
   string prefix = 1;
   string err_prefix = 2;
   limiter.v1.LimitRule sign_in_rule = 3;
@@ -16,11 +16,11 @@ message UserAuthLimiter {
   repeated limiter.v1.LimitRule sign_in_err_rules = 5;
 }
 
-message SessionBlockList {
+message SessionBlockListConfig {
   string prefix = 1;
 }
 
-message UserJwt {
+message UserJwtConfig {
   // token签发者
   string issuer = 1 [(buf.validate.field).string.(validation.v1.required_20) = true];
   // 安全密钥
@@ -34,22 +34,22 @@ message UserJwt {
   google.protobuf.Duration refresh_ttl = 6 [(buf.validate.field).duration.gte = {seconds: 600}];
 }
 
-message UserCache {}
+message UserCacheConfig {}
 
-message TokenVerify {
+message TokenVerifyConfig {
   string prefix = 1;
   google.protobuf.Duration keeping = 2;
 }
 
-message User {
+message UserConfig {
   string listen_addr = 1;
   int32 listen_port = 2;
   int32 password_hasher = 3;
   string session_block_list_prefix = 4;
   repeated enums.v1.AuthType enable_auth = 5;
-  UserAuthLimiter auth_limiter = 6;
-  UserJwt jwt = 7;
-  TokenVerify two_step_verifier = 8;
-  UserCache cache = 9;
-  SessionBlockList session_block_list = 10;
+  UserAuthLimiterConfig auth_limiter = 6;
+  UserJwtConfig jwt = 7;
+  TokenVerifyConfig two_step_verifier = 8;
+  UserCacheConfig cache = 9;
+  SessionBlockListConfig session_block_list = 10;
 }
