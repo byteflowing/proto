@@ -8,12 +8,11 @@ package captchav1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v14 "github.com/byteflowing/proto/gen/go/common/v1"
 	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
 	v13 "github.com/byteflowing/proto/gen/go/limiter/v1"
 	v12 "github.com/byteflowing/proto/gen/go/mail/v1"
 	v11 "github.com/byteflowing/proto/gen/go/sms/v1"
-	v15 "github.com/byteflowing/proto/gen/go/types/v1"
+	v14 "github.com/byteflowing/proto/gen/go/types/v1"
 	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -146,8 +145,7 @@ type SendCaptchaResp struct {
 	// 验证码存取的key，使用这个key在kv存储中找验证码
 	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
 	// 如果报错，这里有限制的原因
-	Limit         *v13.LimitRule  `protobuf:"bytes,2,opt,name=limit,proto3" json:"limit,omitempty"`
-	Common        *v14.CommonResp `protobuf:"bytes,255,opt,name=common,proto3" json:"common,omitempty"`
+	Limit         *v13.LimitRule `protobuf:"bytes,2,opt,name=limit,proto3" json:"limit,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -192,13 +190,6 @@ func (x *SendCaptchaResp) GetToken() string {
 func (x *SendCaptchaResp) GetLimit() *v13.LimitRule {
 	if x != nil {
 		return x.Limit
-	}
-	return nil
-}
-
-func (x *SendCaptchaResp) GetCommon() *v14.CommonResp {
-	if x != nil {
-		return x.Common
 	}
 	return nil
 }
@@ -289,7 +280,7 @@ func (x *VerifyCaptchaReq) GetNumber() isVerifyCaptchaReq_Number {
 	return nil
 }
 
-func (x *VerifyCaptchaReq) GetPhoneNumber() *v15.PhoneNumber {
+func (x *VerifyCaptchaReq) GetPhoneNumber() *v14.PhoneNumber {
 	if x != nil {
 		if x, ok := x.Number.(*VerifyCaptchaReq_PhoneNumber); ok {
 			return x.PhoneNumber
@@ -312,7 +303,7 @@ type isVerifyCaptchaReq_Number interface {
 }
 
 type VerifyCaptchaReq_PhoneNumber struct {
-	PhoneNumber *v15.PhoneNumber `protobuf:"bytes,5,opt,name=phone_number,json=phoneNumber,proto3,oneof"`
+	PhoneNumber *v14.PhoneNumber `protobuf:"bytes,5,opt,name=phone_number,json=phoneNumber,proto3,oneof"`
 }
 
 type VerifyCaptchaReq_Email struct {
@@ -325,7 +316,6 @@ func (*VerifyCaptchaReq_Email) isVerifyCaptchaReq_Number() {}
 
 type VerifyCaptchaResp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Common        *v14.CommonResp        `protobuf:"bytes,255,opt,name=common,proto3" json:"common,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -360,19 +350,12 @@ func (*VerifyCaptchaResp) Descriptor() ([]byte, []int) {
 	return file_captcha_v1_captcha_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *VerifyCaptchaResp) GetCommon() *v14.CommonResp {
-	if x != nil {
-		return x.Common
-	}
-	return nil
-}
-
 var File_captcha_v1_captcha_proto protoreflect.FileDescriptor
 
 const file_captcha_v1_captcha_proto_rawDesc = "" +
 	"\n" +
 	"\x18captcha/v1/captcha.proto\x12\n" +
-	"captcha.v1\x1a\x16enums/v1/message.proto\x1a\x14mail/v1/params.proto\x1a\x13sms/v1/params.proto\x1a\x14types/v1/types.proto\x1a\x18limiter/v1/limiter.proto\x1a$validation/v1/predefined_rules.proto\x1a\x1bbuf/validate/validate.proto\x1a\x16common/v1/common.proto\"\xf6\x01\n" +
+	"captcha.v1\x1a\x16enums/v1/message.proto\x1a\x14mail/v1/params.proto\x1a\x13sms/v1/params.proto\x1a\x14types/v1/types.proto\x1a\x18limiter/v1/limiter.proto\x1a$validation/v1/predefined_rules.proto\x1a\x1bbuf/validate/validate.proto\"\xf6\x01\n" +
 	"\x0eSendCaptchaReq\x12I\n" +
 	"\vsender_type\x18\x01 \x01(\x0e2\x1b.enums.v1.MessageSenderTypeB\v\xbaH\b\x82\x01\x05\xc8\xe2\xe8\x03\x01R\n" +
 	"senderType\x12\x18\n" +
@@ -380,11 +363,10 @@ const file_captcha_v1_captcha_proto_rawDesc = "" +
 	"\fcaptcha_type\x18\x03 \x01(\tR\vcaptchaType\x12&\n" +
 	"\x03sms\x18\x04 \x01(\v2\x12.sms.v1.SendSmsReqH\x00R\x03sms\x12*\n" +
 	"\x04mail\x18\x05 \x01(\v2\x14.mail.v1.SendMailReqH\x00R\x04mailB\b\n" +
-	"\x06sender\"\x84\x01\n" +
+	"\x06sender\"T\n" +
 	"\x0fSendCaptchaResp\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12+\n" +
-	"\x05limit\x18\x02 \x01(\v2\x15.limiter.v1.LimitRuleR\x05limit\x12.\n" +
-	"\x06common\x18\xff\x01 \x01(\v2\x15.common.v1.CommonRespR\x06common\"\x8e\x02\n" +
+	"\x05limit\x18\x02 \x01(\v2\x15.limiter.v1.LimitRuleR\x05limit\"\x8e\x02\n" +
 	"\x10VerifyCaptchaReq\x12I\n" +
 	"\vsender_type\x18\x01 \x01(\x0e2\x1b.enums.v1.MessageSenderTypeB\v\xbaH\b\x82\x01\x05\xc8\xe2\xe8\x03\x01R\n" +
 	"senderType\x12\x14\n" +
@@ -393,9 +375,8 @@ const file_captcha_v1_captcha_proto_rawDesc = "" +
 	"\fcaptcha_type\x18\x04 \x01(\tR\vcaptchaType\x12:\n" +
 	"\fphone_number\x18\x05 \x01(\v2\x15.types.v1.PhoneNumberH\x00R\vphoneNumber\x12\x16\n" +
 	"\x05email\x18\x06 \x01(\tH\x00R\x05emailB\b\n" +
-	"\x06number\"C\n" +
-	"\x11VerifyCaptchaResp\x12.\n" +
-	"\x06common\x18\xff\x01 \x01(\v2\x15.common.v1.CommonRespR\x06commonB\xa1\x01\n" +
+	"\x06number\"\x13\n" +
+	"\x11VerifyCaptchaRespB\xa1\x01\n" +
 	"\x0ecom.captcha.v1B\fCaptchaProtoP\x01Z8github.com/byteflowing/proto/gen/go/captcha/v1;captchav1\xa2\x02\x03CXX\xaa\x02\n" +
 	"Captcha.V1\xca\x02\n" +
 	"Captcha\\V1\xe2\x02\x16Captcha\\V1\\GPBMetadata\xea\x02\vCaptcha::V1b\x06proto3"
@@ -422,23 +403,20 @@ var file_captcha_v1_captcha_proto_goTypes = []any{
 	(*v11.SendSmsReq)(nil),    // 5: sms.v1.SendSmsReq
 	(*v12.SendMailReq)(nil),   // 6: mail.v1.SendMailReq
 	(*v13.LimitRule)(nil),     // 7: limiter.v1.LimitRule
-	(*v14.CommonResp)(nil),    // 8: common.v1.CommonResp
-	(*v15.PhoneNumber)(nil),   // 9: types.v1.PhoneNumber
+	(*v14.PhoneNumber)(nil),   // 8: types.v1.PhoneNumber
 }
 var file_captcha_v1_captcha_proto_depIdxs = []int32{
 	4, // 0: captcha.v1.SendCaptchaReq.sender_type:type_name -> enums.v1.MessageSenderType
 	5, // 1: captcha.v1.SendCaptchaReq.sms:type_name -> sms.v1.SendSmsReq
 	6, // 2: captcha.v1.SendCaptchaReq.mail:type_name -> mail.v1.SendMailReq
 	7, // 3: captcha.v1.SendCaptchaResp.limit:type_name -> limiter.v1.LimitRule
-	8, // 4: captcha.v1.SendCaptchaResp.common:type_name -> common.v1.CommonResp
-	4, // 5: captcha.v1.VerifyCaptchaReq.sender_type:type_name -> enums.v1.MessageSenderType
-	9, // 6: captcha.v1.VerifyCaptchaReq.phone_number:type_name -> types.v1.PhoneNumber
-	8, // 7: captcha.v1.VerifyCaptchaResp.common:type_name -> common.v1.CommonResp
-	8, // [8:8] is the sub-list for method output_type
-	8, // [8:8] is the sub-list for method input_type
-	8, // [8:8] is the sub-list for extension type_name
-	8, // [8:8] is the sub-list for extension extendee
-	0, // [0:8] is the sub-list for field type_name
+	4, // 4: captcha.v1.VerifyCaptchaReq.sender_type:type_name -> enums.v1.MessageSenderType
+	8, // 5: captcha.v1.VerifyCaptchaReq.phone_number:type_name -> types.v1.PhoneNumber
+	6, // [6:6] is the sub-list for method output_type
+	6, // [6:6] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_captcha_v1_captcha_proto_init() }

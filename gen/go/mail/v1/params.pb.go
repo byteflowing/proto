@@ -8,7 +8,6 @@ package mailv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v11 "github.com/byteflowing/proto/gen/go/common/v1"
 	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
 	_ "github.com/byteflowing/proto/gen/go/validation/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -207,7 +206,6 @@ func (x *SendMailReq) GetAttachments() []string {
 
 type SendMailResp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Common        *v11.CommonResp        `protobuf:"bytes,255,opt,name=common,proto3" json:"common,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -242,18 +240,11 @@ func (*SendMailResp) Descriptor() ([]byte, []int) {
 	return file_mail_v1_params_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *SendMailResp) GetCommon() *v11.CommonResp {
-	if x != nil {
-		return x.Common
-	}
-	return nil
-}
-
 var File_mail_v1_params_proto protoreflect.FileDescriptor
 
 const file_mail_v1_params_proto_rawDesc = "" +
 	"\n" +
-	"\x14mail/v1/params.proto\x12\amail.v1\x1a\x16enums/v1/message.proto\x1a\x1bbuf/validate/validate.proto\x1a$validation/v1/predefined_rules.proto\x1a\x16common/v1/common.proto\"^\n" +
+	"\x14mail/v1/params.proto\x12\amail.v1\x1a\x16enums/v1/message.proto\x1a\x1bbuf/validate/validate.proto\x1a$validation/v1/predefined_rules.proto\"^\n" +
 	"\vMailAddress\x12!\n" +
 	"\aaddress\x18\x01 \x01(\tB\a\xbaH\x04r\x02`\x01R\aaddress\x12#\n" +
 	"\x04name\x18\x02 \x01(\tB\n" +
@@ -272,9 +263,8 @@ const file_mail_v1_params_proto_rawDesc = "" +
 	"\fcontent_type\x18\b \x01(\x0e2\x19.enums.v1.MailContentTypeB\v\xbaH\b\x82\x01\x05\xc8\xe2\xe8\x03\x01R\vcontentType\x12 \n" +
 	"\acontent\x18\t \x01(\tB\x06\xbaH\x03\xc8\x01\x01R\acontent\x12*\n" +
 	"\vattachments\x18\n" +
-	" \x03(\tB\b\xbaH\x05\x92\x01\x02\x10\x14R\vattachments\">\n" +
-	"\fSendMailResp\x12.\n" +
-	"\x06common\x18\xff\x01 \x01(\v2\x15.common.v1.CommonRespR\x06commonB\x8b\x01\n" +
+	" \x03(\tB\b\xbaH\x05\x92\x01\x02\x10\x14R\vattachments\"\x0e\n" +
+	"\fSendMailRespB\x8b\x01\n" +
 	"\vcom.mail.v1B\vParamsProtoP\x01Z2github.com/byteflowing/proto/gen/go/mail/v1;mailv1\xa2\x02\x03MXX\xaa\x02\aMail.V1\xca\x02\aMail\\V1\xe2\x02\x13Mail\\V1\\GPBMetadata\xea\x02\bMail::V1b\x06proto3"
 
 var (
@@ -296,7 +286,6 @@ var file_mail_v1_params_proto_goTypes = []any{
 	(*SendMailResp)(nil),    // 2: mail.v1.SendMailResp
 	(v1.MailVendor)(0),      // 3: enums.v1.MailVendor
 	(v1.MailContentType)(0), // 4: enums.v1.MailContentType
-	(*v11.CommonResp)(nil),  // 5: common.v1.CommonResp
 }
 var file_mail_v1_params_proto_depIdxs = []int32{
 	3, // 0: mail.v1.SendMailReq.vendor:type_name -> enums.v1.MailVendor
@@ -305,12 +294,11 @@ var file_mail_v1_params_proto_depIdxs = []int32{
 	0, // 3: mail.v1.SendMailReq.cc:type_name -> mail.v1.MailAddress
 	0, // 4: mail.v1.SendMailReq.bcc:type_name -> mail.v1.MailAddress
 	4, // 5: mail.v1.SendMailReq.content_type:type_name -> enums.v1.MailContentType
-	5, // 6: mail.v1.SendMailResp.common:type_name -> common.v1.CommonResp
-	7, // [7:7] is the sub-list for method output_type
-	7, // [7:7] is the sub-list for method input_type
-	7, // [7:7] is the sub-list for extension type_name
-	7, // [7:7] is the sub-list for extension extendee
-	0, // [0:7] is the sub-list for field type_name
+	6, // [6:6] is the sub-list for method output_type
+	6, // [6:6] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_mail_v1_params_proto_init() }

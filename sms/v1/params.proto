@@ -6,7 +6,6 @@ import "enums/v1/message.proto";
 import "buf/validate/validate.proto";
 import "validation/v1/predefined_rules.proto";
 import "types/v1/types.proto";
-import "common/v1/common.proto";
 
 message SendSmsReq {
   // 短信服务商
@@ -31,6 +30,4 @@ message SendSmsReq {
   ];
 }
 
-message SendSmsResp {
-  common.v1.CommonResp common = 255;
-}
+message SendSmsResp {}

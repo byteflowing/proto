@@ -8,7 +8,6 @@ package smsv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v12 "github.com/byteflowing/proto/gen/go/common/v1"
 	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
 	v11 "github.com/byteflowing/proto/gen/go/types/v1"
 	_ "github.com/byteflowing/proto/gen/go/validation/v1"
@@ -118,7 +117,6 @@ func (x *SendSmsReq) GetTemplateParams() map[string]string {
 
 type SendSmsResp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Common        *v12.CommonResp        `protobuf:"bytes,255,opt,name=common,proto3" json:"common,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -153,18 +151,11 @@ func (*SendSmsResp) Descriptor() ([]byte, []int) {
 	return file_sms_v1_params_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *SendSmsResp) GetCommon() *v12.CommonResp {
-	if x != nil {
-		return x.Common
-	}
-	return nil
-}
-
 var File_sms_v1_params_proto protoreflect.FileDescriptor
 
 const file_sms_v1_params_proto_rawDesc = "" +
 	"\n" +
-	"\x13sms/v1/params.proto\x12\x06sms.v1\x1a\x16enums/v1/message.proto\x1a\x1bbuf/validate/validate.proto\x1a$validation/v1/predefined_rules.proto\x1a\x14types/v1/types.proto\x1a\x16common/v1/common.proto\"\xae\x03\n" +
+	"\x13sms/v1/params.proto\x12\x06sms.v1\x1a\x16enums/v1/message.proto\x1a\x1bbuf/validate/validate.proto\x1a$validation/v1/predefined_rules.proto\x1a\x14types/v1/types.proto\"\xae\x03\n" +
 	"\n" +
 	"SendSmsReq\x128\n" +
 	"\x06vendor\x18\x01 \x01(\x0e2\x13.enums.v1.SmsVendorB\v\xbaH\b\x82\x01\x05\xc8\xe2\xe8\x03\x01R\x06vendor\x12$\n" +
@@ -179,9 +170,8 @@ const file_sms_v1_params_proto_rawDesc = "" +
 	"\b\x01*\x06r\x04\x10\x01\x18\x14R\x0etemplateParams\x1aA\n" +
 	"\x13TemplateParamsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"=\n" +
-	"\vSendSmsResp\x12.\n" +
-	"\x06common\x18\xff\x01 \x01(\v2\x15.common.v1.CommonRespR\x06commonB\x84\x01\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\r\n" +
+	"\vSendSmsRespB\x84\x01\n" +
 	"\n" +
 	"com.sms.v1B\vParamsProtoP\x01Z0github.com/byteflowing/proto/gen/go/sms/v1;smsv1\xa2\x02\x03SXX\xaa\x02\x06Sms.V1\xca\x02\x06Sms\\V1\xe2\x02\x12Sms\\V1\\GPBMetadata\xea\x02\aSms::V1b\x06proto3"
 
@@ -204,18 +194,16 @@ var file_sms_v1_params_proto_goTypes = []any{
 	nil,                     // 2: sms.v1.SendSmsReq.TemplateParamsEntry
 	(v1.SmsVendor)(0),       // 3: enums.v1.SmsVendor
 	(*v11.PhoneNumber)(nil), // 4: types.v1.PhoneNumber
-	(*v12.CommonResp)(nil),  // 5: common.v1.CommonResp
 }
 var file_sms_v1_params_proto_depIdxs = []int32{
 	3, // 0: sms.v1.SendSmsReq.vendor:type_name -> enums.v1.SmsVendor
 	4, // 1: sms.v1.SendSmsReq.phone_number:type_name -> types.v1.PhoneNumber
 	2, // 2: sms.v1.SendSmsReq.template_params:type_name -> sms.v1.SendSmsReq.TemplateParamsEntry
-	5, // 3: sms.v1.SendSmsResp.common:type_name -> common.v1.CommonResp
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_sms_v1_params_proto_init() }

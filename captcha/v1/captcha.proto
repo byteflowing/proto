@@ -9,7 +9,6 @@ import "types/v1/types.proto";
 import "limiter/v1/limiter.proto";
 import "validation/v1/predefined_rules.proto";
 import "buf/validate/validate.proto";
-import "common/v1/common.proto";
 
 message SendCaptchaReq {
   // 发送验证的程序
@@ -32,7 +31,6 @@ message SendCaptchaResp {
   string token = 1;
   // 如果报错，这里有限制的原因
   limiter.v1.LimitRule limit = 2;
-  common.v1.CommonResp common = 255;
 }
 
 message VerifyCaptchaReq {
@@ -51,6 +49,4 @@ message VerifyCaptchaReq {
   };
 }
 
-message VerifyCaptchaResp {
-  common.v1.CommonResp common = 255;
-}
+message VerifyCaptchaResp {}
