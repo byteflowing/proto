@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package config.v1;
+
+import "enums/v1/db.proto";
+
+message RedisConfig {
+  repeated string host = 1; // 连接地址 e.g. 127.0.0.1:6379
+  enums.v1.RedisType type = 2;  // 用户名
+  string password = 3; // 密码
+  int32 db = 4; // redis db 0 - 16
+  bool tls = 5; // 是否开启tls
+  int32 protocol = 6; // RESP版本：2或者3
+  string client_name = 7; // 客户端名称
+}

@@ -1,17 +1,25 @@
 syntax = "proto3";
 
-package log.v1;
+package config.v1;
 
 import "enums/v1/log.proto";
-import "log/v1/rotation.proto";
 
-message LogOutput {
-  enums.v1.LogOut output = 1;
-  repeated enums.v1.LogLevel levels = 2;
-  log.v1.RotationConfig log_file = 3;
+message RotationConfig {
+  string log_file = 1; // 文件名
+  uint32 max_size = 2; // 文件大小，单位M
+  uint32 max_age = 3; // 最长保留天数
+  uint32 max_backups = 4; // 最多保留分数
+  bool compress = 5; // 是否启用压缩
+  bool local_time = 6; // 是否使用本地时间
 }
 
-message LogKeyConfig {
+message ZapLogOutput {
+  enums.v1.LogOut output = 1;
+  repeated enums.v1.LogLevel levels = 2;
+  config.v1.RotationConfig log_file = 3;
+}
+
+message ZapLogKeyConfig {
   string name_key = 1;
   string level_key = 2;
   string message_key = 3;
@@ -21,7 +29,7 @@ message LogKeyConfig {
   string function_key = 7;
 }
 
-message LogConfig {
+message ZapLogConfig {
     enums.v1.LogMode mode = 1;
     enums.v1.LogFormat format = 2;
     enums.v1.LogLevel level = 3;
@@ -35,8 +43,8 @@ message LogConfig {
     string ctx_log_id_key = 9;
     // log_id在日志中的field名称
     string log_id_key = 10;
-    LogKeyConfig keys = 11;
+    ZapLogKeyConfig keys = 11;
     // 是否将所有错误日志记录，默认只记录非业务逻辑产生的错误日志
     bool record_all_errors = 12;
-    repeated LogOutput outputs = 13;
+    repeated ZapLogOutput outputs = 13;
 }

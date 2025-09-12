@@ -17,3 +17,9 @@ enum DbLogLevel {
   DB_LOG_LEVEL_WARN = 3;
   DB_LOG_LEVEL_INFO = 4;
 }
+
+enum RedisType {
+  REDIS_TYPE_UNSPECIFIED = 0;
+  REDIS_TYPE_NODE = 1;
+  REDIS_TYPE_CLUSTER = 2;
+}

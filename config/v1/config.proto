@@ -3,14 +3,14 @@ syntax = "proto3";
 package config.v1;
 
 import "captcha/v1/config.proto";
-import "db/v1/db.proto";
-import "db/v1/redis.proto";
+import "config/v1/db.proto";
+import "config/v1/redis.proto";
 import "services/user/v1/config.proto";
 import "sms/v1/config.proto";
 import "mail/v1/config.proto";
-import "idx/v1/idx.proto";
+import "config/v1/idx.proto";
 import "wechat/v1/config.proto";
-import "log/v1/config.proto";
+import "config/v1/log.proto";
 
 message Host {
   string eth_ip = 1;
@@ -30,13 +30,12 @@ message Config {
   sms.v1.SmsConfig sms = 2;
   mail.v1.MailConfig mail = 3;
   captcha.v1.CaptchaConfig captcha = 4;
-  idx.v1.GlobalIdConfig global_id = 5;
-  idx.v1.ShortIdConfig short_id = 6;
+  config.v1.GlobalIdConfig global_id = 5;
+  config.v1.ShortIdConfig short_id = 6;
   wechat.v1.WechatConfig wechat = 7;
-  db.v1.DbConfig db = 8;
-  db.v1.RedisConfig redis = 9;
-  db.v1.DistributedLock distributed_lock = 10;
-  log.v1.LogConfig log_config = 11;
-  Host host = 12;
+  config.v1.DbConfig db = 8;
+  config.v1.RedisConfig redis = 9;
+  config.v1.ZapLogConfig log_config = 10;
+  Host host = 11;
   services.user.v1.UserConfig user = 100;
 }

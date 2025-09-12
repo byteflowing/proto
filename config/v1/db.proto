@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package db.v1;
+package config.v1;
 
-import "log/v1/rotation.proto";
 import "enums/v1/log.proto";
 import "enums/v1/db.proto";
+import "config/v1/log.proto";
 
 message DbLog {
   // 慢日志阈值，单位ms
@@ -20,7 +20,7 @@ message DbLog {
   // 日志级别
   enums.v1.DbLogLevel level = 6;
   // 日志轮转，仅当out为file时有效
-  log.v1.RotationConfig rotation = 7;
+  config.v1.RotationConfig rotation = 7;
 }
 
 message DbConn {

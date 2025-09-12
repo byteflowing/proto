@@ -8,13 +8,10 @@ package configv1
 
 import (
 	v12 "github.com/byteflowing/proto/gen/go/captcha/v1"
-	v15 "github.com/byteflowing/proto/gen/go/db/v1"
-	v13 "github.com/byteflowing/proto/gen/go/idx/v1"
-	v16 "github.com/byteflowing/proto/gen/go/log/v1"
 	v11 "github.com/byteflowing/proto/gen/go/mail/v1"
-	v17 "github.com/byteflowing/proto/gen/go/services/user/v1"
+	v14 "github.com/byteflowing/proto/gen/go/services/user/v1"
 	v1 "github.com/byteflowing/proto/gen/go/sms/v1"
-	v14 "github.com/byteflowing/proto/gen/go/wechat/v1"
+	v13 "github.com/byteflowing/proto/gen/go/wechat/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -158,22 +155,21 @@ func (x *Base) GetListenPort() int32 {
 }
 
 type Config struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	Base            *Base                  `protobuf:"bytes,1,opt,name=base,proto3" json:"base,omitempty"`
-	Sms             *v1.SmsConfig          `protobuf:"bytes,2,opt,name=sms,proto3" json:"sms,omitempty"`
-	Mail            *v11.MailConfig        `protobuf:"bytes,3,opt,name=mail,proto3" json:"mail,omitempty"`
-	Captcha         *v12.CaptchaConfig     `protobuf:"bytes,4,opt,name=captcha,proto3" json:"captcha,omitempty"`
-	GlobalId        *v13.GlobalIdConfig    `protobuf:"bytes,5,opt,name=global_id,json=globalId,proto3" json:"global_id,omitempty"`
-	ShortId         *v13.ShortIdConfig     `protobuf:"bytes,6,opt,name=short_id,json=shortId,proto3" json:"short_id,omitempty"`
-	Wechat          *v14.WechatConfig      `protobuf:"bytes,7,opt,name=wechat,proto3" json:"wechat,omitempty"`
-	Db              *v15.DbConfig          `protobuf:"bytes,8,opt,name=db,proto3" json:"db,omitempty"`
-	Redis           *v15.RedisConfig       `protobuf:"bytes,9,opt,name=redis,proto3" json:"redis,omitempty"`
-	DistributedLock *v15.DistributedLock   `protobuf:"bytes,10,opt,name=distributed_lock,json=distributedLock,proto3" json:"distributed_lock,omitempty"`
-	LogConfig       *v16.LogConfig         `protobuf:"bytes,11,opt,name=log_config,json=logConfig,proto3" json:"log_config,omitempty"`
-	Host            *Host                  `protobuf:"bytes,12,opt,name=host,proto3" json:"host,omitempty"`
-	User            *v17.UserConfig        `protobuf:"bytes,100,opt,name=user,proto3" json:"user,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Base          *Base                  `protobuf:"bytes,1,opt,name=base,proto3" json:"base,omitempty"`
+	Sms           *v1.SmsConfig          `protobuf:"bytes,2,opt,name=sms,proto3" json:"sms,omitempty"`
+	Mail          *v11.MailConfig        `protobuf:"bytes,3,opt,name=mail,proto3" json:"mail,omitempty"`
+	Captcha       *v12.CaptchaConfig     `protobuf:"bytes,4,opt,name=captcha,proto3" json:"captcha,omitempty"`
+	GlobalId      *GlobalIdConfig        `protobuf:"bytes,5,opt,name=global_id,json=globalId,proto3" json:"global_id,omitempty"`
+	ShortId       *ShortIdConfig         `protobuf:"bytes,6,opt,name=short_id,json=shortId,proto3" json:"short_id,omitempty"`
+	Wechat        *v13.WechatConfig      `protobuf:"bytes,7,opt,name=wechat,proto3" json:"wechat,omitempty"`
+	Db            *DbConfig              `protobuf:"bytes,8,opt,name=db,proto3" json:"db,omitempty"`
+	Redis         *RedisConfig           `protobuf:"bytes,9,opt,name=redis,proto3" json:"redis,omitempty"`
+	LogConfig     *ZapLogConfig          `protobuf:"bytes,10,opt,name=log_config,json=logConfig,proto3" json:"log_config,omitempty"`
+	Host          *Host                  `protobuf:"bytes,11,opt,name=host,proto3" json:"host,omitempty"`
+	User          *v14.UserConfig        `protobuf:"bytes,100,opt,name=user,proto3" json:"user,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Config) Reset() {
@@ -234,49 +230,42 @@ func (x *Config) GetCaptcha() *v12.CaptchaConfig {
 	return nil
 }
 
-func (x *Config) GetGlobalId() *v13.GlobalIdConfig {
+func (x *Config) GetGlobalId() *GlobalIdConfig {
 	if x != nil {
 		return x.GlobalId
 	}
 	return nil
 }
 
-func (x *Config) GetShortId() *v13.ShortIdConfig {
+func (x *Config) GetShortId() *ShortIdConfig {
 	if x != nil {
 		return x.ShortId
 	}
 	return nil
 }
 
-func (x *Config) GetWechat() *v14.WechatConfig {
+func (x *Config) GetWechat() *v13.WechatConfig {
 	if x != nil {
 		return x.Wechat
 	}
 	return nil
 }
 
-func (x *Config) GetDb() *v15.DbConfig {
+func (x *Config) GetDb() *DbConfig {
 	if x != nil {
 		return x.Db
 	}
 	return nil
 }
 
-func (x *Config) GetRedis() *v15.RedisConfig {
+func (x *Config) GetRedis() *RedisConfig {
 	if x != nil {
 		return x.Redis
 	}
 	return nil
 }
 
-func (x *Config) GetDistributedLock() *v15.DistributedLock {
-	if x != nil {
-		return x.DistributedLock
-	}
-	return nil
-}
-
-func (x *Config) GetLogConfig() *v16.LogConfig {
+func (x *Config) GetLogConfig() *ZapLogConfig {
 	if x != nil {
 		return x.LogConfig
 	}
@@ -290,7 +279,7 @@ func (x *Config) GetHost() *Host {
 	return nil
 }
 
-func (x *Config) GetUser() *v17.UserConfig {
+func (x *Config) GetUser() *v14.UserConfig {
 	if x != nil {
 		return x.User
 	}
@@ -301,7 +290,7 @@ var File_config_v1_config_proto protoreflect.FileDescriptor
 
 const file_config_v1_config_proto_rawDesc = "" +
 	"\n" +
-	"\x16config/v1/config.proto\x12\tconfig.v1\x1a\x17captcha/v1/config.proto\x1a\x0edb/v1/db.proto\x1a\x11db/v1/redis.proto\x1a\x1dservices/user/v1/config.proto\x1a\x13sms/v1/config.proto\x1a\x14mail/v1/config.proto\x1a\x10idx/v1/idx.proto\x1a\x16wechat/v1/config.proto\x1a\x13log/v1/config.proto\"s\n" +
+	"\x16config/v1/config.proto\x12\tconfig.v1\x1a\x17captcha/v1/config.proto\x1a\x12config/v1/db.proto\x1a\x15config/v1/redis.proto\x1a\x1dservices/user/v1/config.proto\x1a\x13sms/v1/config.proto\x1a\x14mail/v1/config.proto\x1a\x13config/v1/idx.proto\x1a\x16wechat/v1/config.proto\x1a\x13config/v1/log.proto\"s\n" +
 	"\x04Host\x12\x15\n" +
 	"\x06eth_ip\x18\x01 \x01(\tR\x05ethIp\x12\x15\n" +
 	"\x06wan_ip\x18\x02 \x01(\tR\x05wanIp\x12\x10\n" +
@@ -312,22 +301,21 @@ const file_config_v1_config_proto_rawDesc = "" +
 	"\vlisten_addr\x18\x01 \x01(\tR\n" +
 	"listenAddr\x12\x1f\n" +
 	"\vlisten_port\x18\x02 \x01(\x05R\n" +
-	"listenPort\"\xdf\x04\n" +
+	"listenPort\"\xb0\x04\n" +
 	"\x06Config\x12#\n" +
 	"\x04base\x18\x01 \x01(\v2\x0f.config.v1.BaseR\x04base\x12#\n" +
 	"\x03sms\x18\x02 \x01(\v2\x11.sms.v1.SmsConfigR\x03sms\x12'\n" +
 	"\x04mail\x18\x03 \x01(\v2\x13.mail.v1.MailConfigR\x04mail\x123\n" +
-	"\acaptcha\x18\x04 \x01(\v2\x19.captcha.v1.CaptchaConfigR\acaptcha\x123\n" +
-	"\tglobal_id\x18\x05 \x01(\v2\x16.idx.v1.GlobalIdConfigR\bglobalId\x120\n" +
-	"\bshort_id\x18\x06 \x01(\v2\x15.idx.v1.ShortIdConfigR\ashortId\x12/\n" +
-	"\x06wechat\x18\a \x01(\v2\x17.wechat.v1.WechatConfigR\x06wechat\x12\x1f\n" +
-	"\x02db\x18\b \x01(\v2\x0f.db.v1.DbConfigR\x02db\x12(\n" +
-	"\x05redis\x18\t \x01(\v2\x12.db.v1.RedisConfigR\x05redis\x12A\n" +
-	"\x10distributed_lock\x18\n" +
-	" \x01(\v2\x16.db.v1.DistributedLockR\x0fdistributedLock\x120\n" +
+	"\acaptcha\x18\x04 \x01(\v2\x19.captcha.v1.CaptchaConfigR\acaptcha\x126\n" +
+	"\tglobal_id\x18\x05 \x01(\v2\x19.config.v1.GlobalIdConfigR\bglobalId\x123\n" +
+	"\bshort_id\x18\x06 \x01(\v2\x18.config.v1.ShortIdConfigR\ashortId\x12/\n" +
+	"\x06wechat\x18\a \x01(\v2\x17.wechat.v1.WechatConfigR\x06wechat\x12#\n" +
+	"\x02db\x18\b \x01(\v2\x13.config.v1.DbConfigR\x02db\x12,\n" +
+	"\x05redis\x18\t \x01(\v2\x16.config.v1.RedisConfigR\x05redis\x126\n" +
 	"\n" +
-	"log_config\x18\v \x01(\v2\x11.log.v1.LogConfigR\tlogConfig\x12#\n" +
-	"\x04host\x18\f \x01(\v2\x0f.config.v1.HostR\x04host\x120\n" +
+	"log_config\x18\n" +
+	" \x01(\v2\x17.config.v1.ZapLogConfigR\tlogConfig\x12#\n" +
+	"\x04host\x18\v \x01(\v2\x0f.config.v1.HostR\x04host\x120\n" +
 	"\x04user\x18d \x01(\v2\x1c.services.user.v1.UserConfigR\x04userB\x99\x01\n" +
 	"\rcom.config.v1B\vConfigProtoP\x01Z6github.com/byteflowing/proto/gen/go/config/v1;configv1\xa2\x02\x03CXX\xaa\x02\tConfig.V1\xca\x02\tConfig\\V1\xe2\x02\x15Config\\V1\\GPBMetadata\xea\x02\n" +
 	"Config::V1b\x06proto3"
@@ -346,40 +334,38 @@ func file_config_v1_config_proto_rawDescGZIP() []byte {
 
 var file_config_v1_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_config_v1_config_proto_goTypes = []any{
-	(*Host)(nil),                // 0: config.v1.Host
-	(*Base)(nil),                // 1: config.v1.Base
-	(*Config)(nil),              // 2: config.v1.Config
-	(*v1.SmsConfig)(nil),        // 3: sms.v1.SmsConfig
-	(*v11.MailConfig)(nil),      // 4: mail.v1.MailConfig
-	(*v12.CaptchaConfig)(nil),   // 5: captcha.v1.CaptchaConfig
-	(*v13.GlobalIdConfig)(nil),  // 6: idx.v1.GlobalIdConfig
-	(*v13.ShortIdConfig)(nil),   // 7: idx.v1.ShortIdConfig
-	(*v14.WechatConfig)(nil),    // 8: wechat.v1.WechatConfig
-	(*v15.DbConfig)(nil),        // 9: db.v1.DbConfig
-	(*v15.RedisConfig)(nil),     // 10: db.v1.RedisConfig
-	(*v15.DistributedLock)(nil), // 11: db.v1.DistributedLock
-	(*v16.LogConfig)(nil),       // 12: log.v1.LogConfig
-	(*v17.UserConfig)(nil),      // 13: services.user.v1.UserConfig
+	(*Host)(nil),              // 0: config.v1.Host
+	(*Base)(nil),              // 1: config.v1.Base
+	(*Config)(nil),            // 2: config.v1.Config
+	(*v1.SmsConfig)(nil),      // 3: sms.v1.SmsConfig
+	(*v11.MailConfig)(nil),    // 4: mail.v1.MailConfig
+	(*v12.CaptchaConfig)(nil), // 5: captcha.v1.CaptchaConfig
+	(*GlobalIdConfig)(nil),    // 6: config.v1.GlobalIdConfig
+	(*ShortIdConfig)(nil),     // 7: config.v1.ShortIdConfig
+	(*v13.WechatConfig)(nil),  // 8: wechat.v1.WechatConfig
+	(*DbConfig)(nil),          // 9: config.v1.DbConfig
+	(*RedisConfig)(nil),       // 10: config.v1.RedisConfig
+	(*ZapLogConfig)(nil),      // 11: config.v1.ZapLogConfig
+	(*v14.UserConfig)(nil),    // 12: services.user.v1.UserConfig
 }
 var file_config_v1_config_proto_depIdxs = []int32{
 	1,  // 0: config.v1.Config.base:type_name -> config.v1.Base
 	3,  // 1: config.v1.Config.sms:type_name -> sms.v1.SmsConfig
 	4,  // 2: config.v1.Config.mail:type_name -> mail.v1.MailConfig
 	5,  // 3: config.v1.Config.captcha:type_name -> captcha.v1.CaptchaConfig
-	6,  // 4: config.v1.Config.global_id:type_name -> idx.v1.GlobalIdConfig
-	7,  // 5: config.v1.Config.short_id:type_name -> idx.v1.ShortIdConfig
+	6,  // 4: config.v1.Config.global_id:type_name -> config.v1.GlobalIdConfig
+	7,  // 5: config.v1.Config.short_id:type_name -> config.v1.ShortIdConfig
 	8,  // 6: config.v1.Config.wechat:type_name -> wechat.v1.WechatConfig
-	9,  // 7: config.v1.Config.db:type_name -> db.v1.DbConfig
-	10, // 8: config.v1.Config.redis:type_name -> db.v1.RedisConfig
-	11, // 9: config.v1.Config.distributed_lock:type_name -> db.v1.DistributedLock
-	12, // 10: config.v1.Config.log_config:type_name -> log.v1.LogConfig
-	0,  // 11: config.v1.Config.host:type_name -> config.v1.Host
-	13, // 12: config.v1.Config.user:type_name -> services.user.v1.UserConfig
-	13, // [13:13] is the sub-list for method output_type
-	13, // [13:13] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	9,  // 7: config.v1.Config.db:type_name -> config.v1.DbConfig
+	10, // 8: config.v1.Config.redis:type_name -> config.v1.RedisConfig
+	11, // 9: config.v1.Config.log_config:type_name -> config.v1.ZapLogConfig
+	0,  // 10: config.v1.Config.host:type_name -> config.v1.Host
+	12, // 11: config.v1.Config.user:type_name -> services.user.v1.UserConfig
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_config_v1_config_proto_init() }
@@ -387,6 +373,10 @@ func file_config_v1_config_proto_init() {
 	if File_config_v1_config_proto != nil {
 		return
 	}
+	file_config_v1_db_proto_init()
+	file_config_v1_redis_proto_init()
+	file_config_v1_idx_proto_init()
+	file_config_v1_log_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

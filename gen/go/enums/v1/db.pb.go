@@ -131,6 +131,55 @@ func (DbLogLevel) EnumDescriptor() ([]byte, []int) {
 	return file_enums_v1_db_proto_rawDescGZIP(), []int{1}
 }
 
+type RedisType int32
+
+const (
+	RedisType_REDIS_TYPE_UNSPECIFIED RedisType = 0
+	RedisType_REDIS_TYPE_NODE        RedisType = 1
+	RedisType_REDIS_TYPE_CLUSTER     RedisType = 2
+)
+
+// Enum value maps for RedisType.
+var (
+	RedisType_name = map[int32]string{
+		0: "REDIS_TYPE_UNSPECIFIED",
+		1: "REDIS_TYPE_NODE",
+		2: "REDIS_TYPE_CLUSTER",
+	}
+	RedisType_value = map[string]int32{
+		"REDIS_TYPE_UNSPECIFIED": 0,
+		"REDIS_TYPE_NODE":        1,
+		"REDIS_TYPE_CLUSTER":     2,
+	}
+)
+
+func (x RedisType) Enum() *RedisType {
+	p := new(RedisType)
+	*p = x
+	return p
+}
+
+func (x RedisType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (RedisType) Descriptor() protoreflect.EnumDescriptor {
+	return file_enums_v1_db_proto_enumTypes[2].Descriptor()
+}
+
+func (RedisType) Type() protoreflect.EnumType {
+	return &file_enums_v1_db_proto_enumTypes[2]
+}
+
+func (x RedisType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use RedisType.Descriptor instead.
+func (RedisType) EnumDescriptor() ([]byte, []int) {
+	return file_enums_v1_db_proto_rawDescGZIP(), []int{2}
+}
+
 var File_enums_v1_db_proto protoreflect.FileDescriptor
 
 const file_enums_v1_db_proto_rawDesc = "" +
@@ -148,7 +197,11 @@ const file_enums_v1_db_proto_rawDesc = "" +
 	"\x13DB_LOG_LEVEL_SILENT\x10\x01\x12\x16\n" +
 	"\x12DB_LOG_LEVEL_ERROR\x10\x02\x12\x15\n" +
 	"\x11DB_LOG_LEVEL_WARN\x10\x03\x12\x15\n" +
-	"\x11DB_LOG_LEVEL_INFO\x10\x04B\x8e\x01\n" +
+	"\x11DB_LOG_LEVEL_INFO\x10\x04*T\n" +
+	"\tRedisType\x12\x1a\n" +
+	"\x16REDIS_TYPE_UNSPECIFIED\x10\x00\x12\x13\n" +
+	"\x0fREDIS_TYPE_NODE\x10\x01\x12\x16\n" +
+	"\x12REDIS_TYPE_CLUSTER\x10\x02B\x8e\x01\n" +
 	"\fcom.enums.v1B\aDbProtoP\x01Z4github.com/byteflowing/proto/gen/go/enums/v1;enumsv1\xa2\x02\x03EXX\xaa\x02\bEnums.V1\xca\x02\bEnums\\V1\xe2\x02\x14Enums\\V1\\GPBMetadata\xea\x02\tEnums::V1b\x06proto3"
 
 var (
@@ -163,10 +216,11 @@ func file_enums_v1_db_proto_rawDescGZIP() []byte {
 	return file_enums_v1_db_proto_rawDescData
 }
 
-var file_enums_v1_db_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_enums_v1_db_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_enums_v1_db_proto_goTypes = []any{
 	(DbType)(0),     // 0: enums.v1.DbType
 	(DbLogLevel)(0), // 1: enums.v1.DbLogLevel
+	(RedisType)(0),  // 2: enums.v1.RedisType
 }
 var file_enums_v1_db_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -186,7 +240,7 @@ func file_enums_v1_db_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_enums_v1_db_proto_rawDesc), len(file_enums_v1_db_proto_rawDesc)),
-			NumEnums:      2,
+			NumEnums:      3,
 			NumMessages:   0,
 			NumExtensions: 0,
 			NumServices:   0,

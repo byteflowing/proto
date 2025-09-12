@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.9
 // 	protoc        (unknown)
-// source: idx/v1/idx.proto
+// source: config/v1/idx.proto
 
-package idxv1
+package configv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
@@ -38,7 +38,7 @@ type GlobalIdConfig struct {
 
 func (x *GlobalIdConfig) Reset() {
 	*x = GlobalIdConfig{}
-	mi := &file_idx_v1_idx_proto_msgTypes[0]
+	mi := &file_config_v1_idx_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -50,7 +50,7 @@ func (x *GlobalIdConfig) String() string {
 func (*GlobalIdConfig) ProtoMessage() {}
 
 func (x *GlobalIdConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_idx_v1_idx_proto_msgTypes[0]
+	mi := &file_config_v1_idx_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -63,7 +63,7 @@ func (x *GlobalIdConfig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GlobalIdConfig.ProtoReflect.Descriptor instead.
 func (*GlobalIdConfig) Descriptor() ([]byte, []int) {
-	return file_idx_v1_idx_proto_rawDescGZIP(), []int{0}
+	return file_config_v1_idx_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *GlobalIdConfig) GetMode() v1.GlobalIdMode {
@@ -94,7 +94,7 @@ type ShortIdConfig struct {
 
 func (x *ShortIdConfig) Reset() {
 	*x = ShortIdConfig{}
-	mi := &file_idx_v1_idx_proto_msgTypes[1]
+	mi := &file_config_v1_idx_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -106,7 +106,7 @@ func (x *ShortIdConfig) String() string {
 func (*ShortIdConfig) ProtoMessage() {}
 
 func (x *ShortIdConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_idx_v1_idx_proto_msgTypes[1]
+	mi := &file_config_v1_idx_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -119,7 +119,7 @@ func (x *ShortIdConfig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShortIdConfig.ProtoReflect.Descriptor instead.
 func (*ShortIdConfig) Descriptor() ([]byte, []int) {
-	return file_idx_v1_idx_proto_rawDescGZIP(), []int{1}
+	return file_config_v1_idx_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *ShortIdConfig) GetAlphabet() string {
@@ -143,11 +143,11 @@ func (x *ShortIdConfig) GetBlockList() []string {
 	return nil
 }
 
-var File_idx_v1_idx_proto protoreflect.FileDescriptor
+var File_config_v1_idx_proto protoreflect.FileDescriptor
 
-const file_idx_v1_idx_proto_rawDesc = "" +
+const file_config_v1_idx_proto_rawDesc = "" +
 	"\n" +
-	"\x10idx/v1/idx.proto\x12\x06idx.v1\x1a\x12enums/v1/idx.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbuf/validate/validate.proto\x1a$validation/v1/predefined_rules.proto\"\x84\x01\n" +
+	"\x13config/v1/idx.proto\x12\tconfig.v1\x1a\x12enums/v1/idx.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbuf/validate/validate.proto\x1a$validation/v1/predefined_rules.proto\"\x84\x01\n" +
 	"\x0eGlobalIdConfig\x127\n" +
 	"\x04mode\x18\x01 \x01(\x0e2\x16.enums.v1.GlobalIdModeB\v\xbaH\b\x82\x01\x05\xc8\xe2\xe8\x03\x01R\x04mode\x129\n" +
 	"\n" +
@@ -157,32 +157,32 @@ const file_idx_v1_idx_proto_rawDesc = "" +
 	"\n" +
 	"min_length\x18\x02 \x01(\x05R\tminLength\x12'\n" +
 	"\n" +
-	"block_list\x18\x03 \x03(\tB\b\xbaH\x05\x92\x01\x02\x18\x01R\tblockListB\x81\x01\n" +
-	"\n" +
-	"com.idx.v1B\bIdxProtoP\x01Z0github.com/byteflowing/proto/gen/go/idx/v1;idxv1\xa2\x02\x03IXX\xaa\x02\x06Idx.V1\xca\x02\x06Idx\\V1\xe2\x02\x12Idx\\V1\\GPBMetadata\xea\x02\aIdx::V1b\x06proto3"
+	"block_list\x18\x03 \x03(\tB\b\xbaH\x05\x92\x01\x02\x18\x01R\tblockListB\x96\x01\n" +
+	"\rcom.config.v1B\bIdxProtoP\x01Z6github.com/byteflowing/proto/gen/go/config/v1;configv1\xa2\x02\x03CXX\xaa\x02\tConfig.V1\xca\x02\tConfig\\V1\xe2\x02\x15Config\\V1\\GPBMetadata\xea\x02\n" +
+	"Config::V1b\x06proto3"
 
 var (
-	file_idx_v1_idx_proto_rawDescOnce sync.Once
-	file_idx_v1_idx_proto_rawDescData []byte
+	file_config_v1_idx_proto_rawDescOnce sync.Once
+	file_config_v1_idx_proto_rawDescData []byte
 )
 
-func file_idx_v1_idx_proto_rawDescGZIP() []byte {
-	file_idx_v1_idx_proto_rawDescOnce.Do(func() {
-		file_idx_v1_idx_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_idx_v1_idx_proto_rawDesc), len(file_idx_v1_idx_proto_rawDesc)))
+func file_config_v1_idx_proto_rawDescGZIP() []byte {
+	file_config_v1_idx_proto_rawDescOnce.Do(func() {
+		file_config_v1_idx_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_config_v1_idx_proto_rawDesc), len(file_config_v1_idx_proto_rawDesc)))
 	})
-	return file_idx_v1_idx_proto_rawDescData
+	return file_config_v1_idx_proto_rawDescData
 }
 
-var file_idx_v1_idx_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_idx_v1_idx_proto_goTypes = []any{
-	(*GlobalIdConfig)(nil),        // 0: idx.v1.GlobalIdConfig
-	(*ShortIdConfig)(nil),         // 1: idx.v1.ShortIdConfig
+var file_config_v1_idx_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_config_v1_idx_proto_goTypes = []any{
+	(*GlobalIdConfig)(nil),        // 0: config.v1.GlobalIdConfig
+	(*ShortIdConfig)(nil),         // 1: config.v1.ShortIdConfig
 	(v1.GlobalIdMode)(0),          // 2: enums.v1.GlobalIdMode
 	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
 }
-var file_idx_v1_idx_proto_depIdxs = []int32{
-	2, // 0: idx.v1.GlobalIdConfig.mode:type_name -> enums.v1.GlobalIdMode
-	3, // 1: idx.v1.GlobalIdConfig.start_time:type_name -> google.protobuf.Timestamp
+var file_config_v1_idx_proto_depIdxs = []int32{
+	2, // 0: config.v1.GlobalIdConfig.mode:type_name -> enums.v1.GlobalIdMode
+	3, // 1: config.v1.GlobalIdConfig.start_time:type_name -> google.protobuf.Timestamp
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
@@ -190,26 +190,26 @@ var file_idx_v1_idx_proto_depIdxs = []int32{
 	0, // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_idx_v1_idx_proto_init() }
-func file_idx_v1_idx_proto_init() {
-	if File_idx_v1_idx_proto != nil {
+func init() { file_config_v1_idx_proto_init() }
+func file_config_v1_idx_proto_init() {
+	if File_config_v1_idx_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_idx_v1_idx_proto_rawDesc), len(file_idx_v1_idx_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_config_v1_idx_proto_rawDesc), len(file_config_v1_idx_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_idx_v1_idx_proto_goTypes,
-		DependencyIndexes: file_idx_v1_idx_proto_depIdxs,
-		MessageInfos:      file_idx_v1_idx_proto_msgTypes,
+		GoTypes:           file_config_v1_idx_proto_goTypes,
+		DependencyIndexes: file_config_v1_idx_proto_depIdxs,
+		MessageInfos:      file_config_v1_idx_proto_msgTypes,
 	}.Build()
-	File_idx_v1_idx_proto = out.File
-	file_idx_v1_idx_proto_goTypes = nil
-	file_idx_v1_idx_proto_depIdxs = nil
+	File_config_v1_idx_proto = out.File
+	file_config_v1_idx_proto_goTypes = nil
+	file_config_v1_idx_proto_depIdxs = nil
 }

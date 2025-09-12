@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package idx.v1;
+package config.v1;
 
 import "enums/v1/idx.proto";
 import "google/protobuf/timestamp.proto";

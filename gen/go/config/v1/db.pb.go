@@ -2,13 +2,12 @@
 // versions:
 // 	protoc-gen-go v1.36.9
 // 	protoc        (unknown)
-// source: db/v1/db.proto
+// source: config/v1/db.proto
 
-package dbv1
+package configv1
 
 import (
 	v1 "github.com/byteflowing/proto/gen/go/enums/v1"
-	v11 "github.com/byteflowing/proto/gen/go/log/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -38,14 +37,14 @@ type DbLog struct {
 	// 日志级别
 	Level v1.DbLogLevel `protobuf:"varint,6,opt,name=level,proto3,enum=enums.v1.DbLogLevel" json:"level,omitempty"`
 	// 日志轮转，仅当out为file时有效
-	Rotation      *v11.RotationConfig `protobuf:"bytes,7,opt,name=rotation,proto3" json:"rotation,omitempty"`
+	Rotation      *RotationConfig `protobuf:"bytes,7,opt,name=rotation,proto3" json:"rotation,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DbLog) Reset() {
 	*x = DbLog{}
-	mi := &file_db_v1_db_proto_msgTypes[0]
+	mi := &file_config_v1_db_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -57,7 +56,7 @@ func (x *DbLog) String() string {
 func (*DbLog) ProtoMessage() {}
 
 func (x *DbLog) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_db_proto_msgTypes[0]
+	mi := &file_config_v1_db_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -70,7 +69,7 @@ func (x *DbLog) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbLog.ProtoReflect.Descriptor instead.
 func (*DbLog) Descriptor() ([]byte, []int) {
-	return file_db_v1_db_proto_rawDescGZIP(), []int{0}
+	return file_config_v1_db_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *DbLog) GetSlowThreshold() uint32 {
@@ -115,7 +114,7 @@ func (x *DbLog) GetLevel() v1.DbLogLevel {
 	return v1.DbLogLevel(0)
 }
 
-func (x *DbLog) GetRotation() *v11.RotationConfig {
+func (x *DbLog) GetRotation() *RotationConfig {
 	if x != nil {
 		return x.Rotation
 	}
@@ -134,7 +133,7 @@ type DbConn struct {
 
 func (x *DbConn) Reset() {
 	*x = DbConn{}
-	mi := &file_db_v1_db_proto_msgTypes[1]
+	mi := &file_config_v1_db_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -146,7 +145,7 @@ func (x *DbConn) String() string {
 func (*DbConn) ProtoMessage() {}
 
 func (x *DbConn) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_db_proto_msgTypes[1]
+	mi := &file_config_v1_db_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -159,7 +158,7 @@ func (x *DbConn) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbConn.ProtoReflect.Descriptor instead.
 func (*DbConn) Descriptor() ([]byte, []int) {
-	return file_db_v1_db_proto_rawDescGZIP(), []int{1}
+	return file_config_v1_db_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *DbConn) GetConnMaxLifeTime() int32 {
@@ -208,7 +207,7 @@ type DbMysql struct {
 
 func (x *DbMysql) Reset() {
 	*x = DbMysql{}
-	mi := &file_db_v1_db_proto_msgTypes[2]
+	mi := &file_config_v1_db_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -220,7 +219,7 @@ func (x *DbMysql) String() string {
 func (*DbMysql) ProtoMessage() {}
 
 func (x *DbMysql) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_db_proto_msgTypes[2]
+	mi := &file_config_v1_db_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -233,7 +232,7 @@ func (x *DbMysql) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbMysql.ProtoReflect.Descriptor instead.
 func (*DbMysql) Descriptor() ([]byte, []int) {
-	return file_db_v1_db_proto_rawDescGZIP(), []int{2}
+	return file_config_v1_db_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *DbMysql) GetHost() string {
@@ -322,7 +321,7 @@ type DbPostgres struct {
 
 func (x *DbPostgres) Reset() {
 	*x = DbPostgres{}
-	mi := &file_db_v1_db_proto_msgTypes[3]
+	mi := &file_config_v1_db_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -334,7 +333,7 @@ func (x *DbPostgres) String() string {
 func (*DbPostgres) ProtoMessage() {}
 
 func (x *DbPostgres) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_db_proto_msgTypes[3]
+	mi := &file_config_v1_db_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -347,7 +346,7 @@ func (x *DbPostgres) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbPostgres.ProtoReflect.Descriptor instead.
 func (*DbPostgres) Descriptor() ([]byte, []int) {
-	return file_db_v1_db_proto_rawDescGZIP(), []int{3}
+	return file_config_v1_db_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *DbPostgres) GetHost() string {
@@ -419,7 +418,7 @@ type DbSQLServer struct {
 
 func (x *DbSQLServer) Reset() {
 	*x = DbSQLServer{}
-	mi := &file_db_v1_db_proto_msgTypes[4]
+	mi := &file_config_v1_db_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -431,7 +430,7 @@ func (x *DbSQLServer) String() string {
 func (*DbSQLServer) ProtoMessage() {}
 
 func (x *DbSQLServer) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_db_proto_msgTypes[4]
+	mi := &file_config_v1_db_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -444,7 +443,7 @@ func (x *DbSQLServer) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbSQLServer.ProtoReflect.Descriptor instead.
 func (*DbSQLServer) Descriptor() ([]byte, []int) {
-	return file_db_v1_db_proto_rawDescGZIP(), []int{4}
+	return file_config_v1_db_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *DbSQLServer) GetHost() string {
@@ -491,7 +490,7 @@ type DbSQLite struct {
 
 func (x *DbSQLite) Reset() {
 	*x = DbSQLite{}
-	mi := &file_db_v1_db_proto_msgTypes[5]
+	mi := &file_config_v1_db_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -503,7 +502,7 @@ func (x *DbSQLite) String() string {
 func (*DbSQLite) ProtoMessage() {}
 
 func (x *DbSQLite) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_db_proto_msgTypes[5]
+	mi := &file_config_v1_db_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -516,7 +515,7 @@ func (x *DbSQLite) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbSQLite.ProtoReflect.Descriptor instead.
 func (*DbSQLite) Descriptor() ([]byte, []int) {
-	return file_db_v1_db_proto_rawDescGZIP(), []int{5}
+	return file_config_v1_db_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *DbSQLite) GetDbPath() string {
@@ -542,7 +541,7 @@ type DbConfig struct {
 
 func (x *DbConfig) Reset() {
 	*x = DbConfig{}
-	mi := &file_db_v1_db_proto_msgTypes[6]
+	mi := &file_config_v1_db_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -554,7 +553,7 @@ func (x *DbConfig) String() string {
 func (*DbConfig) ProtoMessage() {}
 
 func (x *DbConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_db_proto_msgTypes[6]
+	mi := &file_config_v1_db_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -567,7 +566,7 @@ func (x *DbConfig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DbConfig.ProtoReflect.Descriptor instead.
 func (*DbConfig) Descriptor() ([]byte, []int) {
-	return file_db_v1_db_proto_rawDescGZIP(), []int{6}
+	return file_config_v1_db_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *DbConfig) GetDbType() v1.DbType {
@@ -633,7 +632,7 @@ type SqlConfig struct {
 
 func (x *SqlConfig) Reset() {
 	*x = SqlConfig{}
-	mi := &file_db_v1_db_proto_msgTypes[7]
+	mi := &file_config_v1_db_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -645,7 +644,7 @@ func (x *SqlConfig) String() string {
 func (*SqlConfig) ProtoMessage() {}
 
 func (x *SqlConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_db_v1_db_proto_msgTypes[7]
+	mi := &file_config_v1_db_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -658,7 +657,7 @@ func (x *SqlConfig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SqlConfig.ProtoReflect.Descriptor instead.
 func (*SqlConfig) Descriptor() ([]byte, []int) {
-	return file_db_v1_db_proto_rawDescGZIP(), []int{7}
+	return file_config_v1_db_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *SqlConfig) GetDbType() v1.DbType {
@@ -682,19 +681,19 @@ func (x *SqlConfig) GetFilePath() []string {
 	return nil
 }
 
-var File_db_v1_db_proto protoreflect.FileDescriptor
+var File_config_v1_db_proto protoreflect.FileDescriptor
 
-const file_db_v1_db_proto_rawDesc = "" +
+const file_config_v1_db_proto_rawDesc = "" +
 	"\n" +
-	"\x0edb/v1/db.proto\x12\x05db.v1\x1a\x15log/v1/rotation.proto\x1a\x12enums/v1/log.proto\x1a\x11enums/v1/db.proto\"\xc1\x02\n" +
+	"\x12config/v1/db.proto\x12\tconfig.v1\x1a\x12enums/v1/log.proto\x1a\x11enums/v1/db.proto\x1a\x13config/v1/log.proto\"\xc4\x02\n" +
 	"\x05DbLog\x12%\n" +
 	"\x0eslow_threshold\x18\x01 \x01(\rR\rslowThreshold\x12\"\n" +
 	"\x03out\x18\x02 \x01(\x0e2\x10.enums.v1.LogOutR\x03out\x12\x1a\n" +
 	"\bcolorful\x18\x03 \x01(\bR\bcolorful\x12<\n" +
 	"\x1bignore_record_not_found_err\x18\x04 \x01(\bR\x17ignoreRecordNotFoundErr\x123\n" +
 	"\x15parameterized_queries\x18\x05 \x01(\bR\x14parameterizedQueries\x12*\n" +
-	"\x05level\x18\x06 \x01(\x0e2\x14.enums.v1.DbLogLevelR\x05level\x122\n" +
-	"\brotation\x18\a \x01(\v2\x16.log.v1.RotationConfigR\brotation\"\xa9\x01\n" +
+	"\x05level\x18\x06 \x01(\x0e2\x14.enums.v1.DbLogLevelR\x05level\x125\n" +
+	"\brotation\x18\a \x01(\v2\x19.config.v1.RotationConfigR\brotation\"\xa9\x01\n" +
 	"\x06DbConn\x12+\n" +
 	"\x12conn_max_life_time\x18\x01 \x01(\x05R\x0fconnMaxLifeTime\x12\"\n" +
 	"\rmax_idle_time\x18\x02 \x01(\x05R\vmaxIdleTime\x12&\n" +
@@ -729,60 +728,61 @@ const file_db_v1_db_proto_rawDesc = "" +
 	"\bpassword\x18\x04 \x01(\tR\bpassword\x12\x17\n" +
 	"\adb_name\x18\x05 \x01(\tR\x06dbName\"#\n" +
 	"\bDbSQLite\x12\x17\n" +
-	"\adb_path\x18\x01 \x01(\tR\x06dbPath\"\xa8\x02\n" +
+	"\adb_path\x18\x01 \x01(\tR\x06dbPath\"\xc0\x02\n" +
 	"\bDbConfig\x12)\n" +
-	"\adb_type\x18\x01 \x01(\x0e2\x10.enums.v1.DbTypeR\x06dbType\x12\x1e\n" +
-	"\x03log\x18\x02 \x01(\v2\f.db.v1.DbLogR\x03log\x12!\n" +
-	"\x04conn\x18\x03 \x01(\v2\r.db.v1.DbConnR\x04conn\x12$\n" +
-	"\x05mysql\x18\x04 \x01(\v2\x0e.db.v1.DbMysqlR\x05mysql\x12-\n" +
-	"\bpostgres\x18\x05 \x01(\v2\x11.db.v1.DbPostgresR\bpostgres\x120\n" +
-	"\tsqlserver\x18\x06 \x01(\v2\x12.db.v1.DbSQLServerR\tsqlserver\x12'\n" +
-	"\x06sqlite\x18\a \x01(\v2\x0f.db.v1.DbSQLiteR\x06sqlite\"e\n" +
+	"\adb_type\x18\x01 \x01(\x0e2\x10.enums.v1.DbTypeR\x06dbType\x12\"\n" +
+	"\x03log\x18\x02 \x01(\v2\x10.config.v1.DbLogR\x03log\x12%\n" +
+	"\x04conn\x18\x03 \x01(\v2\x11.config.v1.DbConnR\x04conn\x12(\n" +
+	"\x05mysql\x18\x04 \x01(\v2\x12.config.v1.DbMysqlR\x05mysql\x121\n" +
+	"\bpostgres\x18\x05 \x01(\v2\x15.config.v1.DbPostgresR\bpostgres\x124\n" +
+	"\tsqlserver\x18\x06 \x01(\v2\x16.config.v1.DbSQLServerR\tsqlserver\x12+\n" +
+	"\x06sqlite\x18\a \x01(\v2\x13.config.v1.DbSQLiteR\x06sqlite\"e\n" +
 	"\tSqlConfig\x12)\n" +
 	"\adb_type\x18\x01 \x01(\x0e2\x10.enums.v1.DbTypeR\x06dbType\x12\x10\n" +
 	"\x03sql\x18\x02 \x03(\tR\x03sql\x12\x1b\n" +
-	"\tfile_path\x18\x03 \x03(\tR\bfilePathBy\n" +
-	"\tcom.db.v1B\aDbProtoP\x01Z.github.com/byteflowing/proto/gen/go/db/v1;dbv1\xa2\x02\x03DXX\xaa\x02\x05Db.V1\xca\x02\x05Db\\V1\xe2\x02\x11Db\\V1\\GPBMetadata\xea\x02\x06Db::V1b\x06proto3"
+	"\tfile_path\x18\x03 \x03(\tR\bfilePathB\x95\x01\n" +
+	"\rcom.config.v1B\aDbProtoP\x01Z6github.com/byteflowing/proto/gen/go/config/v1;configv1\xa2\x02\x03CXX\xaa\x02\tConfig.V1\xca\x02\tConfig\\V1\xe2\x02\x15Config\\V1\\GPBMetadata\xea\x02\n" +
+	"Config::V1b\x06proto3"
 
 var (
-	file_db_v1_db_proto_rawDescOnce sync.Once
-	file_db_v1_db_proto_rawDescData []byte
+	file_config_v1_db_proto_rawDescOnce sync.Once
+	file_config_v1_db_proto_rawDescData []byte
 )
 
-func file_db_v1_db_proto_rawDescGZIP() []byte {
-	file_db_v1_db_proto_rawDescOnce.Do(func() {
-		file_db_v1_db_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_db_v1_db_proto_rawDesc), len(file_db_v1_db_proto_rawDesc)))
+func file_config_v1_db_proto_rawDescGZIP() []byte {
+	file_config_v1_db_proto_rawDescOnce.Do(func() {
+		file_config_v1_db_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_config_v1_db_proto_rawDesc), len(file_config_v1_db_proto_rawDesc)))
 	})
-	return file_db_v1_db_proto_rawDescData
+	return file_config_v1_db_proto_rawDescData
 }
 
-var file_db_v1_db_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_db_v1_db_proto_goTypes = []any{
-	(*DbLog)(nil),              // 0: db.v1.DbLog
-	(*DbConn)(nil),             // 1: db.v1.DbConn
-	(*DbMysql)(nil),            // 2: db.v1.DbMysql
-	(*DbPostgres)(nil),         // 3: db.v1.DbPostgres
-	(*DbSQLServer)(nil),        // 4: db.v1.DbSQLServer
-	(*DbSQLite)(nil),           // 5: db.v1.DbSQLite
-	(*DbConfig)(nil),           // 6: db.v1.DbConfig
-	(*SqlConfig)(nil),          // 7: db.v1.SqlConfig
-	(v1.LogOut)(0),             // 8: enums.v1.LogOut
-	(v1.DbLogLevel)(0),         // 9: enums.v1.DbLogLevel
-	(*v11.RotationConfig)(nil), // 10: log.v1.RotationConfig
-	(v1.DbType)(0),             // 11: enums.v1.DbType
+var file_config_v1_db_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_config_v1_db_proto_goTypes = []any{
+	(*DbLog)(nil),          // 0: config.v1.DbLog
+	(*DbConn)(nil),         // 1: config.v1.DbConn
+	(*DbMysql)(nil),        // 2: config.v1.DbMysql
+	(*DbPostgres)(nil),     // 3: config.v1.DbPostgres
+	(*DbSQLServer)(nil),    // 4: config.v1.DbSQLServer
+	(*DbSQLite)(nil),       // 5: config.v1.DbSQLite
+	(*DbConfig)(nil),       // 6: config.v1.DbConfig
+	(*SqlConfig)(nil),      // 7: config.v1.SqlConfig
+	(v1.LogOut)(0),         // 8: enums.v1.LogOut
+	(v1.DbLogLevel)(0),     // 9: enums.v1.DbLogLevel
+	(*RotationConfig)(nil), // 10: config.v1.RotationConfig
+	(v1.DbType)(0),         // 11: enums.v1.DbType
 }
-var file_db_v1_db_proto_depIdxs = []int32{
-	8,  // 0: db.v1.DbLog.out:type_name -> enums.v1.LogOut
-	9,  // 1: db.v1.DbLog.level:type_name -> enums.v1.DbLogLevel
-	10, // 2: db.v1.DbLog.rotation:type_name -> log.v1.RotationConfig
-	11, // 3: db.v1.DbConfig.db_type:type_name -> enums.v1.DbType
-	0,  // 4: db.v1.DbConfig.log:type_name -> db.v1.DbLog
-	1,  // 5: db.v1.DbConfig.conn:type_name -> db.v1.DbConn
-	2,  // 6: db.v1.DbConfig.mysql:type_name -> db.v1.DbMysql
-	3,  // 7: db.v1.DbConfig.postgres:type_name -> db.v1.DbPostgres
-	4,  // 8: db.v1.DbConfig.sqlserver:type_name -> db.v1.DbSQLServer
-	5,  // 9: db.v1.DbConfig.sqlite:type_name -> db.v1.DbSQLite
-	11, // 10: db.v1.SqlConfig.db_type:type_name -> enums.v1.DbType
+var file_config_v1_db_proto_depIdxs = []int32{
+	8,  // 0: config.v1.DbLog.out:type_name -> enums.v1.LogOut
+	9,  // 1: config.v1.DbLog.level:type_name -> enums.v1.DbLogLevel
+	10, // 2: config.v1.DbLog.rotation:type_name -> config.v1.RotationConfig
+	11, // 3: config.v1.DbConfig.db_type:type_name -> enums.v1.DbType
+	0,  // 4: config.v1.DbConfig.log:type_name -> config.v1.DbLog
+	1,  // 5: config.v1.DbConfig.conn:type_name -> config.v1.DbConn
+	2,  // 6: config.v1.DbConfig.mysql:type_name -> config.v1.DbMysql
+	3,  // 7: config.v1.DbConfig.postgres:type_name -> config.v1.DbPostgres
+	4,  // 8: config.v1.DbConfig.sqlserver:type_name -> config.v1.DbSQLServer
+	5,  // 9: config.v1.DbConfig.sqlite:type_name -> config.v1.DbSQLite
+	11, // 10: config.v1.SqlConfig.db_type:type_name -> enums.v1.DbType
 	11, // [11:11] is the sub-list for method output_type
 	11, // [11:11] is the sub-list for method input_type
 	11, // [11:11] is the sub-list for extension type_name
@@ -790,26 +790,27 @@ var file_db_v1_db_proto_depIdxs = []int32{
 	0,  // [0:11] is the sub-list for field type_name
 }
 
-func init() { file_db_v1_db_proto_init() }
-func file_db_v1_db_proto_init() {
-	if File_db_v1_db_proto != nil {
+func init() { file_config_v1_db_proto_init() }
+func file_config_v1_db_proto_init() {
+	if File_config_v1_db_proto != nil {
 		return
 	}
+	file_config_v1_log_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_db_v1_db_proto_rawDesc), len(file_db_v1_db_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_config_v1_db_proto_rawDesc), len(file_config_v1_db_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_db_v1_db_proto_goTypes,
-		DependencyIndexes: file_db_v1_db_proto_depIdxs,
-		MessageInfos:      file_db_v1_db_proto_msgTypes,
+		GoTypes:           file_config_v1_db_proto_goTypes,
+		DependencyIndexes: file_config_v1_db_proto_depIdxs,
+		MessageInfos:      file_config_v1_db_proto_msgTypes,
 	}.Build()
-	File_db_v1_db_proto = out.File
-	file_db_v1_db_proto_goTypes = nil
-	file_db_v1_db_proto_depIdxs = nil
+	File_config_v1_db_proto = out.File
+	file_config_v1_db_proto_goTypes = nil
+	file_config_v1_db_proto_depIdxs = nil
 }
