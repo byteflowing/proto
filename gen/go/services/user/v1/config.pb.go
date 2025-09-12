@@ -324,18 +324,18 @@ func (x *TokenVerifyConfig) GetKeeping() *durationpb.Duration {
 }
 
 type UserConfig struct {
-	state            protoimpl.MessageState  `protogen:"open.v1"`
-	ListenAddr       string                  `protobuf:"bytes,1,opt,name=listen_addr,json=listenAddr,proto3" json:"listen_addr,omitempty"`
-	ListenPort       int32                   `protobuf:"varint,2,opt,name=listen_port,json=listenPort,proto3" json:"listen_port,omitempty"`
-	PasswordHasher   int32                   `protobuf:"varint,3,opt,name=password_hasher,json=passwordHasher,proto3" json:"password_hasher,omitempty"`
-	EnableAuth       []v11.AuthType          `protobuf:"varint,4,rep,packed,name=enable_auth,json=enableAuth,proto3,enum=enums.v1.AuthType" json:"enable_auth,omitempty"`
-	AuthLimiter      *UserAuthLimiterConfig  `protobuf:"bytes,5,opt,name=auth_limiter,json=authLimiter,proto3" json:"auth_limiter,omitempty"`
-	Jwt              *UserJwtConfig          `protobuf:"bytes,6,opt,name=jwt,proto3" json:"jwt,omitempty"`
-	TwoStepVerifier  *TokenVerifyConfig      `protobuf:"bytes,7,opt,name=two_step_verifier,json=twoStepVerifier,proto3" json:"two_step_verifier,omitempty"`
-	Cache            *UserCacheConfig        `protobuf:"bytes,8,opt,name=cache,proto3" json:"cache,omitempty"`
-	SessionBlockList *SessionBlockListConfig `protobuf:"bytes,9,opt,name=session_block_list,json=sessionBlockList,proto3" json:"session_block_list,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	state              protoimpl.MessageState  `protogen:"open.v1"`
+	ListenAddr         string                  `protobuf:"bytes,1,opt,name=listen_addr,json=listenAddr,proto3" json:"listen_addr,omitempty"`
+	ListenPort         int32                   `protobuf:"varint,2,opt,name=listen_port,json=listenPort,proto3" json:"listen_port,omitempty"`
+	PasswordHasherCost int32                   `protobuf:"varint,3,opt,name=password_hasher_cost,json=passwordHasherCost,proto3" json:"password_hasher_cost,omitempty"`
+	EnableAuth         []v11.AuthType          `protobuf:"varint,4,rep,packed,name=enable_auth,json=enableAuth,proto3,enum=enums.v1.AuthType" json:"enable_auth,omitempty"`
+	AuthLimiter        *UserAuthLimiterConfig  `protobuf:"bytes,5,opt,name=auth_limiter,json=authLimiter,proto3" json:"auth_limiter,omitempty"`
+	Jwt                *UserJwtConfig          `protobuf:"bytes,6,opt,name=jwt,proto3" json:"jwt,omitempty"`
+	TwoStepVerifier    *TokenVerifyConfig      `protobuf:"bytes,7,opt,name=two_step_verifier,json=twoStepVerifier,proto3" json:"two_step_verifier,omitempty"`
+	Cache              *UserCacheConfig        `protobuf:"bytes,8,opt,name=cache,proto3" json:"cache,omitempty"`
+	SessionBlockList   *SessionBlockListConfig `protobuf:"bytes,9,opt,name=session_block_list,json=sessionBlockList,proto3" json:"session_block_list,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *UserConfig) Reset() {
@@ -382,9 +382,9 @@ func (x *UserConfig) GetListenPort() int32 {
 	return 0
 }
 
-func (x *UserConfig) GetPasswordHasher() int32 {
+func (x *UserConfig) GetPasswordHasherCost() int32 {
 	if x != nil {
-		return x.PasswordHasher
+		return x.PasswordHasherCost
 	}
 	return 0
 }
@@ -463,14 +463,14 @@ const file_services_user_v1_config_proto_rawDesc = "" +
 	"\x0fUserCacheConfig\"`\n" +
 	"\x11TokenVerifyConfig\x12\x16\n" +
 	"\x06prefix\x18\x01 \x01(\tR\x06prefix\x123\n" +
-	"\akeeping\x18\x02 \x01(\v2\x19.google.protobuf.DurationR\akeeping\"\x8d\x04\n" +
+	"\akeeping\x18\x02 \x01(\v2\x19.google.protobuf.DurationR\akeeping\"\x96\x04\n" +
 	"\n" +
 	"UserConfig\x12\x1f\n" +
 	"\vlisten_addr\x18\x01 \x01(\tR\n" +
 	"listenAddr\x12\x1f\n" +
 	"\vlisten_port\x18\x02 \x01(\x05R\n" +
-	"listenPort\x12'\n" +
-	"\x0fpassword_hasher\x18\x03 \x01(\x05R\x0epasswordHasher\x123\n" +
+	"listenPort\x120\n" +
+	"\x14password_hasher_cost\x18\x03 \x01(\x05R\x12passwordHasherCost\x123\n" +
 	"\venable_auth\x18\x04 \x03(\x0e2\x12.enums.v1.AuthTypeR\n" +
 	"enableAuth\x12J\n" +
 	"\fauth_limiter\x18\x05 \x01(\v2'.services.user.v1.UserAuthLimiterConfigR\vauthLimiter\x121\n" +

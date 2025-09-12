@@ -44,7 +44,7 @@ message TokenVerifyConfig {
 message UserConfig {
   string listen_addr = 1;
   int32 listen_port = 2;
-  int32 password_hasher = 3;
+  int32 password_hasher_cost = 3;
   repeated enums.v1.AuthType enable_auth = 4;
   UserAuthLimiterConfig auth_limiter = 5;
   UserJwtConfig jwt = 6;
