@@ -29,6 +29,82 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type Host struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	EthIp         string                 `protobuf:"bytes,1,opt,name=eth_ip,json=ethIp,proto3" json:"eth_ip,omitempty"`
+	WanIp         string                 `protobuf:"bytes,2,opt,name=wan_ip,json=wanIp,proto3" json:"wan_ip,omitempty"`
+	Mac           string                 `protobuf:"bytes,3,opt,name=mac,proto3" json:"mac,omitempty"`
+	Dns           string                 `protobuf:"bytes,4,opt,name=dns,proto3" json:"dns,omitempty"`
+	NetMask       string                 `protobuf:"bytes,5,opt,name=net_mask,json=netMask,proto3" json:"net_mask,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Host) Reset() {
+	*x = Host{}
+	mi := &file_config_v1_config_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Host) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Host) ProtoMessage() {}
+
+func (x *Host) ProtoReflect() protoreflect.Message {
+	mi := &file_config_v1_config_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Host.ProtoReflect.Descriptor instead.
+func (*Host) Descriptor() ([]byte, []int) {
+	return file_config_v1_config_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *Host) GetEthIp() string {
+	if x != nil {
+		return x.EthIp
+	}
+	return ""
+}
+
+func (x *Host) GetWanIp() string {
+	if x != nil {
+		return x.WanIp
+	}
+	return ""
+}
+
+func (x *Host) GetMac() string {
+	if x != nil {
+		return x.Mac
+	}
+	return ""
+}
+
+func (x *Host) GetDns() string {
+	if x != nil {
+		return x.Dns
+	}
+	return ""
+}
+
+func (x *Host) GetNetMask() string {
+	if x != nil {
+		return x.NetMask
+	}
+	return ""
+}
+
 type Base struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ListenAddr    string                 `protobuf:"bytes,1,opt,name=listen_addr,json=listenAddr,proto3" json:"listen_addr,omitempty"`
@@ -39,7 +115,7 @@ type Base struct {
 
 func (x *Base) Reset() {
 	*x = Base{}
-	mi := &file_config_v1_config_proto_msgTypes[0]
+	mi := &file_config_v1_config_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -51,7 +127,7 @@ func (x *Base) String() string {
 func (*Base) ProtoMessage() {}
 
 func (x *Base) ProtoReflect() protoreflect.Message {
-	mi := &file_config_v1_config_proto_msgTypes[0]
+	mi := &file_config_v1_config_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -64,7 +140,7 @@ func (x *Base) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Base.ProtoReflect.Descriptor instead.
 func (*Base) Descriptor() ([]byte, []int) {
-	return file_config_v1_config_proto_rawDescGZIP(), []int{0}
+	return file_config_v1_config_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Base) GetListenAddr() string {
@@ -94,6 +170,7 @@ type Config struct {
 	Redis           *v15.RedisConfig       `protobuf:"bytes,9,opt,name=redis,proto3" json:"redis,omitempty"`
 	DistributedLock *v15.DistributedLock   `protobuf:"bytes,10,opt,name=distributed_lock,json=distributedLock,proto3" json:"distributed_lock,omitempty"`
 	LogConfig       *v16.LogConfig         `protobuf:"bytes,11,opt,name=log_config,json=logConfig,proto3" json:"log_config,omitempty"`
+	Host            *Host                  `protobuf:"bytes,12,opt,name=host,proto3" json:"host,omitempty"`
 	User            *v17.UserConfig        `protobuf:"bytes,100,opt,name=user,proto3" json:"user,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
@@ -101,7 +178,7 @@ type Config struct {
 
 func (x *Config) Reset() {
 	*x = Config{}
-	mi := &file_config_v1_config_proto_msgTypes[1]
+	mi := &file_config_v1_config_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -113,7 +190,7 @@ func (x *Config) String() string {
 func (*Config) ProtoMessage() {}
 
 func (x *Config) ProtoReflect() protoreflect.Message {
-	mi := &file_config_v1_config_proto_msgTypes[1]
+	mi := &file_config_v1_config_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -126,7 +203,7 @@ func (x *Config) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Config.ProtoReflect.Descriptor instead.
 func (*Config) Descriptor() ([]byte, []int) {
-	return file_config_v1_config_proto_rawDescGZIP(), []int{1}
+	return file_config_v1_config_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Config) GetBase() *Base {
@@ -206,6 +283,13 @@ func (x *Config) GetLogConfig() *v16.LogConfig {
 	return nil
 }
 
+func (x *Config) GetHost() *Host {
+	if x != nil {
+		return x.Host
+	}
+	return nil
+}
+
 func (x *Config) GetUser() *v17.UserConfig {
 	if x != nil {
 		return x.User
@@ -217,12 +301,18 @@ var File_config_v1_config_proto protoreflect.FileDescriptor
 
 const file_config_v1_config_proto_rawDesc = "" +
 	"\n" +
-	"\x16config/v1/config.proto\x12\tconfig.v1\x1a\x17captcha/v1/config.proto\x1a\x0edb/v1/db.proto\x1a\x11db/v1/redis.proto\x1a\x1dservices/user/v1/config.proto\x1a\x13sms/v1/config.proto\x1a\x14mail/v1/config.proto\x1a\x10idx/v1/idx.proto\x1a\x16wechat/v1/config.proto\x1a\x13log/v1/config.proto\"H\n" +
+	"\x16config/v1/config.proto\x12\tconfig.v1\x1a\x17captcha/v1/config.proto\x1a\x0edb/v1/db.proto\x1a\x11db/v1/redis.proto\x1a\x1dservices/user/v1/config.proto\x1a\x13sms/v1/config.proto\x1a\x14mail/v1/config.proto\x1a\x10idx/v1/idx.proto\x1a\x16wechat/v1/config.proto\x1a\x13log/v1/config.proto\"s\n" +
+	"\x04Host\x12\x15\n" +
+	"\x06eth_ip\x18\x01 \x01(\tR\x05ethIp\x12\x15\n" +
+	"\x06wan_ip\x18\x02 \x01(\tR\x05wanIp\x12\x10\n" +
+	"\x03mac\x18\x03 \x01(\tR\x03mac\x12\x10\n" +
+	"\x03dns\x18\x04 \x01(\tR\x03dns\x12\x19\n" +
+	"\bnet_mask\x18\x05 \x01(\tR\anetMask\"H\n" +
 	"\x04Base\x12\x1f\n" +
 	"\vlisten_addr\x18\x01 \x01(\tR\n" +
 	"listenAddr\x12\x1f\n" +
 	"\vlisten_port\x18\x02 \x01(\x05R\n" +
-	"listenPort\"\xba\x04\n" +
+	"listenPort\"\xdf\x04\n" +
 	"\x06Config\x12#\n" +
 	"\x04base\x18\x01 \x01(\v2\x0f.config.v1.BaseR\x04base\x12#\n" +
 	"\x03sms\x18\x02 \x01(\v2\x11.sms.v1.SmsConfigR\x03sms\x12'\n" +
@@ -236,7 +326,8 @@ const file_config_v1_config_proto_rawDesc = "" +
 	"\x10distributed_lock\x18\n" +
 	" \x01(\v2\x16.db.v1.DistributedLockR\x0fdistributedLock\x120\n" +
 	"\n" +
-	"log_config\x18\v \x01(\v2\x11.log.v1.LogConfigR\tlogConfig\x120\n" +
+	"log_config\x18\v \x01(\v2\x11.log.v1.LogConfigR\tlogConfig\x12#\n" +
+	"\x04host\x18\f \x01(\v2\x0f.config.v1.HostR\x04host\x120\n" +
 	"\x04user\x18d \x01(\v2\x1c.services.user.v1.UserConfigR\x04userB\x99\x01\n" +
 	"\rcom.config.v1B\vConfigProtoP\x01Z6github.com/byteflowing/proto/gen/go/config/v1;configv1\xa2\x02\x03CXX\xaa\x02\tConfig.V1\xca\x02\tConfig\\V1\xe2\x02\x15Config\\V1\\GPBMetadata\xea\x02\n" +
 	"Config::V1b\x06proto3"
@@ -253,40 +344,42 @@ func file_config_v1_config_proto_rawDescGZIP() []byte {
 	return file_config_v1_config_proto_rawDescData
 }
 
-var file_config_v1_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_config_v1_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_config_v1_config_proto_goTypes = []any{
-	(*Base)(nil),                // 0: config.v1.Base
-	(*Config)(nil),              // 1: config.v1.Config
-	(*v1.SmsConfig)(nil),        // 2: sms.v1.SmsConfig
-	(*v11.MailConfig)(nil),      // 3: mail.v1.MailConfig
-	(*v12.CaptchaConfig)(nil),   // 4: captcha.v1.CaptchaConfig
-	(*v13.GlobalIdConfig)(nil),  // 5: idx.v1.GlobalIdConfig
-	(*v13.ShortIdConfig)(nil),   // 6: idx.v1.ShortIdConfig
-	(*v14.WechatConfig)(nil),    // 7: wechat.v1.WechatConfig
-	(*v15.DbConfig)(nil),        // 8: db.v1.DbConfig
-	(*v15.RedisConfig)(nil),     // 9: db.v1.RedisConfig
-	(*v15.DistributedLock)(nil), // 10: db.v1.DistributedLock
-	(*v16.LogConfig)(nil),       // 11: log.v1.LogConfig
-	(*v17.UserConfig)(nil),      // 12: services.user.v1.UserConfig
+	(*Host)(nil),                // 0: config.v1.Host
+	(*Base)(nil),                // 1: config.v1.Base
+	(*Config)(nil),              // 2: config.v1.Config
+	(*v1.SmsConfig)(nil),        // 3: sms.v1.SmsConfig
+	(*v11.MailConfig)(nil),      // 4: mail.v1.MailConfig
+	(*v12.CaptchaConfig)(nil),   // 5: captcha.v1.CaptchaConfig
+	(*v13.GlobalIdConfig)(nil),  // 6: idx.v1.GlobalIdConfig
+	(*v13.ShortIdConfig)(nil),   // 7: idx.v1.ShortIdConfig
+	(*v14.WechatConfig)(nil),    // 8: wechat.v1.WechatConfig
+	(*v15.DbConfig)(nil),        // 9: db.v1.DbConfig
+	(*v15.RedisConfig)(nil),     // 10: db.v1.RedisConfig
+	(*v15.DistributedLock)(nil), // 11: db.v1.DistributedLock
+	(*v16.LogConfig)(nil),       // 12: log.v1.LogConfig
+	(*v17.UserConfig)(nil),      // 13: services.user.v1.UserConfig
 }
 var file_config_v1_config_proto_depIdxs = []int32{
-	0,  // 0: config.v1.Config.base:type_name -> config.v1.Base
-	2,  // 1: config.v1.Config.sms:type_name -> sms.v1.SmsConfig
-	3,  // 2: config.v1.Config.mail:type_name -> mail.v1.MailConfig
-	4,  // 3: config.v1.Config.captcha:type_name -> captcha.v1.CaptchaConfig
-	5,  // 4: config.v1.Config.global_id:type_name -> idx.v1.GlobalIdConfig
-	6,  // 5: config.v1.Config.short_id:type_name -> idx.v1.ShortIdConfig
-	7,  // 6: config.v1.Config.wechat:type_name -> wechat.v1.WechatConfig
-	8,  // 7: config.v1.Config.db:type_name -> db.v1.DbConfig
-	9,  // 8: config.v1.Config.redis:type_name -> db.v1.RedisConfig
-	10, // 9: config.v1.Config.distributed_lock:type_name -> db.v1.DistributedLock
-	11, // 10: config.v1.Config.log_config:type_name -> log.v1.LogConfig
-	12, // 11: config.v1.Config.user:type_name -> services.user.v1.UserConfig
-	12, // [12:12] is the sub-list for method output_type
-	12, // [12:12] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	1,  // 0: config.v1.Config.base:type_name -> config.v1.Base
+	3,  // 1: config.v1.Config.sms:type_name -> sms.v1.SmsConfig
+	4,  // 2: config.v1.Config.mail:type_name -> mail.v1.MailConfig
+	5,  // 3: config.v1.Config.captcha:type_name -> captcha.v1.CaptchaConfig
+	6,  // 4: config.v1.Config.global_id:type_name -> idx.v1.GlobalIdConfig
+	7,  // 5: config.v1.Config.short_id:type_name -> idx.v1.ShortIdConfig
+	8,  // 6: config.v1.Config.wechat:type_name -> wechat.v1.WechatConfig
+	9,  // 7: config.v1.Config.db:type_name -> db.v1.DbConfig
+	10, // 8: config.v1.Config.redis:type_name -> db.v1.RedisConfig
+	11, // 9: config.v1.Config.distributed_lock:type_name -> db.v1.DistributedLock
+	12, // 10: config.v1.Config.log_config:type_name -> log.v1.LogConfig
+	0,  // 11: config.v1.Config.host:type_name -> config.v1.Host
+	13, // 12: config.v1.Config.user:type_name -> services.user.v1.UserConfig
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_config_v1_config_proto_init() }
@@ -300,7 +393,7 @@ func file_config_v1_config_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_config_v1_config_proto_rawDesc), len(file_config_v1_config_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

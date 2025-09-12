@@ -12,6 +12,14 @@ import "idx/v1/idx.proto";
 import "wechat/v1/config.proto";
 import "log/v1/config.proto";
 
+message Host {
+  string eth_ip = 1;
+  string wan_ip = 2;
+  string mac = 3;
+  string dns = 4;
+  string net_mask = 5;
+}
+
 message Base {
   string listen_addr = 1;
   int32 listen_port = 2;
@@ -29,5 +37,6 @@ message Config {
   db.v1.RedisConfig redis = 9;
   db.v1.DistributedLock distributed_lock = 10;
   log.v1.LogConfig log_config = 11;
+  Host host = 12;
   services.user.v1.UserConfig user = 100;
 }
