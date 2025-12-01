@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package enums.v1;
+
+enum RegionLevel {
+  REGION_LEVEL_UNSPECIFIED = 0;
+  REGION_LEVEL_PROVINCE = 1;
+  REGION_LEVEL_CITY = 2;
+  REGION_LEVEL_DISTRICT = 3;
+}
+
+enum RegionSource {
+  REGION_SOURCE_UNSPECIFIED = 0;
+  REGION_SOURCE_TENCENT_MAP = 1;
+}
+
+enum Language {
+  LANGUAGE_UNSPECIFIED = 0;
+  LANGUAGE_EN_US = 1; // 英语
+  LANGUAGE_ZH_CN = 2; // 中文简体
+  LANGUAGE_ZH_TW = 3; // 中文繁体台湾
+  LANGUAGE_ZH_HK = 4; // 中文繁体香港
+  LANGUAGE_JA_JP = 5; // 日文
+  LANGUAGE_KO_KR = 6; // 韩文
+  LANGUAGE_FR_FR = 7; // 法文
+  LANGUAGE_DE_DE = 8; // 德文
+  LANGUAGE_ES_ES = 9; // 西班牙文
+  LANGUAGE_PT_BR = 10; // 葡萄牙文（巴西）
+  LANGUAGE_PT_PT = 11; // 葡萄牙文（葡萄牙）
+  LANGUAGE_RU_RU = 12; // 俄文
+  LANGUAGE_AR_SA = 13; // 阿拉伯文
+  LANGUAGE_HI_IN = 14; // 印第文
+  LANGUAGE_ID_ID = 15; // 印度尼西亚文
+  LANGUAGE_TH_TH = 16; // 泰文
+  LANGUAGE_VI_VN = 17; // 越南文
+  LANGUAGE_TR_TR = 18; // 土耳其文
+  LANGUAGE_IT_IT = 19; // 意大利文
+  LANGUAGE_NL_NL = 20; // 荷兰文
+  LANGUAGE_PL_PL = 21; // 波兰文
+  LANGUAGE_SV_SE = 22; // 瑞典文
+  LANGUAGE_UK_UA = 23; // 乌克兰文
+  LANGUAGE_FA_IR = 24; // 波斯文
+  LANGUAGE_HE_IL = 25; // 希伯来文
+}
+

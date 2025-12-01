@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package msg.v1;
+
+import "enums/v1/message.proto";
+import "google/protobuf/duration.proto";
+
+message MessageQuotaConfig {
+  enums.v1.MessageInterface interface = 1; // 接口类型
+  uint32 quota = 2; // 配额
+  google.protobuf.Duration interval = 3; // 时间间隔
+}
+
+message VendorAccountMapping {
+  enums.v1.MessageSenderVendor vendor = 1;
+  repeated string account = 2;
+}

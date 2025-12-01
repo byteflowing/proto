@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package wechat.v1;
 
-import "buf/validate/validate.proto";
-
 message WechatCredential {
   // appid
   string appid = 1;
@@ -12,5 +10,5 @@ message WechatCredential {
 }
 
 message WechatConfig {
-  repeated WechatCredential credentials = 1 [(buf.validate.field).repeated.min_items = 1];
+  repeated WechatCredential credentials = 1;
 }

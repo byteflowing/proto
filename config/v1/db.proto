@@ -2,8 +2,7 @@ syntax = "proto3";
 
 package config.v1;
 
-import "enums/v1/log.proto";
-import "enums/v1/db.proto";
+import "enums/v1/config.proto";
 import "config/v1/log.proto";
 
 message DbLog {
@@ -66,6 +65,15 @@ message DbSQLite {
   string db_path = 1;
 }
 
+message SqlConfig {
+  // 数据类型
+  enums.v1.DbType db_type = 1;
+  // sql语句
+  repeated string sql = 2;
+  // sql文件或者目录
+  repeated string file_path = 3;
+}
+
 message DbConfig {
   // 数据库类型
   enums.v1.DbType db_type = 1;
@@ -75,13 +83,4 @@ message DbConfig {
   DbPostgres postgres = 5;
   DbSQLServer sqlserver = 6;
   DbSQLite sqlite = 7;
-}
-
-message SqlConfig {
-  // 数据类型
-  enums.v1.DbType db_type = 1;
-  // sql语句
-  repeated string sql = 2;
-  // sql文件或者目录
-  repeated string file_path = 3;
 }

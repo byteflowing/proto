@@ -1,0 +1,345 @@
+syntax = "proto3";
+
+package geo.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "enums/v1/geo.proto";
+
+message CacheConfig {
+  enum CacheType {
+    CACHE_TYPE_UNSPECIFIED = 0;
+    CACHE_TYPE_LOCAL = 1;
+    CACHE_TYPE_REDIS = 2;
+  }
+  message Cache {
+    string prefix = 1;
+    google.protobuf.Duration duration = 2;
+  }
+  message Lock {
+    string prefix = 1; // 锁前缀
+    uint32 tries = 2; // 获取锁尝试次数
+    google.protobuf.Duration wait = 3; // 获取锁失败下次尝试等待时间
+    google.protobuf.Duration ttl = 4; // 锁过期时间
+  }
+  CacheType type = 1; // 缓存类型
+  Cache phone_code_cache = 2; // 手机编码缓存配置
+  Cache country_code_cache = 3; // 国家代码缓存配置
+  Cache region_code_cache = 4; // 地区信息缓存配置
+  Lock lock = 6; // 锁配置
+}
+
+message Config {
+  message RegionSource {
+    enums.v1.RegionSource source = 1; // 数据来源
+    string cca2 = 2; // 国家cca2名称
+    string map_key = 3; // 地图对应的key
+  }
+  string global_phone_code_path = 1; // 全球手机区号导入文件路径
+  string global_countries_code_path = 2; // 全球所有国家编码文件导入路径
+  CacheConfig cache = 3; // 缓存配置
+  bool auto_migrate = 4; // 是否迁移数据
+  repeated RegionSource region_source = 5; // region数据来源
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+// 导入结构
+
+message PhoneCode {
+  optional string name = 1;
+  optional string phone_code = 2;
+  optional bool is_active = 3;
+  map<string, string> multi_lang = 4;
+}
+
+message CountryCode {
+  optional string cca2 = 1;
+  optional string cca3 = 2;
+  optional string ccn3 = 3;
+  optional bool independent = 4;
+  optional bool is_active = 5;
+  optional string continent = 6;
+  optional string sub_continent = 7;
+  optional string flag = 8;
+  map<string, string> multi_lang = 9;
+}
+
+message RegionCode {
+  optional string country_cca2 = 1;
+  optional enums.v1.RegionSource source = 2;
+  optional enums.v1.RegionLevel level = 3;
+  optional string parent_code = 4;
+  optional string code = 5;
+  optional bool is_active = 6;
+  optional string name_zh_pinyin = 7;
+  map<string, string> multi_lang = 8;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+message GeoPhoneCode {
+  int64 id = 1;
+  string phone_code = 2;
+  string name = 3;
+  map<string, string> multi_lang = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+  google.protobuf.Timestamp deleted_at = 7;
+}
+
+message GeoCountry {
+  int64 id = 1;
+  string cca2 = 2;
+  string cca3 = 3;
+  string ccn3 = 4;
+  string flag = 5;
+  string continent = 6;
+  string sub_continent = 7;
+  bool independent = 8;
+  string name = 9;
+  map<string, string> multi_lang = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
+  google.protobuf.Timestamp deleted_at = 13;
+}
+
+message GeoRegion {
+  int64 id = 1;
+  int64 country_id = 2;
+  enums.v1.RegionSource source = 3;
+  string version = 4;
+  string parent_code = 5;
+  string code = 6;
+  enums.v1.RegionLevel level = 7;
+  bool is_active = 8;
+  string name = 9;
+  repeated GeoRegion children = 10;
+  map<string, string> multi_lang = 11;
+  google.protobuf.Timestamp created_at = 12;
+  google.protobuf.Timestamp updated_at = 13;
+  google.protobuf.Timestamp deleted_at = 14;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+// cache
+message AllPhoneCodes {
+  repeated GeoPhoneCode codes = 1;
+}
+
+message AllCountryCodes {
+  repeated GeoCountry codes = 1;
+}
+
+message CountryRegions {
+  repeated GeoRegion regions = 1;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+message AddPhoneCodeResult {
+  int64 id = 1;
+  string phone_code = 2;
+  string result = 3;
+  string name_en_us = 4;
+  string name_zh_cn = 5;
+}
+
+message AddPhoneCodeReq {
+  PhoneCode code = 1;
+}
+
+message AddPhoneCodeResp {
+  AddPhoneCodeResult result = 1;
+}
+
+message AddPhoneCodesReq {
+  repeated PhoneCode phone_codes = 1;
+}
+
+message AddPhoneCodesResp {
+  repeated AddPhoneCodeResult results = 1;
+}
+
+message UpdatePhoneCodeReq {
+  int64 id = 1;
+  PhoneCode code = 2;
+}
+
+message UpdatePhoneCodeResp {}
+
+message DeletePhoneCodeReq {
+  int64 id = 1;
+}
+
+message DeletePhoneCodeResp {}
+
+message GetAllPhoneCodesReq {
+  enums.v1.Language lang = 1;
+}
+
+message GetAllPhoneCodesResp {
+  repeated GeoPhoneCode phone_codes = 1;
+}
+
+message GetPhoneCodeByIdReq {
+  int64  id = 1;
+  enums.v1.Language lang = 2;
+}
+
+message GetPhoneCodeByIdResp {
+    GeoPhoneCode phone_code = 1;
+}
+
+message AddCountryCodeResult {
+  int64 id = 1;
+  string cca2 = 2;
+  string name_zh_cn = 3;
+  string name_en_us = 4;
+  string result = 5;
+}
+
+message AddCountryCodeReq {
+  CountryCode country_code = 1;
+}
+
+message AddCountryCodeResp {
+  AddCountryCodeResult result = 1;
+}
+
+message AddCountryCodesReq {
+  repeated CountryCode country_codes = 1;
+}
+
+message AddCountryCodesResp {
+  repeated AddCountryCodeResult results = 1;
+}
+
+message UpdateCountryCodeReq {
+  int64 id = 1;
+  CountryCode info = 2;
+}
+
+message UpdateCountryCodeResp {}
+
+message DeleteCountryCodeReq {
+  int64 id = 1;
+}
+
+message DeleteCountryCodeResp {}
+
+message GetAllCountriesReq {
+  enums.v1.Language lang = 1;
+}
+
+message GetAllCountriesResp {
+  repeated GeoCountry countries = 1;
+}
+
+message GetCountryByIdReq {
+  int64 id = 1;
+  enums.v1.Language lang = 2;
+}
+
+message GetCountryByIdResp {
+  GeoCountry country = 1;
+}
+
+message GetCountryByCca2Req {
+  string cca2 = 1;
+  enums.v1.Language lang = 2;
+}
+
+message GetCountryByCca2Resp {
+  GeoCountry country = 1;
+}
+
+message AddRegionResult {
+  int64 id = 1;
+  string country_cca2 = 2;
+  string name_en_us = 3;
+  string name_zh_cn = 4;
+  enums.v1.RegionSource source = 5;
+  enums.v1.RegionLevel level = 6;
+  string parent_code = 7;
+  string code = 8;
+  string result = 9;
+}
+
+message AddGeoRegionReq {
+  RegionCode region_code = 1;
+}
+
+message AddGeoRegionResp {
+  AddRegionResult result = 1;
+}
+
+message AddGeoRegionsReq {
+  repeated RegionCode region_codes = 1;
+}
+
+message AddGeoRegionsResp {
+  repeated AddRegionResult results = 1;
+}
+
+message UpdateGeoRegionReq {
+  int64 region_id = 1;
+  RegionCode region_code = 2;
+}
+
+message UpdateGeoRegionResp {}
+
+message DeleteGeoRegionReq {
+  int64 region_id = 1;
+}
+
+message DeleteGeoRegionResp {}
+
+message GetGeoRegionByCodeReq {
+  enums.v1.Language lang = 1;
+  string country_cca2 = 2;
+  optional string code = 3;
+  bool with_children = 4;
+  enums.v1.RegionLevel children_level = 5;
+}
+
+message GetGeoRegionByCodeResp {
+  repeated GeoRegion regions = 1;
+}
+
+message CheckGeoRegionReq {
+  string country_cca2 = 1;
+  string province_code = 2;
+  string city_code = 3;
+  string district_code = 4;
+}
+
+message CheckGeoRegionResp {
+  bool ok = 1;
+}
+
+service GeoService {
+  rpc AddPhoneCode(AddPhoneCodeReq) returns (AddPhoneCodeResp);
+  rpc AddPhoneCodes(AddPhoneCodesReq) returns (AddPhoneCodesResp);
+  rpc UpdatePhoneCode(UpdatePhoneCodeReq) returns (UpdatePhoneCodeResp);
+  rpc DeletePhoneCode(DeletePhoneCodeReq) returns (DeletePhoneCodeResp);
+  rpc GetAllPhoneCodes(GetAllPhoneCodesReq) returns (GetAllPhoneCodesResp);
+  rpc GetPhoneCodeById(GetPhoneCodeByIdReq) returns (GetPhoneCodeByIdResp);
+  rpc AddCountryCode(AddCountryCodeReq) returns (AddCountryCodeResp);
+  rpc AddCountryCodes(AddCountryCodesReq) returns (AddCountryCodesResp);
+  rpc UpdateCountryCode(UpdateCountryCodeReq) returns (UpdateCountryCodeResp);
+  rpc DeleteCountryCode(DeleteCountryCodeReq) returns (DeleteCountryCodeResp);
+  rpc GetAllCountries(GetAllCountriesReq) returns (GetAllCountriesResp);
+  rpc GetCountryById(GetCountryByIdReq) returns (GetCountryByIdResp);
+  rpc GetCountryByCca2(GetCountryByCca2Req) returns (GetCountryByCca2Resp);
+  rpc AddGeoRegion(AddGeoRegionReq) returns (AddGeoRegionResp);
+  rpc AddGeoRegions(AddGeoRegionsReq) returns (AddGeoRegionsResp);
+  rpc UpdateGeoRegion(UpdateGeoRegionReq) returns (UpdateGeoRegionResp);
+  rpc DeleteGeoRegion(DeleteGeoRegionReq) returns (DeleteGeoRegionResp);
+  rpc GetGeoRegionByCode(GetGeoRegionByCodeReq) returns (GetGeoRegionByCodeResp);
+  rpc CheckGeoRegion(CheckGeoRegionReq) returns (CheckGeoRegionResp);
+}
+
+
+
+
+

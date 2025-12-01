@@ -2,15 +2,19 @@ syntax = "proto3";
 
 package config.v1;
 
-import "captcha/v1/config.proto";
+import "wechat/v1/config.proto";
+import "msg/v1/msg.proto";
+import "user/v1/config.proto";
+import "global_id/v1/global_id.proto";
+import "geo/v1/geo.proto";
 import "config/v1/db.proto";
 import "config/v1/redis.proto";
-import "services/user/v1/config.proto";
-import "sms/v1/config.proto";
-import "mail/v1/config.proto";
-import "config/v1/idx.proto";
-import "wechat/v1/config.proto";
 import "config/v1/log.proto";
+import "config/v1/asynq.proto";
+import "config/v1/local_cache.proto";
+import "maps/v1/maps.proto";
+import "enums/v1/config.proto";
+import "google/protobuf/duration.proto";
 
 message Host {
   string eth_ip = 1;
@@ -20,22 +24,33 @@ message Host {
   string net_mask = 5;
 }
 
-message Base {
-  string listen_addr = 1;
-  int32 listen_port = 2;
+message Server {
+  string addr = 1; // 监听地址 e.g. ":8888", "127.0.0.1:8888", "10.0.0.1:8888"
+  uint64 max_receive_msg_size = 2; // 接收最大消息单位byte
+  google.protobuf.Duration wait_for_shutdown = 3; // 等待多久强制退出
+}
+
+message ShortId {
+   string alphabet = 1;
+   uint32 min_length = 2;
+   repeated string block_list = 3;
 }
 
 message Config {
-  Base base = 1;
-  sms.v1.SmsConfig sms = 2;
-  mail.v1.MailConfig mail = 3;
-  captcha.v1.CaptchaConfig captcha = 4;
-  config.v1.GlobalIdConfig global_id = 5;
-  config.v1.ShortIdConfig short_id = 6;
-  wechat.v1.WechatConfig wechat = 7;
-  config.v1.DbConfig db = 8;
-  config.v1.RedisConfig redis = 9;
-  config.v1.ZapLogConfig log_config = 10;
-  Host host = 11;
-  services.user.v1.UserConfig user = 100;
+  Server server = 1;
+  Host host = 2;
+  repeated enums.v1.SupportedService services = 3;
+  msg.v1.MessageConfig message = 4;
+  wechat.v1.WechatConfig wechat = 5;
+  config.v1.DbConfig db = 6;
+  config.v1.RedisConfig redis = 7;
+  config.v1.ZapLogConfig log = 8;
+  config.v1.AsynqServerConfig asynq_server = 9;
+  config.v1.AsynqSchedulerConfig asynq_scheduler = 10;
+  config.v1.LocalCacheConfig local_cache = 11;
+  config.v1.ShortId short_id = 12;
+  user.v1.UserConfig user = 101;
+  global_id.v1.GlobalIdConfig global_id = 102;
+  geo.v1.Config geo = 103;
+  maps.v1.MapConfig maps = 104;
 }

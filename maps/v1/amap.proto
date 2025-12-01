@@ -1,0 +1,638 @@
+syntax = "proto3";
+
+package maps.v1;
+
+import "enums/v1/maps.proto";
+
+message AmapSuggestion {
+  repeated string keywords = 1; // 建议关键字列表
+  repeated string cities = 2; // 建议城市列表
+}
+
+message AmapDistrict {
+  // 城市编码
+  string citycode = 1;
+  // 区域编码
+  // 街道没有独有的 adcode，均继承父类（区县）的 adcode
+  string adcode = 2;
+  // 行政区名称
+  string name = 3;
+  // 行政区边界坐标点
+  // 当一个行政区范围，由完全分隔两块或者多块的地块组成，每块地的 polyline 坐标串以 | 分隔
+  string polyline = 4;
+  // 区域中心点
+  // 乡镇级别返回的center是边界线上的形点，其他行政级别返回的center不一定是中心点，
+  // 若政府机构位于面内，则返回政府坐标，政府不在面内，则返回繁华点坐标
+  string center = 5;
+  // country:国家
+  // province:省份（直辖市会在province显示）
+  // city:市（直辖市会在province显示）
+  // district:区县
+  // street:街道
+  string level = 6;
+  // 下级行政区列表
+  repeated AmapDistrict districts = 7;
+}
+
+message AmapLocation {
+  double lat = 1; // 维度
+  double lng = 2; // 经度
+}
+
+message AmapSpot {
+  // 社区名称
+  // 例如：北京大学
+  string name = 1;
+  // POI 类型
+  // 例如：科教文化服务;学校;高等院校
+  string type = 2;
+}
+
+message AmapStreetNumber {
+  // 街道名称 例如：中关村北二条
+  string street = 1;
+  // 门牌号 例如：3号
+  string number = 2;
+  // 坐标点 经纬度坐标点：经度，纬度
+  string location = 3;
+  // 方向 坐标点所处街道方位
+  string direction = 4;
+  // 门牌地址到请求坐标的距离 单位：米
+  string distance = 5;
+}
+
+message AmapBusinessArea {
+  // 商圈信息
+  string businessArea = 1;
+  // 商圈中心点经纬度
+  string location = 2;
+  // 商圈名称 例如：颐和园
+  string name = 3;
+  // 商圈所在区域的 adcode  例如：朝阳区/海淀区
+  string id = 4;
+}
+
+message AmapRoad {
+  // 道路 id
+  string id = 1;
+  // 道路名称
+  string name = 2;
+  // 道路到请求坐标的距离 单位：米
+  string distance = 3;
+  // 方位 输入点和此路的相对方位
+  string direction = 4;
+  // 坐标点
+  string location = 5;
+}
+
+message AmapRoadIntersection {
+  // 交叉路口到请求坐标的距离,单位：米
+  string distance = 1;
+  // 方位输入点相对路口的方位
+  string direction = 2;
+  // 路口经纬度
+  string location = 3;
+  // 第一条道路 id
+  string first_id = 4;
+  // 第一条道路名称
+  string first_name = 5;
+  // 第二条道路 id
+  string second_id = 6;
+  // 第二条道路名称
+  string second_name = 7;
+}
+
+message AmapPoi {
+  // poi 的 id
+  string id = 1;
+  // poi 点名称
+  string name = 2;
+  // poi 类型
+  string type = 3;
+  // 电话
+  string tel = 4;
+  // 该 POI 的中心点到请求坐标的距离 单位：米
+  string distance = 5;
+  // 方向 相对于输入点的方位
+  string direction = 6;
+  // poi 地址信息
+  string address = 7;
+  // 坐标点
+  string location = 8;
+  // poi 所在商圈名称
+  string businessarea = 9;
+}
+
+message AmapAoi {
+  // aoi 的 id
+  string id = 1;
+  // aoi 点名称
+  string name = 2;
+  // aoi 类型
+  string type = 3;
+  // 所属 aoi 所在区域编码
+  string adcode = 4;
+  // 输入经纬度是否在 aoi 面之中
+  //  0，代表在 aoi 内其余整数代表距离 AOI 的距离
+  string distance = 5;
+  // 所属 aoi 中心点坐标
+  string location = 6;
+}
+
+message AmapAddressComponent {
+  // 国家
+  string country = 1;
+  // 地址所在的省份名
+  string province = 2;
+  // 地址所在的城市名
+  string city = 3;
+  // 城市编码 例如：010
+  string citycode = 4;
+  // 地址所在的区 例如：朝阳区
+  string district = 5;
+  // 街道
+  string street = 6;
+  // 门牌 例如：6号
+  string number = 7;
+  // 区域编码 例如：110101
+  string adcode = 8;
+  // 坐标点 经度，纬度
+  string location = 9;
+  // 匹配级别
+  string level = 10;
+  // 坐标点所在乡镇/街道（此街道为社区街道，不是道路信息）
+  // 例如：燕园街道
+  string township = 11;
+  // 乡镇街道编码
+  // 例如：110101001000
+  string towncode = 12;
+  // 所属海域信息 例如：渤海
+  string seaArea = 13;
+  // 社区信息列表
+  repeated AmapSpot neighborhood = 14;
+  // 楼信息列表
+  repeated AmapSpot building = 15;
+  // 门牌信息列表
+  repeated AmapStreetNumber streetNumber = 16;
+  // 经纬度所属商圈列表
+  repeated AmapBusinessArea businessAreas = 17;
+  // 道路信息列表请求参数 extensions 为 all 时返回如下内容
+  repeated AmapRoad roads = 18;
+  // 道路交叉口列表 请求参数 extensions 为 all 时返回如下内容
+  repeated AmapRoadIntersection roadinters = 19;
+  // poi 信息列表 请求参数 extensions 为 all 时返回如下内容
+  repeated AmapPoi pois = 20;
+  // aoi 信息列表 请求参数 extensions 为 all 时返回如下内容
+  repeated AmapAoi aois = 21;
+}
+
+message AmapStep {
+  string instruction = 1; // 行驶指示
+  string orientation = 2; // 进入道路方向
+  string road_name = 3; // 分段道路名称
+  string step_distance = 4; // 分段距离信息
+}
+
+message AmapCost {
+  // 线路耗时，分段 step 中的耗时
+  string duration = 1;
+  // 此路线道路收费，单位：元，包括分段信息
+  string tolls = 2;
+  // 预估打车费用
+  string taxi = 3;
+  // 收费路段里程，单位：米，包括分段信息
+  string toll_distance = 4;
+  // 主要收费道路
+  string toll_road = 5;
+  // 方案中红绿灯个数，单位：个
+  string traffic_lights = 6;
+  string taxi_fee = 7; // 打车费用
+  string transit_fee = 8; // 公交费用
+}
+
+message AmapTMC {
+  // 路况信息，包括：未知、畅通、缓行、拥堵、严重拥堵
+  string tmc_status = 1;
+  // 从当前坐标点开始 step 中路况相同的距离
+  string tmc_distance = 2;
+  // 此段路况涉及的道路坐标点串，点间用","分隔
+  string tmc_polyline = 3;
+}
+
+message AmapNavi {
+  // 导航主要动作指令
+  string action = 1;
+  // 导航辅助动作指令
+  string assistant_action = 2;
+  // 算路结果中存在的道路类型：
+  // 0，普通道路 1，人行横道 3，地下通道 4，过街天桥
+  // 5，地铁通道 6，公园 7，广场 8，扶梯 9，直梯
+  // 10，索道 11，空中通道 12，建筑物穿越通道
+  // 13，行人通道 14，游船路线 15，观光车路线 16，滑道
+  // 18，扩路 19，道路附属连接线 20，阶梯 21，斜坡
+  // 22，桥 23，隧道 30，轮渡
+  string walk_type = 3;
+}
+
+message AmapPath {
+  // 方案距离，单位：米
+  string distance = 1;
+  // 0 代表限行已规避或未限行，即该路线没有限行路段
+  // 1 代表限行无法规避，即该线路有限行路段
+  string restriction = 2;
+  // 路线分段
+  repeated AmapStep steps = 3;
+  // 设置后可返回方案所需时间及费用成本
+  AmapCost cost = 4;
+  // 设置后可返回分段路况详情
+  repeated AmapTMC tmcs = 5;
+  // 设置后可返回详细导航动作指令
+  repeated AmapNavi navi = 6;
+  // 设置后可返回分段途径城市信息
+  repeated AmapDistrict cities = 7;
+  // 设置后可返回分路段坐标点串，两点间用“;”分隔
+  string polyline = 8;
+}
+
+message AmapRoute {
+  string origin = 1;
+  string destination = 2;
+  string taxi_cost = 3;
+  repeated AmapPath paths = 4;
+}
+
+message AmapAvoidPolygon {
+  repeated AmapLocation locations = 1;
+}
+
+message AmapPolyline {
+  string polyline = 1;
+}
+
+message AmapWalkingLine {
+  message Step {
+    string instruction = 1; // 此段路的行走介绍
+    string road = 2; // 路的名字
+    string distance = 3; // 此段路的距离
+    string duration = 4; // 此段路预计消耗时间单位：秒
+    AmapPolyline polyline = 5; // 此段路的坐标
+    AmapNavi navi = 6; // 路线指导
+    AmapCost cost = 7; // 花费
+  }
+  string origin = 1; // 起点坐标
+  string destination = 2; // 终点坐标
+  string distance = 3; // 每段线路步行距离 单位：米
+  string duration = 4; // 步行预计时间 单位：秒
+  AmapCost cost = 5; // 花费
+  repeated Step steps = 6; //步行路段列表
+}
+
+message AmapBusLine {
+  message Station {
+    string name = 1; // 站点名字
+    string id = 2; // 站点 id
+    string location = 3; // 站点经纬度
+    Station entrance = 4; // 入口
+    Station exit = 5; // 出口
+  }
+  Station departure_stop = 1;  // 此段起乘站信息
+  Station arrival_stop = 2; // 此段下车站
+  string name = 3; //公交路线名称 格式如：445路(南十里居--地铁望京西站)
+  string id = 4; //公交路线 id
+  string type = 5; // 公交类型 格式如：地铁线路
+  string distance = 6; // 公交行驶距离单位：米
+  string duration = 7; // 公交预计行驶时间 单位：秒
+  AmapPolyline polyline = 8;  // 此路段坐标集格式为坐标串，如：116.481247,39.990704;116.481270,39.990726
+  string start_time = 9;  // 首班车时间 格式如：0600，代表06：00
+  string end_time = 10; // 末班车时间 格式如：2300，代表23：00
+  string station_start_time = 11; // 上车站点首班时间格式如：0600，代表06：00
+  string station_end_time = 12; // 上车站点末班时间 格式如：2300，代表23：00
+  string via_num = 13; // 此段途经公交站数
+  repeated Station via_stops = 14;  // 此段途经公交站点列表
+  AmapCost cost = 15; // 花费
+}
+
+message AmapRailwayLine {
+  message Station {
+    string id = 1; // 站点 ID
+    string name = 2; // 站点名称
+    string location = 3; // 站点经纬度
+    string adcode = 4; // 站点所在城市的 adcode
+    string time = 5; // 上车点发车时间 到站时间，如大于24:00，则表示跨天
+    string start = 6; // 是否始发站，1表示为始发站，0表示非始发站
+    string wait = 7; // 途径站点的停靠时间，单位：分钟
+    string end = 8; // 是否为终点站，1表示为终点站，0表示非终点站
+  }
+  message Space {
+    string code = 1;
+    string cost = 2;
+  }
+  string id = 1; // 线路 id 编号
+  string time = 2; // 该线路车段耗时
+  string name = 3; // 线路名称
+  string trip = 4; // 线路车次号
+  string distance = 5; // 该 item 换乘段的行车总距离
+  string type = 6; // 线路车次类型
+  Station departure_stop = 7; // 火车始发站信息
+  Station arrival_stop = 8; // 火车到站信息
+  repeated Station via_stop = 9; // 途径站点信息，extensions=all 时返回
+  repeated Station alters = 10; // 聚合的备选方案，extensions=all 时返回
+  repeated Space spaces = 11; // 仓位及价格信息
+  AmapCost cost = 12; // 花费
+  AmapPolyline polyline = 13; // 路线坐标点
+}
+
+message AmapTaxiLine {
+  string price = 1;
+  string drivetime = 2;
+  string distance = 3;
+  string polyline = 4;
+  string startpoint = 5;
+  string endpoint = 6;
+  string startname = 7;
+  string endname = 8;
+}
+
+message AmapSegment {
+  AmapWalkingLine walking = 1;
+  AmapBusLine bus = 2;
+  AmapRailwayLine railway = 3;
+  AmapTaxiLine taxi = 4;
+}
+
+message AmapTransit {
+  string distance = 1;
+  string walking_distance = 2;
+  string nightflag = 3;
+  AmapCost cost = 4;
+  repeated AmapSegment segments = 5;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+message AmapGetDistrictsReq {
+  string key = 1;
+  // 1.支持输入一个文本关键词
+  // 2.支持行政区划代码(adcode)
+  // e.g. key_word=北京 keyword=130681
+  // e.g key_word=中国
+  // 不传递会返回中国的所有省份
+  optional string key_word = 2;
+  // 规则：设置显示下级行政区级数（行政区级别包括：国家、省/直辖市、市、区/县、乡镇/街道多级数据）
+  // 可选值：0、1、2、3等数字，并以此类推
+  // 0：不返回下级行政区；
+  // 1：返回下一级行政区；
+  // 2：返回下两级行政区；
+  // 3：返回下三级行政区；
+  // 需要在此特殊说明，目前部分城市和省直辖县因为没有区县的概念，故在市级下方直接显示街道。
+  // 例如：广东-东莞、海南-文昌市
+  optional int32 subdistrict = 3;
+  // 最外层的 districts 最多会返回20个数据，若超过限制，请用 page 请求下一页数据。
+  optional int32 page = 4;
+  // 最外层返回数据个数
+  optional int32 offset = 5;
+  // 此项控制行政区信息中返回行政区边界坐标点； 可选值：base、all;
+  //  base:不返回行政区边界坐标点；
+  //  all:只返回当前查询 district 的边界值，不返回子节点的边界值；
+  // 目前不能返回乡镇/街道级别的边界值
+  optional string extensions = 6;
+  // 按照指定行政区划进行过滤，填入后则只返回该省/直辖市信息
+  // 需填入 adcode，为了保证数据的正确，强烈建议填入此参数
+  optional string filter = 7;
+}
+
+message AmapGetDistrictsResp {
+  string status = 1;
+  string info = 2;
+  string infocode = 3;
+  string count = 4;
+  repeated AmapDistrict districts = 5;
+}
+
+message AmapLocationConvertReq {
+  string key = 1;
+  // 经度和纬度, 经纬度小数点后不得超过6位。最多支持40对坐标。
+  repeated AmapLocation locations = 2;
+  enums.v1.AmapCoordType coordsys = 3;
+}
+
+message AmapLocationConvertResp {
+  string status = 1;
+  string info = 2;
+  string infocode = 3;
+  // 转换之后的坐标。若有多个坐标，则用 “;”进行区分和间隔
+  string locations = 4;
+}
+
+message AmapLocationToAddrReq {
+  string key = 1;
+  // 经纬度坐标
+  AmapLocation location = 2;
+  optional bool extensions = 3;
+  // 返回附近 POI 类型
+  // 以下内容需要 extensions 参数为 all 时才生效。
+  //逆地理编码在进行坐标解析之后不仅可以返回地址描述，也可以返回经纬度附近符合限定要求的 POI 内容（在 extensions 字段值为 all 时才会返回 POI 内容）。
+  // 设置 POI 类型参数相当于为上述操作限定要求。参数仅支持传入 POI TYPECODE，可以传入多个 POI TYPECODE。
+  repeated string poi_type = 4;
+  // 搜索半径
+  // radius 取值范围：0~3000，默认值：1000。单位：米
+  optional int32 radius = 5;
+  // 道路等级
+  // 以下内容需要 extensions 参数为 all 时才生效。
+  // 可选值：0，1  当 roadlevel=0时，显示所有道路 ； 当 roadlevel=1时，过滤非主干道路，仅输出主干道路数据
+  optional bool all_roads = 6;
+  // 是否优化 POI 返回顺序
+  // 以下内容需要 extensions 参数为 all 时才生效。
+  //  homeorcorp 参数的设置可以影响召回 POI 内容的排序策略，目前提供三个可选参数：
+  //    0：不对召回的排序策略进行干扰。
+  //    1：综合大数据分析将居家相关的 POI 内容优先返回，即优化返回结果中 pois 字段的poi 顺序。
+  //    2：综合大数据分析将公司相关的 POI 内容优先返回，即优化返回结果中 pois 字段的poi 顺序。
+  optional int32 home_or_corp = 7;
+}
+
+message AmapLocationToAddrResp {
+  message Result {
+    string formatted_address = 1;
+    AmapAddressComponent addressComponent = 2;
+    repeated AmapPoi pois = 3;
+    repeated AmapRoad roads = 4;
+    repeated AmapRoadIntersection roadinters = 5;
+    repeated AmapAoi aois = 6;
+  }
+  string status = 1;
+  string info = 2;
+  string infocode = 3;
+  Result regeocode = 4;
+}
+
+message AmapAddressToLocationReq {
+  string key = 1;
+  // 结构化地址信息
+  string address = 2;
+  // 指定查询的城市
+  // 可选输入内容包括：指定城市的中文（如北京）
+  // 指定城市的中文全拼（beijing）、citycode（010）、adcode（110000），不支持县级市。
+  // 当指定城市查询内容为空时，会进行全国范围内的地址转换检索。
+  optional string city = 3;
+}
+
+message AmapAddressToLocationResp {
+  string status = 1;
+  string count = 2;
+  string info = 3;
+  string infocode = 4;
+  repeated AmapAddressComponent geocodes = 5;
+}
+
+message AmapRoutePlanReq {
+  string key = 1;
+  enums.v1.PlanMode mode = 2;
+  // 起点经纬度
+  AmapLocation origin = 3;
+  // 目的地经纬度
+  AmapLocation destination = 4;
+  // 终点的 poi 类别
+  // 当用户知道终点 POI 的类别时候，建议填充此值
+  optional string destination_type = 5;
+  // 起点 POI ID
+  // 起点为 POI 时，建议填充此值，可提升路线规划准确性
+  optional string origin_id = 6;
+  // 目的地 POI ID
+  // 目的地为 POI 时，建议填充此值，可提升路径规划准确性
+  optional string destination_id = 7;
+  // show_fields 用来筛选 response 结果中可选字段。show_fields 的使用需要遵循如下规则：
+  //1、具体可指定返回的字段类请见下方返回结果说明中的“show_fields”内字段类型；
+  //2、show_fields 未设置时，只返回基础信息类内字段。
+  repeated string show_fields = 8;
+  // 是否使用轮渡,mode为driving可用
+  optional bool use_ferry = 9;
+  // 是否需要室内算路，mode为walking可用
+  optional bool is_indoor = 10;
+  // 返回路线条数，mode为walking和bicycling 可用
+  // 1：多备选路线中第一条路线
+  // 2：多备选路线中前两条路线
+  // 3：多备选路线中三条路线
+  // 不传则默认返回一条路线方案
+  optional int32 alternative_route = 11;
+  // 驾车算路策略，mode为driving可用
+  optional enums.v1.AmapDrivingPlanStrategy strategy = 12;
+  // 途经点
+  // 途径点坐标串，默认支持1个有序途径点。最大支持16个途经点。
+  repeated AmapLocation waypoints = 13;
+  // 避让区域
+  // 区域避让，默认支持1个避让区域，每个区域最多可有16个顶点；
+  // 如果是四边形则有四个坐标点，如果是五边形则有五个坐标点；最大支持32个避让区域。
+  // 每个避让区域不能超过81平方公里，否则避让区域会失效。
+  repeated AmapAvoidPolygon avoid_polygons = 14;
+  // 机动车类型，mode为driving可用
+  optional enums.v1.CarType car_type = 15;
+  optional string plate = 16;
+}
+
+message AmapRoutePlanResp {
+  string status = 1;
+  string info = 2;
+  string infocode = 3;
+  string count = 4;
+  AmapRoute route = 5;
+}
+
+message AmapGetLocationByIpReq {
+  string key = 1;
+  string ip = 2; // 需要搜索的 IP 地址（仅支持国内）若用户不填写 IP，则取客户 http 之中的请求来进行定位
+}
+
+message AmapTransitPlanReq {
+  // // 高德Key
+  string key = 1;
+  // 起点经纬度
+  AmapLocation origin = 2;
+  // 目的地经纬度
+  AmapLocation destination = 3;
+  // 起点 POI ID
+  // 1、起点 POI ID 与起点经纬度均填写时，服务使用起点 POI ID；
+  // 2、该字段必须和目的地 POI ID 成组使用。
+  optional string originpoi = 4;
+  // 目的地 POI ID
+  // 1、目的地 POI ID 与目的地经纬度均填写时，服务使用目的地  POI ID；
+  // 2、该字段必须和起点 POI ID 成组使用。
+  optional string destinationpoi = 5;
+  // 起点所在行政区域编码
+  // 仅支持 adcode，参考行政区域编码表
+  optional string ad1 = 6;
+  // 终点所在行政区域编码
+  // 仅支持 adcode，参考行政区域编码表
+  optional string ad2 = 7;
+  // 起点所在城市 仅支持 citycode，相同时代表同城，不同时代表跨城
+  optional string city1 = 8;
+  // 目的地所在城市 仅支持 citycode，相同时代表同城，不同时代表跨城
+  optional string city2 = 9;
+  // 公共交通换乘策略
+  optional enums.v1.AmapTransitPlanPolicy policy = 10;
+  // 返回方案条数
+  optional uint32 alternative_route = 11;
+  // 地铁出入口数量
+  // false：只返回一个地铁出入口
+  //true：返回全部地铁出入口
+  optional bool multiexport = 12;
+  // 考虑夜班车
+  optional bool nightflag = 13;
+  // 请求日期 例如:2013-10-28
+  optional string date = 14;
+  // 请求时间 例如:9-54
+  optional string time = 15;
+  // 返回结果控制
+  // show_fields 用来筛选 response 结果中可选字段。show_fields 的使用需要遵循如下规则：
+  // 1、具体可指定返回的字段类请见下方返回结果说明中的“show_fields”内字段类型；
+  // show_fields 未设置时，只返回基础信息类内字段。
+  repeated string show_fields = 16;
+}
+
+message AmapTransitPlanResp {
+  message Route {
+    string origin = 1;
+    string destination = 2;
+    string distance = 3;
+    AmapCost cost = 4;
+    repeated AmapTransit transits = 5;
+  }
+  string status = 1;
+  string info = 2;
+  string infocode = 3;
+  string count = 4;
+  Route route = 5;
+}
+
+message AmapDistanceMeasureReq {
+  string key = 1;
+  repeated AmapLocation origins = 2;
+  AmapLocation destination = 3;
+  optional enums.v1.AmapDistanceMeasureType type = 4;
+}
+
+message AmapDistanceMeasureResp {
+  message Result {
+    string origin_id = 1; // 起点坐标，起点坐标序列号（从１开始）
+    string dest_id = 2; // 终点坐标，终点坐标序列号（从１开始）
+    string distance = 3; // 路径距离，单位：米
+    string duration = 4; // 预计行驶时间，单位：秒
+    string info = 5; // 仅在出错的时候显示该字段。大部分显示“未知错误” 由于此接口支持批量请求，建议不论批量与否用此字段判断请求是否成功
+    string code = 6; // 仅在出错的时候显示此字段。在驾车模式下：1，指定地点之间没有可以行车的道路 2，起点/终点 距离所有道路均距离过远（例如在海洋/矿业）3，起点/终点不在中国境内
+  }
+  string status = 1;
+  string info = 2;
+  string infocode = 3;
+  string count = 4;
+  repeated Result results = 5;
+}
+
+message  AmapGetLocationByIpResp {
+  string status = 1; // 值为0或1,0表示失败；1表示成功
+  string info = 2; // 返回状态说明，status 为0时，info 返回错误原因，否则返回“OK”。
+  string infocode = 3; // 返回状态说明,10000代表正确,详情参阅 info 状态表
+  string province = 4; // 若为直辖市则显示直辖市名称；如果在局域网 IP 网段内，则返回“局域网”；非法 IP 以及国外 IP 则返回空
+  string city = 5; // 若为直辖市则显示直辖市名称；如果为局域网网段内 IP 或者非法 IP 或国外 IP，则返回空
+  string adcode = 6; // 城市的 adcode 编码
+  string rectangle = 7; // 所在城市矩形区域范围
+}
+

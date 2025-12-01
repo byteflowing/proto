@@ -1,0 +1,322 @@
+syntax = "proto3";
+
+package maps.v1;
+
+import "enums/v1/maps.proto";
+
+message TianDiTuLocation {
+  double lat = 1; // 纬度
+  double lng = 2; // 经度
+}
+
+message TianDiTuStation {
+  string name = 1; // 站点名称
+  string uuid = 2; // 站的id信息
+  string lonlat = 3; // 站点坐标
+}
+
+message TianDiTuDistrict {
+  // 行政区划名称
+  string name = 1;
+  // 行政区划编码
+  string gb = 2;
+  string pgb = 3;
+  // 轮廓数据
+  string boundary = 4;
+  // 中心点坐标
+  TianDiTuLocation center = 5;
+  // 行政区划级别：
+  // 国家级：5
+  // 省级：4
+  // 市级：3
+  // 区县级：2
+  int32 level = 6;
+  // 下级行政区划信息
+  repeated TianDiTuDistrict children = 7;
+}
+
+// 参数定义
+message TianDiTuParameters {
+  string orig = 1;        // 起点
+  string dest = 2;        // 终点
+  string mid = 3;         // 途经点
+  string key = 4;         // API key
+  int32 width = 5;        // 地图宽度
+  int32 height = 6;       // 地图高度
+  int32 style = 7;        // 样式类型
+  string version = 8;     // 版本号
+  string sort = 9;        // 排序方式
+}
+
+// 路线段集合
+message TianDiTuRoutes {
+  int32 count = 1;        // 段数量
+  double time = 2;        // 耗时（秒）
+  repeated TianDiTuRouteItem items = 3;
+}
+
+// 单条路线段
+message TianDiTuRouteItem {
+  int32 id = 1;                 // 段ID
+  string str_guide = 2;         // 文字引导
+  string signage = 3;           // 路标说明
+  string street_name = 4;       // 当前道路名称
+  string next_street_name = 5;  // 下一个道路名
+  int32 toll_status = 6;        // 是否收费 (0=否, 1=是)
+  string turn_latlon = 7;       // 坐标点 "lng,lat"
+}
+
+// 简化路线集合
+message TianDiTuSimple {
+  repeated TianDiTuSimpleItem items = 1;
+}
+
+// 简化路线条目
+message TianDiTuSimpleItem {
+  int32 id = 1;                 // 段ID
+  string str_guide = 2;         // 导航提示
+  string street_names = 3;      // 当前道路
+  string last_street_name = 4;  // 上一路名
+  string link_street_name = 5;  // 下一路名
+  string signage = 6;           // 路标
+  int32 toll_status = 7;        // 收费状态
+  string turn_latlon = 8;       // 当前坐标
+  string street_latlon = 9;     // 坐标点集合
+  double street_distance = 10;  // 距离（米）
+  string segment_number = 11;   // 段号（可能是 "1-18" 这种）
+}
+
+// 地图信息
+message TianDiTuMapInfo {
+  string center = 1;  // 中心点经纬度
+  int32 scale = 2;    // 缩放级别
+}
+
+message TianDiTuAddressComponent {
+  string nation = 1;// 国家
+  string province = 2; // 省
+  string province_code = 3; // 省编码
+  string city = 4; // 城市
+  string city_code = 5; // 城市编码
+  string county = 6; // 乡
+  string county_code = 7; // 乡编码
+  string town = 8; // 镇
+  string town_code = 9; // 镇编码
+  string address = 10; // 此点最近地点信息
+  int32 address_distince = 11; // 此点距离最近地点信息距离
+  string address_position = 12; // 此点在最近地点信息方向
+  string poi = 13; // 距离此点最近poi点
+  int32 poi_distince = 14; // 距离此点最近poi点的距离
+  string poi_position = 15; // 此点在最近poi点的方向
+  string road = 16; // 距离此点最近的路
+  int32 road_distince = 17; // 此点距离此路的距离
+}
+
+message TianDiTuSegmentLine {
+  string line_name = 1; // 此段线路的线路名
+  string byuuid = 2; // 编号
+  string s_end_time = 3; // 起止时间
+  string direction = 4; // 此段线路的完整线路名
+  string line_point = 5; // 此段线路的坐标
+  int32 segment_distance = 6; // 一条线路中每小段距离，如果此段是步行且距离小于20米，不返回此线段
+  int32 segment_station_count = 7; // 此段线路需要经过的站点数
+  int32 segment_time = 8; // 此段线路需要的时间
+}
+
+message TianDiTuSegment {
+  // 线路类型 没找到对应枚举
+  int32  segment_type = 1;
+  // 起站点内容
+  TianDiTuStation station_start = 2;
+  // 终站点内容
+  TianDiTuStation station_end = 3;
+  // 线路内容
+  repeated TianDiTuSegmentLine segment_line = 4;
+}
+
+message TianDiTuLine {
+  string line_name = 1; // 单条公交规划结果所有线路名称
+  repeated TianDiTuSegment segments = 2; // 单条公交结果中的各段线路信息
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+message TianDiTuGetDistrictsReq {
+  string key = 1;
+  // 规则：只支持单个关键词语搜索
+  //  关键词支持：行政区划名称、行政区划编码
+  //  例如，keyword='北京' 或 keyword='156110000'
+  //  说明：仅行政区划名称支持模糊查询
+  //  注：keyword只有一个字符时，将只返回suggestion字段值，不返回district字段值
+  string keyword = 2;
+  // 规则：设置显示下级行政区级数（行政区级别包括：国家、省/直辖市、市、区/县多级数据
+  //  可选值：0、1、2、3
+  //  0：不返回下级行政区
+  //  1：返回下一级行政区
+  //  2：返回下两级行政区
+  //  3：返回下三级行政区
+  //需要在此特殊说明，目前部分城市和省直辖县因为没有区县的概念，故在省级下方直接显示区县。
+  //例如：河南-济源
+  optional string child_level = 3;
+  // 是否需要轮廓数据
+  //  可选值：true、false
+  //  true：返回轮廓数据
+  //  false：不返回轮廓数据
+  optional bool extensions = 4;
+}
+
+message TianDiTuGetDistrictsResp {
+  message Data {
+    repeated string suggestion = 1;
+    repeated TianDiTuDistrict district = 2;
+  }
+  string message = 1; // 返回描述
+  int32 status = 2; // 200 正常，其他异常请看描述
+  Data data = 3; // 行政区划信息
+}
+
+message TianDiTuAddressToLocationReq {
+  string key = 1;
+  // 结构化地址
+  string key_word = 2;
+}
+
+message TianDiTuAddressToLocationResp {
+  message Location {
+    int32 score = 1;
+    string level = 2;
+    double lat = 3;
+    double lon = 4;
+    string keyWord = 5;
+  }
+  // OK：正常，其他异常。
+  string msg = 1;
+  // 0：正常返回，101：结果为空，404：出错。
+  string status = 2;
+  Location location = 3;
+  string searchVersion = 4;
+}
+
+message TianDiTuLocationToAddrReq {
+  string key = 1;
+  double lat = 2;
+  double lng = 3;
+}
+
+message TianDiTuLocationToAddrResp {
+  message Result {
+    string formatted_address = 1;
+    TianDiTuLocation location = 2;
+    TianDiTuAddressComponent addressComponent = 3;
+  }
+  string status = 1;
+  string msg = 2;
+  Result result = 3;
+}
+
+message TianDiTuRoutePlanReq {
+  string key = 1;
+  TianDiTuLocation orig = 2;  // 起点经纬度
+  TianDiTuLocation dest = 3; // 终点经纬度
+  repeated TianDiTuLocation mid = 4; // 途径点经纬度
+  enums.v1.TianDiTuRoutePlanStyle style = 5; // 导航路线类型
+}
+
+// 路线查询结果
+message TianDiTuRoutePlanResp {
+  string orig = 1;          // 起点经纬度（来自 result 属性）
+  string mid = 2;           // 途经点（来自 result 属性）
+  string dest = 3;          // 终点经纬度（来自 result 属性）
+  TianDiTuParameters parameters = 4;  // 参数部分
+  TianDiTuRoutes routes = 5;          // 详细路线
+  TianDiTuSimple simple = 6;          // 简化路线
+  double distance = 7;        // 总距离（公里）
+  double duration = 8;        // 总时长（秒）
+  string routelatlon = 9;     // 全路线坐标（分号分隔的经纬度）
+  TianDiTuMapInfo mapinfo = 10;       // 地图信息
+}
+
+message TianDiTuTransitRoutePlanReq {
+  string key = 1;
+  // 出发点坐标 “经度，纬度”
+  TianDiTuLocation start_position = 2;
+  // 终点坐标 “经度，纬度”
+  TianDiTuLocation end_position = 3;
+  // 获取线路规划类型(按位判断规划类型，以支持同时获取多种规划结果)
+  // 第0位为1，较快捷；
+  optional bool is_least_time = 4;
+  // 第1位为1，少换乘；
+  optional bool is_least_transfer = 5;
+  // 第2位为1，少步行；
+  optional bool is_least_walking = 6;
+  // 第3位为1，不坐地铁。
+  optional bool is_no_subway = 7;
+}
+
+message TianDiTuTransitRoutePlanResp {
+  message Result {
+    int32 line_type = 1;
+    repeated TianDiTuLine lines = 2;
+  }
+  int32 result_code = 1;
+  bool has_subway = 2;
+  repeated Result results = 3;
+}
+
+message TianDiTuGetTransitLineInfoReq {
+  string key = 1;
+  string uuid = 2; // SegmentLine返回的byuuid
+}
+
+message TianDiTuGetTransitLineInfoResp {
+  string linename = 1; // 线路名称
+  int32 linetype = 2; // 线路类型 1：公交，2：地铁，3：磁悬浮。
+  int32 length = 3; // 线路的长度 单位米。
+  string byuuid = 4; // 编号
+  string linepoint = 5; // 线路的详细点信息(坐标)点之间空格 隔开（x,y;x,y）。
+  string starttime = 6;  // 始发车时间格式为：hh:mm 24小时制。
+  string endtime = 7; // 末班车时间 格式为：hh:mm 24小时制。
+  string totaltime = 8;  // 公交线路的全程运营总时间单位分钟。
+  int32 stationnum = 9; // 该线路所具有的站点总数量
+  int32 interval = 10; // 发车间隔
+  int32 ticketcal = 11; // 计费模式0，单一，1，按距离；2按站。
+  int32 totalprice = 12; // 全程票价单位分。
+  int32 start_price = 13; // 起步票价单位分。
+  int32 increasedprice = 14;  // 递增距离票价按千米。
+  int32 increasedstep = 15; // 车站递增票价按站。
+  int32 ismonticket = 16; // 是否支持月票0：不支持，1： 支持。
+  int32 isbidirectional = 17; // 是否双向行驶0，单项；1， 双向。
+  int32 ismanual = 18; // 是否人工售票0：有人，1：无人。
+  int32 status = 19; // 状态(是否使用)0：使用中，1：非使用中。
+  string company = 20; // 所属公交公司
+  repeated TianDiTuStation station = 21; // 经过站点
+}
+
+message TianDiTuGetStationInfoReq {
+  string key = 1;
+  string uuid = 2; // 站点对应的uuid
+}
+
+message TianDiTuGetStationInfoResp {
+  string name = 1;
+  string lonlat  = 2;
+  repeated TianDiTuStation linedata = 3;
+}
+
+
+// 因为公交规划中有三个接口，但是公用一个配额，故放在一起方便统计配额
+message TianDiTuTransitPlanReq {
+  enums.v1.TianDiTuTransitType type = 1;
+  oneof param {
+    TianDiTuTransitRoutePlanReq plan = 2;
+    TianDiTuGetTransitLineInfoReq line_info = 3;
+    TianDiTuGetStationInfoReq station_info = 4;
+  }
+}
+
+message TianDiTuTransitPlanResp {
+  enums.v1.TianDiTuTransitType type = 1;
+  TianDiTuTransitRoutePlanResp plan = 2;
+  TianDiTuGetTransitLineInfoResp line_info = 3;
+  TianDiTuGetStationInfoResp station_info = 4;
+}

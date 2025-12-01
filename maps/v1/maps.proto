@@ -1,0 +1,555 @@
+syntax = "proto3";
+
+package maps.v1;
+
+import "enums/v1/maps.proto";
+import "maps/v1/tencent.proto";
+import "maps/v1/amap.proto";
+import "maps/v1/tianditu.proto";
+import "maps/v1/huawei.proto";
+import "google/protobuf/timestamp.proto";
+
+message MapConfig {
+  string key_prefix = 1; // redis的key前缀
+  repeated enums.v1.MapSource enables = 2; // 启用的地图供应商
+  bool auto_migrate = 3; // 自动迁移数据
+}
+
+message MapInfo {
+  int64 id = 1;
+  string name = 2;
+  enums.v1.MapSource source = 3;
+  enums.v1.MapType type = 4;
+  enums.v1.MapOwnerType owner_type = 5;
+  int64 owner_id = 6;
+  string comment = 7;
+  enums.v1.MapStatus status = 8;
+  string key = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+  google.protobuf.Timestamp deleted_at = 12;
+}
+
+message MapInterfaceInfo {
+  int64 id = 1;
+  int64 map_id = 2;
+  enums.v1.MapSource source = 3;
+  enums.v1.MapType map_type = 4;
+  enums.v1.MapInterfaceType interface_type = 5;
+  enums.v1.MapOwnerType owner_type = 6;
+  int64 object_id = 7;
+  string object_name = 8;
+  int32 second_limit = 9;
+  int32 daily_limit = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
+  google.protobuf.Timestamp deleted_at = 13;
+}
+
+message MapInterfaceSummary {
+  int64 map_id = 1;
+  enums.v1.MapSource source = 2;
+  enums.v1.MapInterfaceType interface_type = 3;
+  int32 second_limit = 4;
+  int32 daily_limit = 5;
+  string key = 6;
+}
+
+message MapInterfaceCount {
+  int64 id = 1;
+  int64 map_id = 2;
+  enums.v1.MapSource source = 3;
+  enums.v1.MapType map_type = 4;
+  enums.v1.MapInterfaceType interface_type = 5;
+  enums.v1.MapOwnerType owner_type = 6;
+  int64 object_id = 7;
+  string object_name = 8;
+  int32 count = 9;
+  int32 err_count = 10;
+  google.protobuf.Timestamp day = 11;
+  google.protobuf.Timestamp created_at = 12;
+  google.protobuf.Timestamp updated_at = 13;
+  google.protobuf.Timestamp deleted_at = 14;
+}
+
+message GetAvailableInterfacesReq {
+  enums.v1.MapSource source = 1;
+}
+
+message GetAvailableInterfacesResp {
+  repeated enums.v1.MapInterfaceType types = 1;
+}
+
+message GetDistrictsReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.AmapGetDistrictsReq amap = 2;
+    maps.v1.TianDiTuGetDistrictsReq tianditu = 3;
+  }
+  optional int64 map_id = 255;
+}
+
+message GetDistrictsResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.AmapGetDistrictsResp amap = 2;
+  maps.v1.TianDiTuGetDistrictsResp tianditu = 3;
+}
+
+message GetDistrictListReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentGetDistrictsReq tencent = 2;
+  }
+  optional int64 map_id = 255;
+}
+
+message GetDistrictListResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentDistrictResp tencent = 2;
+}
+
+message GetDistrictChildrenReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentGetDistrictChildrenReq tencent = 2;
+  }
+  optional int64 map_id = 255;
+}
+
+message GetDistrictChildrenResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentDistrictResp tencent = 2;
+}
+
+message SearchDistrictReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentSearchDistrictReq tencent = 2;
+  }
+  optional int64 map_id = 255;
+}
+
+message SearchDistrictResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentDistrictResp tencent = 2;
+}
+
+message ConvertLocationReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentLocationConvertReq tencent = 2;
+    maps.v1.AmapLocationConvertReq amap = 3;
+  }
+  optional int64 map_id = 255;
+}
+
+message ConvertLocationResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentLocationConvertResp tencent = 2;
+  maps.v1.AmapLocationConvertResp amap = 3;
+}
+
+message ParseLocationToAddrReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentLocationToAddrReq tencent = 2;
+    maps.v1.AmapLocationToAddrReq amap = 3;
+    maps.v1.TianDiTuLocationToAddrReq tianditu = 4;
+    maps.v1.HuaweiLocationToAddrReq huawei = 5;
+  }
+  optional int64 map_id = 255;
+}
+
+message ParseLocationToAddrResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentLocationToAddrResp tencent = 2;
+  maps.v1.AmapLocationToAddrResp amap = 3;
+  maps.v1.TianDiTuLocationToAddrResp tianditu = 4;
+  maps.v1.HuaweiLocationToAddrResp huawei = 5;
+}
+
+message ParseAddrToLocationReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentAddressToLocationReq tencent = 2;
+    maps.v1.AmapAddressToLocationReq amap = 3;
+    maps.v1.TianDiTuAddressToLocationReq tianditu = 4;
+    maps.v1.HuaweiAddressToLocationReq huawei = 5;
+  }
+  optional int64 map_id = 255;
+}
+
+message ParseAddrToLocationResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentAddressToLocationResp tencent = 2;
+  maps.v1.AmapAddressToLocationResp amap = 3;
+  maps.v1.TianDiTuAddressToLocationResp tianditu = 4;
+  maps.v1.HuaweiAddressToLocationResp huawei = 5;
+}
+
+message WalkingRoutePlanReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentRoutePlanReq tencent = 2;
+    maps.v1.AmapRoutePlanReq amap = 3;
+    maps.v1.TianDiTuRoutePlanReq tianditu = 4;
+    maps.v1.HuaweiRoutePlanReq huawei = 5;
+  }
+  optional int64 map_id = 255;
+}
+
+message WalkingRoutePlanResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentRoutePlanResp tencent = 2;
+  maps.v1.AmapRoutePlanResp amap = 3;
+  maps.v1.TianDiTuRoutePlanResp tianditu = 4;
+  maps.v1.HuaweiRoutePlanResp huawei = 5;
+}
+
+message BicyclingRoutePlanReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentRoutePlanReq tencent = 2;
+    maps.v1.AmapRoutePlanReq amap = 3;
+    maps.v1.HuaweiRoutePlanReq huawei = 4;
+  }
+  optional int64 map_id = 255;
+}
+
+message BicyclingRoutePlanResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentRoutePlanResp tencent = 2;
+  maps.v1.AmapRoutePlanResp amap = 3;
+  maps.v1.HuaweiRoutePlanResp huawei = 4;
+}
+
+message EBicyclingRoutePlanReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentRoutePlanReq tencent = 2;
+    maps.v1.AmapRoutePlanReq amap = 3;
+  }
+  optional int64 map_id = 255;
+}
+
+message EBicyclingRoutePlanResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentRoutePlanResp tencent = 2;
+  maps.v1.AmapRoutePlanResp amap = 3;
+}
+
+message DrivingRoutePlanReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentRoutePlanReq tencent = 2;
+    maps.v1.AmapRoutePlanReq amap = 3;
+    maps.v1.TianDiTuRoutePlanReq tianditu = 4;
+    maps.v1.HuaweiRoutePlanReq huawei = 5;
+  }
+  optional int64 map_id = 255;
+}
+
+message DrivingRoutePlanResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentRoutePlanResp tencent = 2;
+  maps.v1.AmapRoutePlanResp amap = 3;
+  maps.v1.TianDiTuRoutePlanResp tianditu = 4;
+  maps.v1.HuaweiRoutePlanResp huawei = 5;
+}
+
+message TransitRoutePlanReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentTransitPlanReq tencent = 2;
+    maps.v1.AmapTransitPlanReq  amap = 3;
+    maps.v1.TianDiTuTransitPlanReq tianditu = 4;
+  }
+  optional int64 map_id = 255;
+}
+
+message TransitRoutePlanResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentTransitPlanResp tencent = 2;
+  maps.v1.AmapTransitPlanResp amap = 3;
+  maps.v1.TianDiTuTransitPlanResp tianditu = 4;
+}
+
+message WalkingDistanceMatrixPlanReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentDistanceMatrixReq tencent = 2;
+    maps.v1.HuaweiDistanceMatrixPlanReq huawei = 3;
+  }
+  optional int64 map_id = 255;
+}
+
+message WalkingDistanceMatrixPlanResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentDistanceMatrixResp tencent = 2;
+  maps.v1.HuaweiDistanceMatrixPlanResp huawei = 3;
+}
+
+message BicyclingDistanceMatrixPlanReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentDistanceMatrixReq tencent = 2;
+    maps.v1.HuaweiDistanceMatrixPlanReq huawei = 3;
+  }
+  optional int64 map_id = 255;
+}
+
+message BicyclingDistanceMatrixPlanResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentDistanceMatrixResp tencent = 2;
+  maps.v1.HuaweiDistanceMatrixPlanResp huawei = 3;
+}
+
+message DrivingDistanceMatrixPlanReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentDistanceMatrixReq tencent = 2;
+    maps.v1.HuaweiDistanceMatrixPlanReq huawei = 3;
+  }
+  optional int64 map_id = 255;
+}
+
+message DrivingDistanceMatrixPlanResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentDistanceMatrixResp tencent = 2;
+  maps.v1.HuaweiDistanceMatrixPlanResp huawei = 3;
+}
+
+message GetLocationByIpReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.TencentGetLocationByIpReq tencent = 2;
+    maps.v1.AmapGetLocationByIpReq amap = 3;
+    maps.v1.HuaweiGetLocationByIpReq huawei = 4;
+  }
+  optional int64 map_id = 255;
+}
+
+message GetLocationByIpResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.TencentGetLocationByIpResp tencent = 2;
+  maps.v1.AmapGetLocationByIpResp amap = 3;
+  maps.v1.HuaweiGetLocationByIpResp huawei = 4;
+}
+
+message GetTimezoneByLocationReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.HuaweiGetTimezoneByLocationReq huawei = 2;
+  }
+  optional int64 map_id = 255;
+}
+
+message GetTimezoneByLocationResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.HuaweiGetTimezoneByLocationResp huawei = 2;
+}
+
+message DistanceMeasureReq {
+  enums.v1.MapSource source = 1;
+  oneof param {
+    maps.v1.AmapDistanceMeasureReq amap = 2;
+  }
+  optional int64 map_id = 255;
+}
+
+message DistanceMeasureResp {
+  enums.v1.MapSource source = 1;
+  maps.v1.AmapDistanceMeasureResp amap = 2;
+}
+
+message AddMapInterfaceParam {
+  enums.v1.MapInterfaceType interface_type = 1;
+  int32 second_limit = 2;
+  int32 daily_limit = 3;
+}
+
+message AddMapReq {
+  string name = 1;
+  enums.v1.MapSource source = 2;
+  enums.v1.MapType type = 3;
+  enums.v1.MapOwnerType owner_type = 4;
+  int64 object_id = 5;
+  string key = 6;
+  optional string comment = 7;
+  repeated AddMapInterfaceParam interfaces = 8;
+}
+
+message AddMapResp {
+  int64 map_id = 1;
+}
+
+message DeleteMapReq {
+  int64 map_id = 1;
+}
+
+message DeleteMapResp {}
+
+message UpdateMapReq {
+  int64 map_id = 1;
+  optional string name = 2;
+  optional enums.v1.MapSource source = 3;
+  optional enums.v1.MapType map_type = 4;
+  optional enums.v1.MapOwnerType owner_type = 5;
+  optional enums.v1.MapStatus status = 6;
+  optional string key = 7;
+  optional string comment = 8;
+}
+
+message UpdateMapResp {}
+
+message GetMapInfoByIdReq {
+  int64 map_id = 1;
+}
+
+message GetMapInfoByIdResp {
+  MapInfo map_info = 1;
+}
+
+message PagingGetMapInfoReq {
+  int32 page = 1;
+  int64 size = 2;
+  bool asc = 3;
+  optional int64 map_id = 4;
+  optional string map_name = 5;
+  optional enums.v1.MapSource source = 6;
+  optional enums.v1.MapType map_type = 7;
+  optional enums.v1.MapOwnerType owner_type = 8;
+  optional enums.v1.MapStatus status = 9;
+  optional int64 object_id = 10;
+  google.protobuf.Timestamp created_start = 11;
+  google.protobuf.Timestamp created_end = 12;
+}
+
+message PagingGetMapInfoResp {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated MapInfo map_infos = 5;
+}
+
+message AddMapInterfacesReq {
+  int64 map_id = 1;
+  repeated AddMapInterfaceParam interfaces = 2;
+}
+
+message AddMapInterfacesResp {
+  repeated int64 ids = 1;
+}
+
+message DeleteMapInterfaceReq {
+  int64 map_id = 1;
+  optional enums.v1.MapInterfaceType type = 2;
+}
+
+message DeleteMapInterfaceResp {}
+
+message UpdateMapInterfaceReq {
+  int64 map_id = 1;
+  enums.v1.MapInterfaceType type = 2;
+  optional int32 second_limit = 3;
+  optional int32 daily_limit = 4;
+}
+
+message UpdateMapInterfaceResp {}
+
+message GetMapInterfacesReq {
+  int64 map_id = 1;
+}
+
+message GetMapInterfacesResp {
+  repeated MapInterfaceInfo interface_info = 1;
+}
+
+message PagingGetMapInterfacesReq {
+  int32 page = 1;
+  int64 size = 2;
+  bool asc = 3;
+  optional int64 map_id = 4;
+  optional enums.v1.MapInterfaceType type = 5;
+  google.protobuf.Timestamp created_start = 6;
+  google.protobuf.Timestamp created_end = 7;
+}
+
+message PagingGetMapInterfacesResp {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated MapInterfaceInfo interfaces = 5;
+}
+
+message DeleteMapInterfaceCountsReq {
+  google.protobuf.Timestamp before = 1;
+}
+
+message DeleteMapInterfaceCountsResp {
+  int64 affected_rows = 1;
+}
+
+message GetMapInterfaceCountsReq {
+  int64 map_id = 1;
+  optional enums.v1.MapInterfaceType type = 2;
+  google.protobuf.Timestamp day = 3;
+}
+
+message GetMapInterfaceCountsResp {
+  repeated MapInterfaceCount counts = 1;
+}
+
+message PagingGetMapInterfaceCountInfosReq {
+  int32 page = 1;
+  int64 size = 2;
+  bool asc = 3;
+  optional int64 map_id = 4;
+  optional enums.v1.MapInterfaceType type = 5;
+  google.protobuf.Timestamp day_start = 6;
+  google.protobuf.Timestamp day_end = 7;
+}
+
+message PagingGetMapInterfaceCountInfosResp {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated MapInterfaceCount counts = 5;
+}
+
+service MapService {
+  rpc GetAvailableInterfaces(GetAvailableInterfacesReq) returns (GetAvailableInterfacesResp);
+  rpc GetDistricts(GetDistrictsReq) returns (GetDistrictsResp);
+  rpc GetDistrictChildren(GetDistrictChildrenReq) returns (GetDistrictChildrenResp);
+  rpc SearchDistrict(SearchDistrictReq) returns (SearchDistrictResp);
+  rpc ConvertLocation(ConvertLocationReq) returns (ConvertLocationResp);
+  rpc ParseLocationToAddr(ParseLocationToAddrReq) returns (ParseLocationToAddrResp);
+  rpc ParseAddrToLocation(ParseAddrToLocationReq) returns (ParseAddrToLocationResp);
+  rpc WalkingRoutePlan(WalkingRoutePlanReq) returns (WalkingRoutePlanResp);
+  rpc BicyclingRoutePlan(BicyclingRoutePlanReq) returns (BicyclingRoutePlanResp);
+  rpc EBicyclingRoutePlan(EBicyclingRoutePlanReq) returns (EBicyclingRoutePlanResp);
+  rpc DrivingRoutePlan(DrivingRoutePlanReq) returns (DrivingRoutePlanResp);
+  rpc TransitRoutePlan(TransitRoutePlanReq) returns (TransitRoutePlanResp);
+  rpc WalkingDistanceMatrixPlan(WalkingDistanceMatrixPlanReq) returns (WalkingDistanceMatrixPlanResp);
+  rpc BicyclingDistanceMatrixPlan(BicyclingDistanceMatrixPlanReq) returns (BicyclingDistanceMatrixPlanResp);
+  rpc DrivingDistanceMatrixPlan(DrivingDistanceMatrixPlanReq) returns (DrivingDistanceMatrixPlanResp);
+  rpc GetLocationByIp(GetLocationByIpReq) returns (GetLocationByIpResp);
+  rpc DistanceMeasure(DistanceMeasureReq) returns (DistanceMeasureResp);
+  rpc GetTimezoneByLocation(GetTimezoneByLocationReq) returns (GetTimezoneByLocationResp);
+  rpc AddMap(AddMapReq) returns (AddMapResp);
+  rpc DeleteMap(DeleteMapReq) returns (DeleteMapResp);
+  rpc UpdateMap(UpdateMapReq) returns (UpdateMapResp);
+  rpc GetMapInfoById(GetMapInfoByIdReq) returns (GetMapInfoByIdResp);
+  rpc PagingGetMapInfo(PagingGetMapInfoReq) returns (PagingGetMapInfoResp);
+  rpc AddMapInterfaces(AddMapInterfacesReq) returns (AddMapInterfacesResp);
+  rpc DeleteMapInterface(DeleteMapInterfaceReq) returns (DeleteMapInterfaceResp);
+  rpc UpdateMapInterface(UpdateMapInterfaceReq) returns (UpdateMapInterfaceResp);
+  rpc GetMapInterfaces(GetMapInterfacesReq) returns (GetMapInterfacesResp);
+  rpc PagingGetMapInterfaces(PagingGetMapInterfacesReq) returns (PagingGetMapInterfacesResp);
+  rpc DeleteMapInterfaceCounts(DeleteMapInterfaceCountsReq) returns (DeleteMapInterfaceCountsResp);
+  rpc GetMapInterfaceCounts(GetMapInterfaceCountsReq) returns (GetMapInterfaceCountsResp);
+  rpc PagingGetMapInterfaceCountInfos(PagingGetMapInterfaceCountInfosReq) returns (PagingGetMapInterfaceCountInfosResp);
+}

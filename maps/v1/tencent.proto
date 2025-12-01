@@ -1,0 +1,502 @@
+syntax = "proto3";
+
+package maps.v1;
+
+import "enums/v1/maps.proto";
+
+message TencentLocation {
+  double lat = 1; // 纬度
+  double lng = 2; // 经度
+}
+
+message TencentFormattedAddress {
+  string recommend = 1; // 推荐使用的地址描述，描述精确性较高
+  string rough = 2; // 粗略位置描述
+  string standard_address = 3; // 基于附近关键地点（POI）的精确地址
+}
+
+message TencentAddressComponent {
+  string nation = 1; // 国家
+  string province = 2; // 省
+  string city = 3; // 市，如果当前城市为省直辖县级区划，city与district字段均会返回此城市 注：省直辖县级区划adcode第3和第4位分别为9、0，如济源市adcode为419001
+  string district = 4; // 区，可能为空字串
+  string street = 5; // 道路，可能为空字串
+  string street_number = 6; // 门牌，可能为空字串
+}
+
+message TencentAdInfo {
+  string nation_code = 1; // 国家代码（ISO3166标准3位数字码）
+  string adcode = 2; // 行政区划代码
+  string city_code = 3; // 城市代码，由国家码+行政区划代码（提出城市级别）组合而来，总共为9位
+  string phone_area_code = 4; // 城市电话区号
+  string name = 5; // 行政区划名称
+  TencentLocation location = 6; // 行政区划中心点坐标
+  string nation = 7; // 国家
+  string province = 8; // 省 / 直辖市
+  string city = 9; // 市 / 地级区 及同级行政区划，如果当前城市为省直辖县级区划，city与district字段均会返回此城市
+  string district = 10; // 区 / 县级市 及同级行政区划
+}
+
+message TencentArea {
+  string id = 1; // 地点唯一标识
+  string title = 2; // 名称/标题
+  TencentLocation location = 3; // 坐标
+  double _distance = 4; // 此参考位置到输入坐标的直线距离
+  string _dir_desc = 5; // 此参考位置到输入坐标的方位关系，如：北、南、内
+}
+
+message TencentObjectInfo {
+  string id = 1; // 编号
+  string title = 2; // 名称
+  TencentLocation location = 3; // 经纬度
+  TencentObjectInfo exit = 4; // 进出口信息，公交站等使用
+}
+
+message TencentAddressReference {
+  TencentArea famous_area = 1; // 知名区域，如商圈或人们普遍认为有较高知名度的区域
+  TencentArea business_area = 2; // 商圈
+  TencentArea town = 3; // 乡镇/街道（四级行政区划）
+  TencentArea landmark_l1 = 4; // 一级地标，可识别性较强、规模较大的地点、小区等
+  TencentArea landmark_l2 = 5; // 二级地标，较一级地标更为精确，规模更小
+  TencentArea street = 6; // 道路
+  TencentArea street_number = 7; // 门牌
+  TencentArea crossroad = 8; // 交叉路口
+  TencentArea water = 9; // 水系
+  TencentObjectInfo ocean = 10; // 海洋信息
+}
+
+message TencentPoi {
+  string id = 1; // 地点（POI）唯一标识
+  string title = 2; // 名称
+  string address = 3; // 地址
+  string category = 4; // 地点分类信息
+  TencentLocation location = 5; // 提示所述位置坐标
+  TencentAdInfo ad_info = 6; // 行政区划信息
+  double _distance = 7; // 该POI/AOI到逆地址解析传入的坐标的直线距离
+  string _dir_desc = 8; // 该POI/AOI在逆地址解析传入的坐标的相对方位描述，包括：东、东南、南、西南、西、西北、北、东北、内（输入经纬度在AOI范围内）
+}
+
+message TencentDistrict {
+  string id = 1; // 行政区划唯一标识（adcode）
+  string name = 2; // 简称，如“内蒙古”
+  string fullname = 3; // 全称，如“内蒙古自治区”
+  int32 level = 4; // 行政区划级别
+  repeated string pinyin = 5; // 行政区划拼音，每一下标为一个字的全拼，如：[“nei”,“meng”,“gu”]
+  TencentLocation location = 6; // 经纬度
+  repeated TencentDistrict districts = 7; // 当前区划的下级区划信息，结构与当前区划一致，如果没有下级区划则不返回此字段
+}
+
+message TencentTrack {
+  double lat = 1; // 纬度
+  double lng = 2; // 经度
+  optional double header = 3; // header 为车头方向（正北为0度，顺时针一周为360度）
+  optional double speed = 4; // 速度：GPS速度，单位 米/秒
+  optional int64 accuracy = 5; // 精度：GPS精度, 单位毫米
+  optional double motion_direction = 6; // 运动方向： gps方向，正北为0, 顺时针夹角，[0-360)
+  optional double device_direction = 7; // 设备方向：正北为0, 顺时针夹角，[0-360)
+  optional int64 timestamp = 8; // 时间：定位获取该点的时间，Unix时间戳
+  optional enums.v1.TencentRoadType roadtype = 9; //  为道路类型
+}
+
+message TencentPolygon {
+  repeated TencentLocation locations = 1;
+}
+
+message TencentWaypoint {
+  string title = 1; // 途经点路名
+  TencentLocation location = 2; // 途经点坐标
+  int32 polyline_idx = 3; // 该途经点在polyline中的索引位置（数组下标位置）
+  double duration = 4; // 预估到达耗时，单位：分钟
+  double distance = 5; // 起点到该途经点的距离，单位：米
+  int32 input_order_idx = 6; // 当waypoint_order=1返回，该值对应途经点输入时的第几个途径点，0则表示该途经点为输入途经点参数时的第1个途经点，以此类推
+}
+
+message TencentTaxiFare {
+  double fare = 1; // 预估打车费用，单位：元
+}
+
+message TencentRestriction {
+  // 限行状态码：
+  // 0 途经没有限行城市，或路线方案未涉及限行区域
+  // 1 途经包含有限行的城市
+  // 3 [设置车牌] 已避让限行
+  // 4 [设置车牌] 无法避开限行区域（本方案包含限行路段）
+  int32 status = 1;
+}
+
+message TencentLine {
+  string vehicle = 1; // 交通工具：公交车（BUS）铁路（RAIL）
+  string id = 2; // 线路唯一标识
+  string title = 3; // 线路名称
+  int32 station_count = 4; // 经停站数
+  int32 running_status = 5; // 线路运营状态，取值范围：300：正常 301：可能错过末班车 302：首班车还未发出 303：停运
+  double price = 6; // 预估费用，单位：分，返回-1时为缺少票价信息
+  double distance = 7; // 路线距离，单位：米
+  double duration = 8; // 路线估算时间，单位：分钟
+  repeated string polyline = 9; // 线路坐标点串，可用于在地图中绘制路线
+  TencentObjectInfo destination  = 10; // 公交终点站（用于指示方向）
+  string start_time = 11; // 首班车时间
+  string end_time = 12; // 末班车时间
+  string departure_time = 13; // 发车时间
+  string arrival_time = 14; // 到达时间
+  int32 days_count = 15; // 耗时天数，1为当天到达，2为隔天到达，以此类推
+  TencentObjectInfo geton = 16; // 上车站
+  TencentObjectInfo getoff = 17; // 下车站
+  repeated TencentObjectInfo stations = 18; // 经停站列表
+}
+
+message TencentStep {
+  string mode = 1; // 交通方式 WALKING：步行 TRANSIT：公共交通工具
+  double duration = 2; // 估算时间，单位：分钟
+  string direction = 3; // 方案整体方向描述，如：“南”
+  repeated string polyline = 4;  // 路线坐标点串，可用于在地图中绘制路线（坐标串经过压缩，解压与使用，请参考解析方法）
+  string instruction = 5; // 阶段路线描述
+  int32 polyline_idx = 6; // 阶段路线坐标点串在方案路线坐标点串的位置
+  string road_name = 7; // 阶段路线路名
+  string dir_desc = 8; // 阶段路线方向
+  double distance = 9; // 阶段路线距离，单位：米
+  string act_desc = 10; // 阶段路线末尾动作：如：左转调头
+  string accessorial_desc = 11; // 末尾辅助动作：如：到达终点
+  int32 type = 12; // 阶段路线的步行设施类型（type），包含：0普通道路，1过街天桥，2地下通道，3人行横道
+  repeated TencentLine lines = 13; // lines线路信息，因为起点到终点，可能存在多条线路可选，所以lines为数组
+  repeated TencentStep steps = 14; // 子路线，一般不行会有次值
+  repeated string tags = 15; // 标签 e.g. "LEAST_TRANSFER"
+  string bounds = 16; // 整体路线的外接矩形范围，可在地图显示时使用，通过矩形西南+东北两个端点坐标定义而面，示例：“39.901405,116.334023,39.940289,116.451720”
+}
+
+message TencentSpeed {
+  // 阶段路线坐标点串，在路线坐标点串的位置
+  int32 polyline_idx = 1;
+  // 距离，单位：米
+  double distance = 2;
+  // 路况类型:
+  // 0:畅通 1:缓行 2:拥堵 3:无路况(大概率畅通) 4:严重拥堵
+  int32 level = 3;
+}
+
+message TencentRoute {
+  // 方案交通方式:
+  // 固定值：“DRIVING” “WALKING” “BICYCLING”
+  string mode = 1;
+  // 方案标签，表明方案特色
+  // 示例：tags:[“LEAST_LIGHT”]
+  repeated string tags = 2;
+  // 方案总距离，单位：米
+  double distance = 3;
+  // 方案估算时间（结合路况），单位：分钟
+  double duration = 4;
+  // 方案途经红绿灯个数
+  int32 traffic_light_count = 5;
+  // 高速过路费，单位：元
+  double toll = 6;
+  // 限行信息
+  TencentRestriction restriction = 7;
+  // 方案路线坐标点串
+  repeated string polyline = 8;
+  // 途经点，（输入waypoints时才会有此结点返回）
+  // 当waypoint_order=0时，此列表与入参的waypoints顺序一致
+  // 当waypoint_order=1时，会以最优（路线最短）路线对入参的waypoints进行排序，再进行算路
+  repeated TencentWaypoint waypoints = 9;
+  // 预估打车费
+  TencentTaxiFare taxi_fare = 10;
+  // 路线途经行政区划（按途经顺序排序），数组中每个对象为一个区划
+  repeated TencentAdInfo cities = 11;
+  // 路线步骤
+  repeated TencentStep steps = 12;
+  // 路况信息，只有设置get_speed=1才会返回
+  repeated TencentSpeed speed = 13;
+}
+
+message TencentMatrixElement {
+  // 起点到终点的距离，单位：米
+  double distance = 1;
+  // 表示从起点到终点的结合路况的时间，单位：秒
+  int64 duration = 2;
+  // 本对起终点计算的状态码，取值：
+  //  4 代表附近没有路，距离计算失败，此时distance为直线距离，预估耗时（duraction）将不返回。
+  // 计算结果正常返回时，不返回status
+  int32 status = 3;
+}
+
+message TencentPlanResult {
+  repeated TencentRoute routes = 1;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+message TencentGetDistrictsReq {
+  string key = 1;
+}
+
+message TencentGetDistrictChildrenReq {
+  string key = 1;
+  string parent_code = 2;
+  optional bool get_polygon = 3;
+}
+
+message TencentSearchDistrictReq {
+  string key = 1;
+  // 1.支持输入一个文本关键词
+  // 2.支持行政区划代码(adcode)
+  // e.g. keyword=北京 keyword=130681
+  string key_word = 2;
+  optional bool get_polygon = 3;
+}
+
+message TencentDistrictResp {
+  int32 status = 1; // 状态码，0为正常，其它为异常
+  string message = 2; // 状态说明
+  string request_id = 3; // 请求唯一标识
+  int64 data_version = 4; // 行政区划数据版本，便于您判断更新
+  repeated TencentDistrict result = 5; // 区划列表结果，结构是以区划归属进行嵌套
+}
+
+message TencentLocationToAddrReq {
+  string key = 1;
+  // 经纬度（GCJ02坐标系）
+  TencentLocation location = 2;
+  // 解析行政区划的吸附半径，如入参经纬度在近海海域（未在任何行政区划内），可设置此参数解析返回在该半么范围内最近的行政区划信息。
+  // 单位米，默认0，最大设置5000
+  optional int32 radius = 3;
+  // 是否返回周边地点（POI）列表
+  // 不返回(默认)
+  optional bool get_poi = 4;
+  // 返回短地址，缺省时返回长地址
+  optional bool poi_option_address_format_short = 5;
+  // 半径，取值范围 1-5000（米）
+  optional int32 poi_option_radius = 6;
+  // 返回策略
+  optional enums.v1.TencentReturnPolicy poi_option_policy = 7;
+  // 按距离排序 仅在policy=1/2/3时生效
+  optional bool poi_option_order_by_distance = 8;
+}
+
+message TencentLocationToAddrResp {
+  message Result {
+    string address = 1; // 以行政区划+道路+门牌号等信息组成的标准格式化地址
+    TencentFormattedAddress formatted_address = 2; // 结合知名地点形成的描述性地址，更具人性化特点
+    TencentAddressComponent address_component = 3; // 地址部件，address不满足需求时可自行拼接
+    TencentAdInfo ad_info = 4; // 行政区划信息
+    TencentAddressReference address_reference = 5; // 坐标相对位置参考
+    int32 poi_count = 6; // 查询的周边poi的总数，仅在传入参数get_poi=1时返回
+    // 周边地点（POI/AOI）列表，数组中每个子项为一个POI/AOI对象
+    // 说明：POI即地点，如一个便利店，往往因其面积较小，其位置一般仅会标为为一个点，
+    // 而学校、小区等往往面积较大，通常会有一定的地理范围，即所谓AOI，
+    // 如果所请求的经纬度在AOI内，其距离会为0，且方位描述为“内”，
+    // 如果是一个面积较小的地点，或不在AOI内，距离会>0，方位描述会为具体方位词，如“东”
+    repeated TencentPoi pois = 7;
+  }
+  int32 status = 1; // 状态码，0为正常，其它为异常
+  string message = 2; // 状态说明
+  string request_id = 3; // 本次请求的唯一标识
+  Result result = 4; // 逆地址解析结果
+}
+
+message TencentAddressToLocationReq {
+  string key = 1;
+  // 要解析获取坐标及相关信息的 输入地址，参数要求：
+  // 为提升解析准确率，地址中请至少包含城市名称，否则将视为参数错误，同时地址请尽量完整、具体（包括省市区乡镇/街道门牌及详细地点信息）
+  // e.g. address=北京市海淀区彩和坊路海淀西大街74号
+  string address = 2;
+}
+
+message TencentAddressToLocationResp {
+  message Result {
+    // 解析到的坐标（GCJ02坐标系）
+    TencentLocation location = 1;
+    // 解析后的地址部件
+    TencentAddressComponent address_components = 2;
+    // 行政区划信息
+    TencentAdInfo ad_info = 3;
+    // 可信度参考：值范围 1 <低可信> - 10 <高可信>
+    // 我们根据用户输入地址的准确程度，在解析过程中，将解析结果的可信度(质量)，
+    // 由低到高，分为1 - 10级，该值>=7时，解析结果较为准确，
+    // <7时，会存各类不可靠因素，开发者可根据自己的实际使用场景，对于解析质量的实际要求，进行参考。
+    int32 reliability = 4;
+    // 解析精度级别，分为11个级别，一般>=9即可采用（定位到点，精度较高）
+    // 0: 无法判别，结果不可信
+    // 1: 城市
+    // 2: 区、县
+    // 3: 乡镇、街道
+    // 4: 村、社区
+    // 5: 开发区
+    // 6: 热点区域、商圈
+    // 7: 道路
+    // 8: 道路附属点：交叉口、收费站、出入口等
+    // 9: 门址
+    // 10: 小区、大厦
+    // 11: POI点
+    // 21及以上： 等同于POI点
+    int32 level = 5;
+  }
+  int32 status = 1; // 状态码，0为正常，其它为异常
+  string message = 2; // 状态说明
+  string request_id = 3; // 本次请求的唯一标识
+  Result result = 4;
+}
+
+message TencentLocationConvertReq {
+  string key = 1;
+  repeated TencentLocation locations = 2;
+  enums.v1.TencentCoordType type = 3;
+}
+
+message TencentLocationConvertResp {
+  int32 status = 1;
+  string message = 2;
+  string request_id = 3;
+  repeated TencentLocation locations = 4;
+}
+
+message TencentRoutePlanReq {
+  string key = 1;
+  enums.v1.PlanMode mode = 2;
+  // 起点位置坐标
+  TencentLocation from = 3;
+  // 终点位置坐标
+  TencentLocation to = 4;
+  // 起点POI ID，传入后，优先级高于from（坐标）
+  optional string from_poi = 5;
+  // 终点POI ID（可通过腾讯位置服务地点搜索服务得到），当目的地为较大园区、小区时，会以引导点做为终点（如出入口等），体验更优。
+  // 该参数优先级高于to（坐标），但是当目的地无引导点数据或POI ID失效时，仍会使用to（坐标）作为终点
+  optional string to_poi = 6;
+  // 终点POI名称，当目的地为较大园区、小区时，会以引导点做为终点（如出入口等），体验更优
+  // 该参数优先级低于to（POI ID）、高于to（坐标），可以在无法获取POI ID时使用，但是当目的地无引导点数据或无法根据名称匹配POI或POI失效时，仍会使用to（坐标）作为终点
+  // 该参数仅在入参包含 policy=TRIP 时生效
+  optional string to_poi_name = 7;
+  // [from辅助参数]在起点位置时的车头方向，数值型，取值范围0至360（0度代表正北，顺时针一周360度）
+  // 传入车头方向，对于车辆所在道路的判断非常重要，直接影响路线计算的效果
+  optional int32 heading = 8;
+  // [from辅助参数]速度，单位：米/秒，默认3。 当速度低于1.39米/秒时，heading将被忽略
+  optional double speed = 9;
+  // [from辅助参数]定位精度，单位：米，取>0数值，默认5。 当定位精度>30米时heading参数将被忽略
+  optional int32 accuracy = 10;
+  // [from辅助参数] 起点道路类型
+  // [默认]不考虑起点道路类型
+  optional enums.v1.TencentRoadType road_type = 11;
+  // 起点轨迹：
+  // 在真实的场景中，易受各种环境及设备精度影响，导致定位点产生误差，起点前段轨迹起到辅助参考作用，在车辆行驶中发起算路时，可对起点有修正作用。
+  repeated TencentTrack tracks = 12;
+  // 途经点，格式：lat1,lng1;lat2,lng2;… 最大支持30个，超过30个之后的将被忽略
+  repeated TencentLocation waypoints = 13;
+  // 途经点智能排序，可选值：
+  // [默认]不排序（按入参途经点顺序）
+  // 智能排序：对途经点以最顺路方式排序并规划路线，排序途经点最多16个，本参数属于高级付费参数
+  optional bool waypoint_order = 14;
+  // 途经点智能排序是否考虑终点：
+  // [默认]考虑终点，以最优排序最终到达指定终点（to参数）
+  // 不考虑终点（to参数），仅对途经点排序并规划路线，终点参数将忽略（排序后的最后一个途经点将作为终点）
+  optional bool with_dest = 15;
+  // 设置未来出发时间，参数传入后会使用指定时间的预测路况计算预计到达时间 及 路况信息（speed）,参数值格式为Unix时间戳，取值范围从当时时间到未来7天内的任意时间
+  // 本参数属于高级付费参数
+  optional int64 departure_time = 16;
+  // 车牌号，填入后，路线引擎会根据车牌对限行区域进行避让，不填则不不考虑限行问题
+  optional string plate_number = 17;
+  // 是否为新能源 车辆类型（影响限行规则）
+  optional bool is_new_energy = 18;
+  // 策略参数
+  optional enums.v1.TencentDrivePlanPolicyParam policy_param = 19;
+  // 单项偏好参数
+  optional enums.v1.TencentDrivingPlanPolicy policy = 20;
+  // 避让区域：支持32个避让区域，每个区域最多可有16个顶点（如果是四边形则有4个坐标点，如果是五边形则有5个坐标点）
+  repeated TencentPolygon avoid_polygons = 21;
+  // 是否返回多方案
+  // [默认]仅返回一条路线方案
+  optional bool get_mp = 22;
+  // 是否返回路况（道路速度）
+  // [默认]不返回路况
+  optional bool get_speed = 23;
+  // 不返回路线引导信息，可使回包数据量更小
+  // [默认]返回路线引导信息
+  optional bool no_step = 24;
+  // 返回指定标准附加字段，取值支持：
+  // cities 路线途经行政区划信息(按路线途经顺序排序)
+  // 网约车场景参数：
+  // route_id 路线ID，乘客选中路线时，后续作为唯一路线标识传给导航SDK发起导航
+  // nav_session_id 导航算路会话ID
+  // custom_route_info乘客熟路(个性化路线)信息
+  repeated string added_fields = 25;
+  // 服务性能设置，可选值：
+  //  0 标准算路（默认）
+  //  1 轻量算路，性能较优
+  optional int32 service_level = 26;
+}
+
+message TencentRoutePlanResp {
+  int32 status = 1; // 状态码，0为正常，其它为异常
+  string message = 2; // 状态说明
+  string request_id = 3; // 本次请求的唯一标识，由系统自动生成，用于追查结果有异常时使用
+  TencentPlanResult result = 4; // 搜索结果
+}
+
+message TencentTransitPlanReq {
+  string key = 1;
+  TencentLocation from = 2;
+  TencentLocation to = 3;
+  optional string from_poi = 4;
+  optional string to_poi = 5;
+  optional int64 departure_time = 6;
+  optional enums.v1.TencentTransitPlanPolicy policy = 7;
+  optional enums.v1.TencentTransitPlanLimit limit = 8;
+}
+
+message TencentTransitPlanResp {
+  int32 status = 1; // 状态码，0为正常，其它为异常
+  string message = 2; // 状态说明
+  string request_id = 3; // 本次请求的唯一标识，由系统自动生成，用于追查结果有异常时使用
+  TencentPlanResult result = 4;
+}
+
+message TencentDistanceMatrixReq {
+  string key = 1;
+  enums.v1.PlanMode mode = 2;
+  // 个数限制： 多对一计算<=200个，多对多计算from和to坐标数乘积<=625且单侧<=50个
+  repeated TencentLocation from = 3;
+  // 个数限制： 一对多计算<=200个，多对多计算from和to坐标数乘积<=625且单侧<=50个
+  // 注意： 终点经纬度附近5公里内没有道路，会计算失败，返回“存在无法吸附的坐标点”
+  repeated TencentLocation to = 4;
+}
+
+message TencentDistanceMatrixResp {
+  message Result {
+    message Elements {
+      // 结果数组（列）
+      repeated TencentMatrixElement elements = 1;
+    }
+    // 多点到多点距离计算，结果为二维数组，rows为行，elements为列 结果数组（行）
+    repeated Elements rows = 1;
+  }
+  int32 status = 1;
+  string message = 2;
+  string request_id = 3;
+  Result result = 4;
+}
+
+message TencentGetLocationByIpReq {
+  string key = 1;
+  string ip = 2; // IP地址，缺省时会使用请求端的IP
+}
+
+message TencentGetLocationByIpResp {
+  message Result {
+    string ip = 1; // 用于定位的IP地址
+    TencentLocation location = 2; // 定位坐标。注：IP定位服务精确到市级，该位置为IP地址所属的行政区划政府坐标。
+    TencentAdInfo ad_info = 3; // 定位行政区划信息
+  }
+  int32 status = 1; // 状态码，0为正常，其它为异常
+  string message = 2; // 对status的描述
+  string request_id = 3;
+  Result result = 4; // IP定位结果
+}
+
+
+
+
+
+
+
+
+
+
+
+

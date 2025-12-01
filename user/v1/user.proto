@@ -1,0 +1,195 @@
+syntax = "proto3";
+
+package user.v1;
+
+import "enums/v1/public.proto";
+import "enums/v1/user.proto";
+import "enums/v1/message.proto";
+import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+import "types/v1/types.proto";
+import "google/type/date.proto";
+import "msg/v1/captcha.proto";
+import "wechat/v1/params.proto";
+import "huawei/v1/account.proto";
+
+message JwtClaims {
+  string iss = 1; // 签发人
+  string sub = 2; // 签发对象
+  int64 iat = 3; // 签发时间
+  int64 nbf = 4; // 生效时间
+  int64 exp = 5; // 过期时间
+  string jti = 6; // token_id
+  enums.v1.TokenType token_type = 7; // token类型
+  string tenant_id = 8; // 租户id
+  string number = 9; // 用户编号
+  optional int32 type = 10; // 用户类型
+  optional int32 level = 11; // 用户级别
+  map<string, string> extra = 255; // 调用方自定义字段
+}
+
+message Agent {
+  optional string ip = 1; // 注册设备ip
+  optional string agent = 2; // 注册UA
+  optional string device = 3; // 注册设备信息
+  optional types.v1.Location location = 4; // 经纬度
+}
+
+message User {
+  int64 uid = 1; // 用户id
+  string tenant_id = 2; // 业务编号
+  string number = 3; // 用户编号
+  string name = 4; // 姓名
+  string alias = 5; // 别名
+  string avatar = 6; // 头像
+  google.type.Date birthday = 7; // 生日
+  types.v1.PhoneNumber phone_number = 8; // 手机
+  string email = 9;// 邮箱
+  types.v1.AdminRegion region = 10; // 行政区域
+  string addr = 11; // 详细地址
+  enums.v1.UserStatus status = 12; // 状态
+  enums.v1.UserSource source = 13; // 用户来源
+  enums.v1.SignInType sign_up_type = 14; // 注册方式
+  int32 user_type = 15; // 用户类型，由业务方定义
+  int32 user_level = 16; // 用户等级，由业务方定义
+  enums.v1.Gender gender = 17; // 性别
+  string ext = 18; // 扩展字段，json格式，（由业务方自定义）
+  bool phone_verify = 19; // 手机是否验证
+  bool email_verify = 20; // 邮箱是否验证
+  Agent register_agent = 21; // 注册时代理信息
+  google.protobuf.Timestamp password_updated_at = 100; // 上次密码修改时间
+  google.protobuf.Timestamp delete_at = 101; // 删除时间
+  google.protobuf.Timestamp updated_at = 102; // 更新时间
+  google.protobuf.Timestamp created_at = 103; // 更新时间
+}
+
+message UserAuth {
+  int64 id = 1;
+  int64 uid = 2;
+  string tenant_id = 3;
+  enums.v1.SignInType type = 4;
+  enums.v1.AuthStatus status = 5;
+  string app_id = 6;
+  string open_id = 7;
+  string union_id = 8;
+  google.protobuf.Timestamp delete_at = 100; // 删除时间
+  google.protobuf.Timestamp updated_at = 101; // 更新时间
+  google.protobuf.Timestamp created_at = 102; // 更新时间
+}
+
+message SignInLog {
+  int64 id = 1; // 主键id
+  int64 uid = 2; // uid
+  string tenant_id = 3; // 租户id
+  enums.v1.SignInType type = 4; // 认证类型
+  Agent agen = 5; // 代理信息
+  google.protobuf.Timestamp delete_at = 6; // 删除时间
+  google.protobuf.Timestamp updated_at = 7; // 更新时间
+  google.protobuf.Timestamp created_at = 8; // 更新时间
+}
+
+message UserParams {
+  optional string number = 1; // 用户编码，全局唯一, 数据库中定义的有唯一索引，可以作为用户名等
+  optional string name = 2; // 用户姓名，可作为用户真实姓名等
+  optional string alias = 3; // 别名
+  optional string password = 4; // 密码，后端会使用采用不对称加密
+  optional string avatar = 5; // 头像
+  optional enums.v1.Gender gender = 6; // 性别
+  optional google.type.Date birthday = 7; // 生日
+  optional types.v1.PhoneNumber phone = 8; // 手机
+  optional string email = 9; // 邮箱
+  optional types.v1.AdminRegion region = 10; // 行政区域
+  optional string addr = 11; // 详细地址
+  optional enums.v1.UserStatus status = 12; // 状态
+  optional int32 type = 13; // 用户类型 预留字段（由业务方自定义）
+  optional int32 level = 14; // 用户等级 预留字段（由业务方自定义）
+  optional enums.v1.UserSource source = 15;  // 用户来源
+  optional string ext = 16; // 扩展字段，json格式，（由业务方自定义）
+}
+
+message EmailSignUpParam {}
+
+message PhoneSignUpParam {}
+
+message SignUpReq {
+  enums.v1.SignUpType sign_up_type = 1; // 注册方式
+  string tenant_id = 2; // 租户
+  Agent agent = 3; // 注册时ua信息
+  UserParams params = 4; // 用户信息
+  oneof sign_param {
+    EmailSignUpParam email_param = 5; // 邮件注册参数
+    PhoneSignUpParam phone_param = 6; // 手机注册参数
+  }
+}
+
+message SignUpResp {
+  int64 user_id = 1;
+}
+
+message NumberPasswordSignInParam {}
+message EmailPasswordSignInParam {}
+message PhonePasswordSignInParam {}
+message PhoneCaptchaSignInParam {}
+message EmailCaptchaSignInParam {}
+
+message NumberPasswordSignInResult {}
+message EmailPasswordSignInResult {}
+message PhonePasswordSignInResult {}
+message PhoneCaptchaSignInResult {}
+message EmailCaptchaSignInResult {}
+
+
+message SignInReq {
+  enums.v1.SignInType sign_in_type = 1;
+  string tenant_id = 2;
+  Agent agent = 3;
+  map<string, string> extra_jwt_claims = 4;
+  oneof param {
+    NumberPasswordSignInParam number_password = 5;
+    EmailPasswordSignInParam email_password = 6;
+    PhonePasswordSignInParam phone_password = 7;
+    PhoneCaptchaSignInParam phone_captcha = 8;
+    EmailCaptchaSignInParam email_captcha = 9;
+    wechat.v1.WechatSignInReq wechat = 10;
+    huawei.v1.HuaweiSignInReq huawei = 11;
+  }
+}
+
+message SignInResult {
+  User user = 1;
+  string identifier = 2;
+}
+
+message SignInResp {
+  string access_token = 1;
+  string refresh_token = 2;
+  User user_info = 3;
+}
+
+message SignOutReq {
+  string access_token = 1;
+}
+
+message SignOutResp {}
+
+message ValidateTokenReq {
+  enums.v1.TokenType type = 1;
+  string token = 2;
+  repeated string extra_key = 3;
+}
+
+message ValidateTokenResp {
+  enums.v1.TokenType type = 1;
+  JwtClaims claims = 2;
+}
+
+message RefreshTokenReq {
+  string refresh_token = 1;
+  map<string, string> extra_jwt_claims = 2;
+}
+
+message RefreshTokenResp {
+  string access_token = 1;
+  string refresh_token = 2;
+  User user_info = 3;
+}

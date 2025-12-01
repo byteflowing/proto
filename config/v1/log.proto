@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package config.v1;
 
-import "enums/v1/log.proto";
+import "enums/v1/config.proto";
 
 message RotationConfig {
   string log_file = 1; // 文件名

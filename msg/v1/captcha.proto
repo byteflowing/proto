@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package msg.v1;
+
+import "enums/v1/message.proto";
+import "enums/v1/pkg.proto";
+import "google/protobuf/duration.proto";
+import "msg/v1/sms.proto";
+import "msg/v1/mail.proto";
+import "types/v1/types.proto";
+
+message CaptchaQuota {
+  uint32 quota = 1;
+  enums.v1.MessageSceneType scene = 2;
+  google.protobuf.Duration window = 3;
+}
+
+message CaptchaItem {
+  uint32 max_tries = 1;
+  uint32 length = 2;
+  repeated enums.v1.CaptchaTypeMask masks = 3;
+  google.protobuf.Duration ttl = 4;
+  repeated CaptchaQuota quota = 5;
+}
+
+message CaptchaConfig {
+  string prefix = 1;
+  msg.v1.CaptchaItem sms_captcha = 3;
+  msg.v1.CaptchaItem mail_captcha = 4;
+}
+
+message SendCaptchaReq {
+  enums.v1.MessageSenderType message_sender_type = 1;
+  enums.v1.MessageSceneType scene_type = 2;
+  oneof sender_param {
+    msg.v1.SendSmsReq sms = 3;
+    msg.v1.SendMailReq mail = 4;
+  }
+  string captcha_template_name = 5;
+}
+
+message SendCaptchaResp {
+  string token = 1;
+  types.v1.QuotaResult result = 2; // 验证不通过有值
+}
+
+message VerifyCaptchaReq {
+  string token = 1;
+  string captcha = 2;
+  enums.v1.MessageSenderType message_sender_type = 3;
+  enums.v1.MessageSceneType scene_type = 4;
+  oneof target {
+    string mail = 5;
+    types.v1.PhoneNumber phone = 6;
+  }
+}
+
+message VerifyCaptchaResp {
+  message VerifyResult {
+    uint32 fails = 2;
+    uint32 quota = 3;
+  }
+  VerifyResult result = 1;
+}

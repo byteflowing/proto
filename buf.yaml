@@ -13,6 +13,9 @@ lint:
     - RPC_RESPONSE_STANDARD_NAME
   service_suffix: Service
   enum_zero_value_suffix: _UNSPECIFIED
+  ignore_only:
+    RPC_REQUEST_RESPONSE_UNIQUE:
+      - msg/v1/msg.proto
 breaking:
   use:
     - FILE

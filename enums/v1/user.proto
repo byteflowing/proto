@@ -2,14 +2,23 @@ syntax = "proto3";
 
 package enums.v1;
 
-enum AuthType {
-  AUTH_TYPE_UNSPECIFIED = 0;
-  AUTH_TYPE_NUMBER_PASSWORD = 1; // 用户编号密码验证登录
-  AUTH_TYPE_EMAIL_PASSWORD = 2; // 邮箱密码验证登录
-  AUTH_TYPE_PHONE_PASSWORD = 3; // 手机密码登录
-  AUTH_TYPE_PHONE_CAPTCHA = 4; // 手机验证码验证登录
-  AUTH_TYPE_EMAIL_CAPTCHA = 5; // 邮箱验证码验证登录
-  AUTH_TYPE_WECHAT = 6; // 微信授权码验证登录
+enum SignUpType {
+  SIGN_UP_TYPE_UNSPECIFIED = 0;
+  SIGN_UP_TYPE_PHONE_CAPTCHA = 1; // 手机验证码注册
+  SIGN_UP_TYPE_EMAIL_CAPTCHA = 2; // 邮箱验证码注册
+  SIGN_UP_TYPE_HUAWEI_ACCOUNT = 3; // 华为一键登录
+  SIGN_UP_TYPE_WECHAT_MINI = 4; // 微信小程序一键登录
+}
+
+enum SignInType {
+  SIGN_IN_TYPE_UNSPECIFIED = 0;
+  SIGN_IN_TYPE_NUMBER_PASSWORD = 1; // 用户编号密码验证登录
+  SIGN_IN_TYPE_EMAIL_PASSWORD = 2; // 邮箱密码验证登录
+  SIGN_IN_TYPE_PHONE_PASSWORD = 3; // 手机密码登录
+  SIGN_IN_TYPE_PHONE_CAPTCHA = 4; // 手机验证码验证登录
+  SIGN_IN_TYPE_EMAIL_CAPTCHA = 5; // 邮箱验证码验证登录
+  SIGN_IN_TYPE_WECHAT_MINI = 10; // 微信小程序授权码验证登录
+  SIGN_IN_TYPE_HUAWEI = 20; // 华为授权认证
 }
 
 enum AuthStatus {
@@ -18,15 +27,12 @@ enum AuthStatus {
   AUTH_STATUS_DISABLED = 2; // 禁用
 }
 
-enum SessionStatus {
-  SESSION_STATUS_UNSPECIFIED = 0;
-  SESSION_STATUS_OK = 1; // 正常
-  SESSION_STATUS_SIGN_OUT = 2; // 主动退出
-  SESSION_STATUS_KICKED_OUT = 3; // 被挤退出（达到了最大登录终端）
-  SESSION_STATUS_FORCE_SIGN_OUT = 4; // 强制退出
-  SESSION_STATUS_CHANGE_PASSWORD_OUT = 5; // 更改密码导致退出
-  SESSION_STATUS_RESET_PASSWORD_OUT = 6; // 重置密码导致退出
-  SESSION_STATUS_DELETE_OUT = 7; // 用户删除导致退出
+enum SignInStatus {
+  SIGN_IN_STATUS_UNSPECIFIED = 0;
+  SIGN_IN_STATUS_OK = 1; // 正常
+  SIGN_IN_STATUS_SIGN_OUT = 2; // 主动退出
+  SIGN_IN_STATUS_KICKED_OUT = 3; // 被挤退出（达到了最大登录终端）
+  SIGN_IN_STATUS_FORCE_SIGN_OUT = 4; // 系统管理员强制退出
 }
 
 enum UserStatus {
@@ -38,9 +44,12 @@ enum UserStatus {
 enum UserSource {
   USER_SOURCE_UNSPECIFIED = 0;
   USER_SOURCE_WEBSITE = 1; // 网站
-  USER_SOURCE_APP = 2; // app
-  USER_SOURCE_WECHAT = 3; // 微信
-  USER_SOURCE_SYSTEM = 255; // 系统后台添加
+  USER_SOURCE_APP_HARMONY = 2; // 鸿蒙
+  USER_SOURCE_APP_ANDROID = 3; // 安卓
+  USER_SOURCE_APP_IOS = 4; // iOS
+  USER_SOURCE_WECHAT_MINI = 5; // 微信小程序
+  USER_SOURCE_WECHAT_OFFICIAL = 6; // 微信公众号
+  USER_SOURCE_SYSTEM = 10; // 系统后台添加
 }
 
 enum TokenType {
@@ -49,16 +58,11 @@ enum TokenType {
   TOKEN_TYPE_REFRESH = 2; // 刷新token
 }
 
-enum UserAuthLimitType {
-  USER_AUTH_LIMIT_TYPE_UNSPECIFIED = 0;
-  USER_AUTH_LIMIT_TYPE_SIGN_IN = 1; // 登录限制
-  USER_AUTH_LIMIT_TYPE_REFRESH = 2; // 刷新限制
-  USER_AUTH_LIMIT_TYPE_SIGN_IN_ERR = 3; // 登录错误次数
-}
-
-enum Gender {
-  GENDER_UNSPECIFIED = 0;
-  GENDER_MALE = 1; // 男性
-  GENDER_FEMALE = 2; // 女性
-  GENDER_OTHER = 3; // 其他
-}
+//enum ActionType {
+//  ACTION_TYPE_UNSPECIFIED = 0;
+//  ACTION_TYPE_SIGN_IN = 1; // 登录限制
+//  ACTION_TYPE_REFRESH_TOKEN = 2; // 刷新限制
+//  ACTION_TYPE_CHANGE_PASSWORD = 3; // 修改密码限制
+//  ACTION_TYPE_CHANGE_PHONE = 4; // 修改手机
+//  ACTION_TYPE_CHANGE_EMAIL = 5; // 修改邮箱
+//}

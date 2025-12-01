@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package user.v1;
+
+import "user/v1/user.proto";
+
+service UserService {
+  rpc SignUp(SignUpReq) returns (SignUpResp);
+  rpc SignIn(SignInReq) returns (SignInResp);
+  rpc SignOut(SignOutReq) returns (SignOutResp);
+  rpc ValidateToken(ValidateTokenReq) returns (ValidateTokenResp);
+  rpc RefreshToken(RefreshTokenReq) returns (RefreshTokenResp);
+}

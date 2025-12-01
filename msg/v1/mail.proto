@@ -1,0 +1,220 @@
+syntax = "proto3";
+
+package msg.v1;
+
+import "enums/v1/message.proto";
+import "google/protobuf/duration.proto";
+import "types/v1/types.proto";
+import "msg/v1/common.proto";
+import "google/protobuf/timestamp.proto";
+
+message SMTP {
+  // 主机地址 e.g. mail.example.com
+  string host = 1;
+  // 端口号
+  int32 port = 2;
+  // 用户名
+  string user_name = 3;
+  // 密码
+  string password = 4;
+  // 测试时可以跳过tls
+  bool skip_tls = 5;
+  // 超时时间
+  google.protobuf.Duration timeout = 6;
+}
+
+message MailApiConfig {
+  string access_key = 1; // ak
+  string secret_key = 2; // sk
+  optional string security_token = 3; // sts场景使用
+}
+
+message MailProvider {
+  enums.v1.MessageSenderVendor vendor = 1; // 服务商
+  string account = 2; // 账号用于区分多账号
+  SMTP smtp = 3; // // smtp配置
+  MailApiConfig api_config = 4;
+  repeated msg.v1.MessageQuotaConfig quota = 5; // 接口配额
+}
+
+message MailConfig {
+  uint32 daily_quota = 1;
+  string daily_quota_prefix = 2;
+  string rate_limiter_prefix = 3;
+  uint32 max_tries = 4;
+  repeated MailProvider providers = 5;
+  google.protobuf.Duration send_timeout = 6;
+}
+
+message MailAddress {
+  // 邮件地址
+  string address = 1;
+  // 地址对应的名称
+  optional string name = 2;
+}
+
+message MailSendStatistic {
+  int64 total = 1; // 请求数量
+  int64 success = 2; // 成功数量
+  int64 failed = 3; // 失败数量
+  int64 unavailable = 4; //  无效数量
+  google.protobuf.Timestamp date = 5; // 创建时间
+}
+
+message MailSendDetail {
+  enums.v1.MailSendStatus status = 1; // 投递状态
+  google.protobuf.Timestamp last_update_time = 2; // 更新时间
+  string message = 3; // 投递详情信息
+  string to_address = 4; // 收信地址
+  string from_address = 5; // 发信地址
+  string subject = 6; // 邮件主题
+  string error_classification = 7; // 错误原因的详细分类：SendOk：投递成功
+  string ip_pool_id = 8; // 独立 IP 地址池 ID
+  string ip_pool_name = 9; // 独立 IP 地址池名称
+  string config_set_id =10; // 配置集 ID
+  string config_set_name = 11; // 配置集名称
+}
+
+message MailSendTrack {
+  int64 total = 1;
+  int64 open = 2;
+  int64 click = 3;
+  int64 unique_open = 4;
+  int64 unique_click = 5;
+  double click_rate = 6;
+  double open_rate = 7;
+  double unique_click_rate = 8;
+  double unique_open_rate = 9;
+  google.protobuf.Timestamp create_time = 10;
+}
+
+message SendMailReq {
+  // 邮件服务商
+  enums.v1.MessageSenderVendor vendor = 1;
+  // 账号
+  string account = 2;
+  // 发件人信息
+  MailAddress from = 3;
+  // 收件人信息
+  repeated MailAddress to = 4;
+  // 抄送邮箱列表（所有收件人都能看到被抄送的地址）
+  repeated MailAddress cc = 5;
+  // 密送邮箱列表（其他收件人看不到被密送的地址）
+  repeated MailAddress bcc = 6;
+  // 邮件主题（标题）
+  string subject = 7;
+  // 邮件正文格式（不带格式，兼容性最好）
+  enums.v1.MailContentType content_type = 8;
+  // 邮件正文的内容（可以带样式、图片、超链接等）
+  string content = 9;
+  // 附件文件路径列表（本地文件路径，支持多个附件）
+  repeated string attachments = 10;
+  map<string, string> template_params = 11; // 模板中对应的参数
+}
+
+message SendMailResp {
+  types.v1.QuotaResult result = 1; // 验证不通过有值
+}
+
+message QueryMailSendStatisticsReq {
+  enums.v1.MessageSenderVendor vendor = 1;  // 短信服务商
+  string account = 2; // 账号
+  // 发信地址。不填，代表所有地址
+  optional string from_address = 3;
+  // 邮件标签。不填，代表所有标签
+  optional string tag_name = 4;
+  // 对于独立 IP 用户，查询特定的 ESP 数据的数据，可以填写的值如下
+  //  gmail.com
+  //  outlook.com
+  //  yahoo.com
+  //  icloud.com
+  //  others（对应其他的非上述 ESP 的数据）
+  //  不填写此参数时默认查询所有数据
+  optional string esp  = 5;
+  // 对于独立 IP 用户，查询特定的独立 IP 池 ID 的数据
+  // 不填写此参数时默认查询所有数据
+  optional string dedicated_ip_pool_id = 6;
+  // 对于独立 IP 用户，查询特定的独立 IP 的数据。
+  // 不填写此参数时默认查询所有数据。
+  optional string dedicated_ip = 7;
+  // 起始时间，时间不能早于 30 日
+  google.protobuf.Timestamp start_time = 8;
+  // 结束时间，和起始时间跨度不能超出 7 天
+  google.protobuf.Timestamp end_time = 9;
+}
+
+message QueryMailSendStatisticsResp {
+  enums.v1.MessageSenderVendor vendor = 1;  // 短信服务商
+  string account = 2; // 账号
+  repeated MailSendStatistic statistics = 3; // 统计
+}
+
+message QueryMailSendDetailsReq {
+  enums.v1.MessageSenderVendor vendor = 1;  // 短信服务商
+  string account = 2; // 账号
+  int64  page_size = 4; // 指定本次请求返回结果数目。范围是 1~100
+  optional string next_start = 5; // 分页用，指定本次请求的偏移量。如果还有更多结果，下次请求将该返回值设置到请求中的 NextStart
+  optional string from_address = 6; // 发信地址。不填，代表所有地址
+  optional string to_address = 7; // 收信地址。不填，代表所有收信地址
+  optional string tag_name = 8; // 邮件标签。不填，代表所有标签 SMTP 发信时，请参考邮件跟踪示例，对“X-AliDM-Trace”字段，指定标签字段"TagName"和对应值
+  optional string ip_pool_Id = 9; //  独立 IP 地址池 ID
+  optional string config_set_id = 10; // 配置集 ID
+  optional enums.v1.MailSendStatus status = 11; // 投递结果
+  optional google.protobuf.Timestamp start_time = 12; // 起始时间，和结束时间跨度不能超出 30 天
+  optional google.protobuf.Timestamp end_time = 13; // 结束时间，和起始时间跨度不能超出 30 天
+}
+
+message QueryMailSendDetailsResp {
+  enums.v1.MessageSenderVendor vendor = 1;  // 短信服务商
+  string account = 2; // 账号
+  string next_start = 3; // 分页使用。如果还有更多结果，下次请求将该返回值设置到请求中的 NextStart
+  repeated MailSendDetail details = 4; // 详情列表
+}
+
+message QueryMailTracksReq {
+  // 短信服务商
+  enums.v1.MessageSenderVendor vendor = 1;
+  // 账号
+  string account = 2;
+  // 页码
+  optional int64 page = 3;
+  // 每页数据量
+  optional int64 size = 4;
+  // 发信地址
+  optional string from_address = 5;
+  // 标签名称
+  optional string tag_name = 6;
+  // 独立 IP 地址池 ID
+  optional string ip_pool_Id = 7;
+  // 配置集 ID
+  optional string config_set_id = 8;
+  // 对于独立 IP 用户，查询特定的 ESP 数据的数据，可以填写的值如下
+  //  gmail.com
+  //  outlook.com
+  //  yahoo.com
+  //  icloud.com
+  //  others（对应其他的非上述 ESP 的数据）
+  //  不填写此参数时默认查询所有数据
+  optional string esp  = 9;
+  // 对于独立 IP 用户，查询特定的独立 IP 的数据。
+  // 不填写此参数时默认查询所有数据。
+  optional string dedicated_ip = 10;
+  // 起始时间，时间不能早于 30 日
+  google.protobuf.Timestamp start_time = 11;
+  // 结束时间，和起始时间跨度不能超出 7 天
+  google.protobuf.Timestamp end_time = 12;
+}
+
+message QueryMailTracksResp {
+  int64 page = 1;
+  int64 size = 2;
+  int64 total = 3;
+  int64 total_pages = 4;
+  repeated MailSendTrack tracks = 5;
+}
+
+message GetMailAccountsReq {}
+
+message GetMailAccountsResp {
+  repeated msg.v1.VendorAccountMapping mappings = 1;
+}

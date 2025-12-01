@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+package huawei.v1;
+
+message HuaweiSignInReq {
+  string code = 1;
+}
+
+message HuaweiSignInResp {
+  // 调用失败时有此值
+  int32 result_code = 1;
+  // 调用失败时有此值
+  string result_desc = 2;
+  // 用户OpenID
+  string open_id = 3;
+  // 用户UnionID
+  string union_id = 4;
+  // 华为账号绑定号码（含国家码），使用该手机号完成一键登录的功能
+  string phone_number = 5;
+  // 通过一键登录功能获取的华为账号绑定号码的实时有效性。
+  // 若发起一键登录时LoginPanelParams的verifyPhoneNumber参数值传递为true，表示华为代为验证手机号有效性，开发者无需关注此返回值；
+  // 若verifyPhoneNumber参数值传递为false, 需要根据返回的状态值进行处理。
+  // 0：在过去90天内，无法证明当前手机号码可以触达用户， 需要进行验证。
+  // 1：在过去90天内，当前手机号码被证明可以触达用户，可以直接使用。
+  int32 phone_number_valid = 6;
+  // 不带国家码的手机号，此处为phoneNumber去除国际冠码与国际电话区号的形式。
+  string pure_phone_number = 7;
+  // purePhoneNumber的国际冠码(00)+国际电话区号
+  string phone_country_code = 8;
+}
+
+message HuaweiGetUserAvatarNickNameReq {
+  string access_token = 1;
+  int32 get_nick_name = 2;
+}
+
+message HuaweiGetUserAvatarNickNameResp {
+  string error = 1;
+  string open_ID = 2;
+  string union_ID = 3;
+  string display_name = 4;
+  string display_name_flag = 5;
+  string head_picture_URL = 6;
+}
+
+message HuaweiGetUserPhoneReq {
+  string access_token = 1;
+}
+
+message HuaweiGetUserPhoneResp {
+  string error = 1;
+  string open_ID = 2;
+  string union_ID = 3;
+  string mobile_number = 4;
+  string pure_phone_number = 5;
+  string phone_country_code = 6;
+}
+
+message HuaweiGetUserRiskLevelReq {
+  string client_ID = 1;
+  string transaction_ID = 2;
+  string access_token = 3;
+  string scene = 4;
+}
+
+message HuaweiGetUserRiskLevelResp {
+  int32 err_code = 1;
+  string err_msg = 2;
+  int32 risk_level = 3;
+  repeated string risk_tag = 4;
+}
+
+message HuaweiGetUserTokenReq {
+  string code = 1;
+}
+
+message HuaweiGetUserTokenResp {
+  int32 error = 1;
+  int32 sub_error = 2;
+  string error_description = 3;
+  string token_type = 4;
+  string access_token = 5;
+  string scope = 6;
+  int64 expires_in = 7;
+  string refresh_token = 8;
+  string id_token = 9;
+}
+
+message HuaweiRefreshUserTokenReq {
+  string refresh_token = 1;
+  string scope = 2;
+}
+
+message HuaweiRefreshUserTokenResp {
+  int32 error = 1;
+  int32 sub_error = 2;
+  string error_description = 3;
+  string token_type = 4;
+  string access_token = 5;
+  string scope = 6;
+  int64 expires_in = 7;
+  string id_token = 8;
+}
+
+message HuaweiParseUserAccessTokenReq {
+  string access_token = 1;
+  string open_id = 2;
+}
+
+message HuaweiParseUserAccessTokenResp {
+  string error = 1;
+  string client_id = 2;
+  int64 expire_in = 3;
+  string union_id = 4;
+  string open_id = 5;
+  string scope = 6;
+  string project_id = 7;
+  int32 type = 8;
+}
+
+message HuaweiCancelUserTokenReq {
+  string token = 1;
+}
+
+message HuaweiCancelUserTokenResp {
+  int32 error = 1;
+  int64 sub_error = 2;
+  string error_description = 3;
+}
+
+message HuaweiGetAppTokenReq {}
+
+message HuaweiGetAppTokenResp {
+  int32 error = 1;
+  int32 sub_error = 2;
+  string error_description = 3;
+  string token_type = 4;
+  string access_token = 5;
+  int64 expires_in = 6;
+}

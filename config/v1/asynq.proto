@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package config.v1;
+
+import "google/protobuf/duration.proto";
+
+message AsynqServerConfig {
+  // worker的并发数量
+  uint32 concurrency = 1;
+  uint32 queue_critical_priority = 2;
+  uint32 queue_default_priority = 3;
+  uint32 queue_low_priority = 4;
+  uint32 janitor_batch_size = 5;
+  uint32 group_max_size = 6;
+  google.protobuf.Duration shutdown_timeout = 7;
+  google.protobuf.Duration health_check_interval = 8;
+  google.protobuf.Duration task_check_interval = 9;
+  google.protobuf.Duration delay_task_check_interval = 10;
+  google.protobuf.Duration group_grace_period = 11;
+  google.protobuf.Duration group_max_delay = 12;
+  google.protobuf.Duration janitor_interval = 13;
+}
+
+message AsynqSchedulerConfig {
+  google.protobuf.Duration health_check_interval = 1;
+}
+

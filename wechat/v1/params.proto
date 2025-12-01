@@ -2,15 +2,13 @@ syntax = "proto3";
 
 package wechat.v1;
 
-import "validation/v1/predefined_rules.proto";
 import "google/protobuf/timestamp.proto";
-import "buf/validate/validate.proto";
 
 message WechatSignInReq {
   // 微信appid
-  string appid = 1 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string appid = 1;
   // 微信授权码
-  string code = 2 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string code = 2;
 }
 
 message WechatSignInResp {
@@ -35,11 +33,11 @@ message WechatGetAccessTokenResp {
 
 message WechatCheckSignInStatusReq {
   // appid
-  string appid = 1 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string appid = 1;
   // session_key
-  string session_key = 2 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string session_key = 2;
   // openid
-  string openid = 3 [(buf.validate.field).string.(validation.v1.required_20) = true];
+  string openid = 3;
 }
 
 message WechatCheckSignInStatusResp {

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package global_id.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message GlobalIdConfig {
+  int32 machine_id = 1;
+  // 服务开始时间，不可回拨
+  // e.g. "2024-01-01T00:00:00Z"
+  google.protobuf.Timestamp start_time = 2;
+}
+
+message GetIdReq {}
+
+message GetIdResp {
+  int64 id = 1;
+}
+
+message GetIdsReq {
+  uint32 num = 1;
+}
+
+message GetIdsResp {
+  repeated int64 ids = 1;
+}
+
+service GlobalIdService {
+  rpc GetId(GetIdReq) returns (GetIdResp);
+  rpc GetIds(GetIdsReq) returns (GetIdsResp);
+}
+
+

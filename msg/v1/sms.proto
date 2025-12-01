@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package msg.v1;
+
+import "enums/v1/message.proto";
+import "types/v1/types.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "msg/v1/common.proto";
+
+message SmsProvider {
+  enums.v1.MessageSenderVendor vendor = 1; // 短信供应商
+  string access_key = 2; // ak
+  string secret_key = 3; // sk
+  string account = 4; // 账号，用于区分账号
+  repeated msg.v1.MessageQuotaConfig quota = 5; // 配额设置
+  optional string security_token = 6; // sts场景使用
+}
+
+message SmsConfig {
+  uint32 daily_quota = 1;
+  string daily_quota_prefix = 2;
+  string rate_limiter_prefix = 3;
+  uint32 max_tries = 4;
+  repeated SmsProvider providers = 5;
+  google.protobuf.Duration send_timeout = 6;
+}
+
+message SmsSendStatistic {
+  int64 total = 1; // 发送成功的短信条数
+  int64 success = 2; // 接收到回执成功的短信条数
+  int64 failed = 3; // 接收到回执失败的短信条数
+  int64 no_response = 4; //  未收到回执的短信条数
+  google.protobuf.Timestamp date = 5; // 短信发送日期
+}
+
+message SmsSendDetail {
+  string phone_number = 1;
+  string content = 2;
+  enums.v1.SmsSendStatus status = 3;
+  string template_code = 4;
+  string out_id = 5;
+  string err_code = 6;
+  google.protobuf.Timestamp send_date = 7;
+  google.protobuf.Timestamp receive_date = 8;
+}
+
+message SendSmsReq {
+  enums.v1.MessageSenderVendor vendor = 1;  // 短信服务商
+  string account = 2; // 账号
+  types.v1.PhoneNumber phone_number = 3; // 手机号码
+  string sign_name = 4; // 手机签名(短信服务商申请)
+  string template_code = 5; // 模板编号(短信服务商申请)
+  map<string, string> template_params = 6; // 模板中对应的参数
+}
+
+message SendSmsResp {
+  types.v1.QuotaResult result = 1; // 验证不通过有值
+}
+
+message QuerySmsStatisticsReq {
+  enums.v1.MessageSenderVendor vendor = 1;  // 短信服务商
+  string account = 2; // 账号
+  bool is_global = 3;
+  int64 page = 4;
+  int64 size = 5;
+  optional string sign_name = 6;
+  optional enums.v1.SmsTemplateType template_type = 7;
+  google.protobuf.Timestamp start_date = 8;
+  google.protobuf.Timestamp end_date = 9;
+}
+
+message QuerySmsStatisticsResp {
+  int64 page = 1;
+  int64 size = 2;
+  int64 total = 3;
+  int64 total_pages = 4;
+  enums.v1.MessageSenderVendor vendor = 5;  // 短信服务商
+  string account = 6; // 账号
+  repeated SmsSendStatistic statistics = 7;
+}
+
+message QuerySmsSendDetailReq {
+  enums.v1.MessageSenderVendor vendor = 1;  // 短信服务商
+  string account = 2; // 账号
+  int64 page = 3;
+  int64 size = 4;
+  types.v1.PhoneNumber phone_number = 5;
+  google.protobuf.Timestamp send_date = 6;
+}
+
+message QuerySmsSendDetailResp {
+  int64 page = 1;
+  int64 size = 2;
+  int64 total = 3;
+  int64 total_pages = 4;
+  enums.v1.MessageSenderVendor vendor = 5;  // 短信服务商
+  string account = 6; // 账号
+  repeated SmsSendDetail details = 7;
+}
+
+message GetSmsAccountsReq {}
+
+message GetSmsAccountsResp {
+  repeated msg.v1.VendorAccountMapping mappings = 1;
+}
+
+
+
+
+
+

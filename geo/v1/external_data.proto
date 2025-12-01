@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package geo.v1;
+
+message ExternalPhoneCode {
+  string english_name = 1;
+  string chinese_name = 2;
+  string phone_code = 3;
+}
+
+message ExternalCountry {
+  message Names {
+    string common = 1;
+    string official = 2;
+  }
+  message Translations {
+    Names ara = 1; // 阿拉伯语
+    Names bre = 2; // 布列塔尼语
+    Names ces = 3; // 捷克语
+    Names deu = 4; // 德语
+    Names est = 5; // 爱沙尼亚语
+    Names fin = 6; // 芬兰语
+    Names fra = 7; // 法语
+    Names hrv = 8; // 克罗地亚语
+    Names hun = 9; // 匈牙利语
+    Names ita = 10; // 意大利语
+    Names jpn = 11; // 日语
+    Names kor = 12; // 韩语（朝鲜语）
+    Names nld = 13; // 荷兰语
+    Names per = 14; // 波斯语
+    Names pol = 15; // 波兰语
+    Names por = 16; // 葡萄牙语
+    Names rus = 17; // 俄语
+    Names slk = 18; // 斯洛伐克语
+    Names spa = 19; // 西班牙语
+    Names srp = 20; // 塞尔维亚语
+    Names swe = 21; // 瑞典语
+    Names tur = 22; // 土耳其语
+    Names urd = 23; // 乌尔都语
+    Names zho = 24; // 中文（汉语）
+  }
+  Names name = 1;
+  string cca2 = 2;
+  string cca3 = 3;
+  string ccn3 = 4;
+  bool independent = 5;
+  string region = 6;
+  string subregion = 7;
+  string flag = 8;
+  Translations translations = 9;
+}

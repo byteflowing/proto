@@ -1,0 +1,513 @@
+syntax = "proto3";
+
+package maps.v1;
+
+import "enums/v1/maps.proto";
+
+message HuaweiCoordinate {
+  // 纬度，取值范围：[-90, 90]
+  double lat = 1;
+  // 经度，取值范围：[-180, 180]
+  double lng = 2;
+  // 起终点绑路类型
+  //  matchType参数暂只适用Directions API中的驾车路径规划
+  // 起终点绑路类型。
+  // 取值包括0、1、3，默认值为0:
+  // 0：限制绑路。起点避免绑定封闭、施工、限行、偏好设置所避免的道路，终点避免绑定高速、轮渡、 偏好设置所避免的道路。
+  // 1：无限制绑路，不考虑道路本身限制
+  // 3：轨迹绑路，通过originPoints字段输入连续轨迹点的经纬度进行无限制绑路，只支持起点
+  optional int32 match_type = 3;
+  // 地点的唯一主键，位置搜索结果中Site-siteId字段。
+  // 当取值有效时，优先使用该地点的引导点的经度、维度数据。
+  // poiId参数暂只适用Directions API中的驾车路径规划
+  optional string poi_id = 4;
+  // 请求标识，用于问题定位，长度范围[0, 64]。
+  optional string request_id = 5;
+}
+
+message HuaweiOriginPoint {
+  // 纬度，取值范围：[-90, 90]
+  double lat = 1;
+  // 经度，取值范围：[-180, 180]
+  double lng = 2;
+  // 精度
+  optional double accuracy = 3;
+  // 海拔
+  optional double altitude = 4;
+  // 角度
+  optional double bearing = 5;
+  // 速度
+  optional double speed = 6;
+  // 时间戳
+  optional int64 time = 7;
+}
+
+message HuaweiCoordinateBounds {
+  // 东北角的位置
+  HuaweiCoordinate northeast = 1;
+  // 西南角的位置
+  HuaweiCoordinate southwest = 2;
+}
+
+message HuaweiNaviNearestPoint {
+  double lat = 1; // 纬度
+  double lng = 2; // 经度
+  string road_id = 3; // 道路ID
+  int32 limit_speed = 4; // 道路限速，单位：km/h
+}
+
+message HuaweiNaviSnappedPoint {
+  double lat = 1; // 纬度
+  double lng = 2; // 经度
+  string road_id = 3; // 道路ID
+}
+
+message HuaweiCell {
+  int32 status = 1; // 起点和终点进行路径规划计算的错误码
+  double distance = 2; // 行驶距离，单位：米
+  string distance_text = 3; // Distance的文本描述
+  double duration = 4; // 行驶时长，单位：秒
+  string duration_text = 5; // Duration的文本描述
+}
+
+message HuaweiRow {
+  repeated HuaweiCell cells = 1; // 距离矩阵结果每个单元格的信息
+}
+
+message HuaweiViaWayPoints {
+  HuaweiCoordinate location = 1; // 途经点的经纬度
+  int32 step_index = 2; // 途经点在Step数组里的索引
+}
+
+message HuaweiDict {
+  // 行驶距离，单位：米
+  double distance = 1;
+  // 路况状态。取值包括：
+  //  0：未知
+  //  1：畅通
+  //  2：缓行
+  //  3：拥堵
+  //  4：严重拥堵
+  int32 status = 2;
+  // 路段的形状坐标
+  HuaweiCoordinate polyline = 3;
+}
+
+message HuaweiStep {
+  // 行驶距离，单位：米。
+  double distance = 1;
+  // Distance的文本描述。
+  string distance_text = 2;
+  // 行驶时长，单位：秒。
+  double duration = 3;
+  // Duration的文本描述。
+  double duration_text = 4;
+  // 出发地的经纬度。
+  HuaweiCoordinate start_location = 5;
+  // 目的地的经纬度。
+  HuaweiCoordinate end_location = 6;
+  // 当前步骤要执行的操作。取值及含义包括：
+  //  turn_slight_left（含义：向左微转）
+  //  turn_sharp_left（含义：向左急转）
+  //  turn_left（含义：左转）
+  //  turn_slight_right（含义：向右微转）
+  //  turn_sharp_right（含义：向右急转）
+  //  turn_right（含义：右转）
+  //  straight（含义：直行）
+  //  end（含义：终点）
+  //  waypoint（含义：途经点）
+  string action = 7;
+  // 此路段的一系列坐标点（包含起点和终点坐标）
+  repeated HuaweiCoordinate polyline = 8;
+  // 路名
+  string road_name = 9;
+  // 道路方向。取值包括：
+  //  0：双向
+  //  1：正向
+  //  2：反向
+  int32 orientation = 10;
+  // 文字指引
+  string instruction = 11;
+  // 路况信息
+  repeated HuaweiDict traffic = 12;
+}
+
+message HuaweiPath {
+  repeated HuaweiStep steps = 1; // 路线分段信息
+  double distance = 2; // 行驶距离，单位：米
+  string distance_text = 3; // Distance的文本描述
+  double duration = 4; // 行驶时长，单位：秒
+  string duration_text = 5; // Duration的文本描述
+  double duration_Traffic = 6; // 基于实时路况计算出来的行驶时长，单位：秒
+  string duration_traffic_text = 7; // durationInTraffic的文本描述
+  HuaweiCoordinate start_location = 8; // 出发地的经纬度
+  HuaweiCoordinate end_location = 9; // 目的地的经纬度
+  string start_address = 10; // startLocation对应的地址详情
+  string end_address = 11; // endLocation对应的地址详情
+  repeated HuaweiViaWayPoints via_waypoints = 12; // 途径点信息
+}
+
+message HuaweiRoute {
+  repeated HuaweiPath paths = 1; // 路线规划信息
+  string overview_polyline = 2; // 表示该路线的编码后的折线
+  repeated int32 optimized_waypoints = 3; // 当viaType = false且optimize = true 时才会有结果，表示进行路径优化之后途径点的索引。
+  HuaweiCoordinateBounds bounds = 4; // 路线边界范围
+  int32 has_restricted_road = 5; // 此路段包含私家/限制用途 0：没有 1：有
+  int32 dst_in_restricted_area = 6; // 终点在限制区域 0：没有 1：有
+  int32 cross_country = 7; // 穿越国境线 0：没有 1：有
+  int32 cross_multi_countries = 8; // 穿越（多条）国境线 0：没有 1：有
+  int32 has_rough_road = 9; // 此路段经过崎岖道路 0：没有 1：有
+  int32 dst_in_diff_time_zone = 10; // 目的地在不同时区 0：没有 1：有
+  int32 has_ferry = 11; // 途径轮渡 0：没有 1：有
+  int32 has_traffic_light = 12; // 红绿灯 0：没有 1：有
+  int32 has_tolls = 13; // 此路段含收费站 0：没有 1：有
+  int32 has_stairs = 14; // 此路段含有阶梯 0：没有 1：有
+  int32 traffic_light_num = 15; // 红绿灯个数。
+}
+
+message HuaweiIpLocation {
+  string ip = 1;
+  string country_name = 2;
+  string country_code = 3;
+  string province_name = 4;
+  string province_code = 5;
+  string city_name = 6;
+  string city_code = 7;
+  string latitude = 8;
+  string longitude = 9;
+  string radius = 10;
+}
+
+message HuaweiAddress {
+  string country_code = 1; // 国家/地国家名区码
+  string country = 2; // 国家名
+  string state = 3;  // 省/州
+  string county = 4; // 县/市
+  string town = 5; // 镇/区
+  string settlement = 6; // 定居点
+}
+
+message HuaweiAddressDetail {
+  string country_code = 1; //国家/地区码，采用ISO 3166-1 alpha-2
+  string country = 2; // 国家名
+  string admin_area = 3; // 国家下面的一级行政区，一般是省/州
+  string sub_admin_area = 4; // 国家下面的二级行政区，一般是市
+  string tertiary_admin_area = 5; // 国家下面的三级行政区
+  string city = 6; // 城市名称，推荐使用city 仅逆地理编码接口返回
+  string admin_code = 7; // 区划编码，仅在中国大陆地区支持返回，由6或9位长度数字组成。仅逆地理编码接口返回。对于属于省、市、区/县级的区划结果，返回各自的区划编码，其他均返回归属最低层级的区划编码。
+  string city_code = 8; // 城市编码，仅在中国大陆地区支持返回，由3或4位长度数字组成。
+  string locality = 9; // 城市
+  string sub_locality = 10; // 区/县
+  string street_locality = 11; // 街道号
+  string thoroughfare = 12; // 街道名
+  string post_code = 13; // 邮政编码
+}
+
+message HuaweiWord {
+  int32 offset = 1; // 单词在description里的偏移位
+  int32 value = 2; // 单词
+}
+
+message HuaweiTimeOfWeek {
+  // 0：星期日
+  //  1：星期一
+  //  2：星期二
+  //  3：星期三
+  //  4：星期四
+  //  5：星期五
+  //  6：星期六
+  int32 week = 1;
+  // 24小时制时间，hhmm格式
+  string time = 2;
+}
+
+message HuaweiStarInfo {
+  string average_rating  = 1; // 平均分
+}
+
+message HuaweiCommentInfo {
+  int32 total = 1; // 总数
+}
+
+message HuaweiComment {
+  HuaweiStarInfo star_info = 1; // 评分统计信息
+  HuaweiCommentInfo comment_info = 2; // 评论信息
+}
+
+message HuaweiPeriod {
+  HuaweiTimeOfWeek open = 1; // 开放时间
+  HuaweiTimeOfWeek close = 2; // 关闭时间
+}
+
+message HuaweiOpeningHours {
+  repeated string texts = 1; // 每个星期的开放时间段的描述
+  repeated HuaweiPeriod periods = 2; // 开放时间段的详细说明
+}
+
+message HuaweiAutocompletePrediction {
+  string description = 1; // 预测的描述
+  repeated HuaweiWord matched_keywords = 2; // 输入的关键字在description里的匹配位置
+  repeated HuaweiWord matched_words = 3; // description包含的单词，以及位置
+}
+
+message HuaweiChildrenNode {
+  // 位置ID
+  string site_id = 1;
+  // 地点名称
+  string name = 2;
+  // 格式化的地点详细地址
+  string format_address = 3;
+  // 地点的经纬度
+  HuaweiCoordinate location = 4;
+  // 华为分类体系
+  repeated string hw_poi_types = 5;
+  // 航站楼的国内/国际信息，取值包括：
+  // 1：国内
+  //  2：国际
+  //  3：国内和国际
+  string dome_and_int = 6;
+  // 航站楼的出发/到达信息，取值包括：
+  //  1：出发
+  //  2：到达
+  //  3：出发和到达
+  string dep_and_arr = 7;
+}
+
+message HuaweiPoi {
+  // POI类型
+  repeated string poi_types = 1;
+  // 华为POI分类体系
+  repeated string hw_poi_types = 2;
+  // 电话号码
+  string phone = 3;
+  // 国际电话号码
+  string international_phone = 4;
+  // 评分
+  double rating = 5;
+  // 网址
+  string website_url = 6;
+  // 营业时间
+  HuaweiOpeningHours open_hours = 7;
+  // 图片地址 图片存在小，中，大三种规格，通过拼接后缀访问，
+  // 拼接示例:photoUrl/small.jpg
+  // small.jpg medium.jpg large.jpg
+  repeated string photo_urls = 8;
+  // 价格等级，取值范围：[0, 4] 仅地点详情接口返回
+  int32 price_level = 9;
+  // 营业状态，其中包括
+  //  OPEN_NOW：正在营业。
+  //  CLOSE_NOW：已休息。
+  //  CLOSED_TEMPORARILY：临时关闭。
+  //  CLOSED_PERMANENTLY：永久关闭。
+  //  STATUS_UNKNOWN：未知。
+  // 仅地点详情接口返回
+  string business_status = 10;
+  // POI的子节点信息
+  repeated HuaweiChildrenNode children_nodes = 11;
+  // POI图标地址
+  string icon = 12;
+  // POI的评论信息
+  HuaweiComment comments = 13;
+}
+
+message HuaweiSite {
+  // 地点的唯一主键
+  string site_id = 1;
+  // 地点名称
+  string name = 2;
+  // 格式化的地点详细地址
+  string format_address = 3;
+  // 如果地点是AOI数据（带有面属性的POI数据），则该字段标识为true
+  // 仅逆地理编码接口返回
+  bool aoi_flag = 4;
+  // 地址详细信息
+  HuaweiAddressDetail address = 5;
+  // 地点的经纬度
+  HuaweiCoordinate location = 6;
+  // 地点的视口范围
+  // 输入提示不支持返回此字段
+  HuaweiCoordinateBounds viewport = 7;
+  // 预测地点和传参location之间的直线距离，单位：米
+  // 目前仅关键字搜索、周边搜索和地点搜索建议接口支持返回此字段
+  double distance = 8;
+  // 如果地点是POI类型，返回POI信息
+  HuaweiPoi poi = 9;
+  // 位置所在时区和UTC时区的差值，单位：分钟
+  // 仅地点详情接口返回
+  int32 utc_offset = 10;
+  // 地点搜索建议和自动补全接口，返回自动补全的描述信息。
+  HuaweiAutocompletePrediction prediction = 11;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+message HuaweiRoutePlanReq {
+  // key
+  string key = 1;
+  // 规划类型
+  enums.v1.PlanMode mode = 2;
+  //起点的经纬度
+  HuaweiCoordinate origin = 3;
+  // 终点的经纬度
+  HuaweiCoordinate destination = 4;
+  // 途经点。最多可以输入23个途经点
+  repeated HuaweiCoordinate waypoints = 5;
+  // 文字指引/描述的语种。目前只支持zh_CN和en
+  optional string language = 6;
+  // 表示计算出的路径应避免所指示的特性。默认值为0，取值包括：
+  //  0：速度快
+  //  1：避免收费
+  //  2：避免高速
+  //  4：距离短
+  //  8：避免轮渡
+  //  1,8：避免收费+避免轮渡
+  //  16：躲避拥堵
+  //  32：大路优先
+  //  64：智能路线
+  //  128：高速优先
+  //  256：少收费
+  //  目前仅支持对中国大陆地区的路线规划支持“躲避拥堵"、“大路优先”、“高速优先”、“少收费”，
+  //  后续将在其他区域陆续开放这些设置项
+  repeated int32 avoid = 7;
+  // 途径点类型，是via类型还是stopover类型 默认值为false
+  // false：stopover类型
+  // true：via类型
+  optional bool via_type = 8;
+  // 是否对途径点进行优化。默认值为false。
+  //  false：不进行途径点优化。
+  //  true：进行途径点优化。
+  optional bool optimize = 9;
+  // 如果设置为true，可以返回多条规划路线结果
+  // 默认值为false
+  // 如果设置了途经点时，不能使用多路线功能
+  optional bool alternatives = 10;
+  // 预计出发时间。以自UTC 1970年1月1日午夜以来的秒数为单位
+  // 必须是当前或者未来时间，不能是过去时间
+  optional int64 depart_at = 11;
+  // 时间预估模型。默认值为0 取值包括：
+  // 0：best guess
+  // 1：路况差于历史平均水平
+  // 2：路况优于历史平均水平
+  optional int32 traffic_mode = 12;
+  // 额外信息。包括：
+  // 0：base(默认)
+  // 1：新增路况信息
+  // 2：新增收费信息
+  optional int32 extension = 13;
+  //起点绑路经纬度集合，最多支持输入30个
+  repeated HuaweiOriginPoint origin_points = 14;
+}
+
+message HuaweiRoutePlanResp {
+  string return_code = 1;
+  string return_desc = 2;
+  repeated HuaweiRoute routes = 3;
+}
+
+// 起点数乘以终点数需不超过100
+message HuaweiDistanceMatrixPlanReq {
+  string key = 1;
+  enums.v1.PlanMode mode = 2;
+  // 起点的经纬度，不能超过100个
+  repeated HuaweiCoordinate origin = 3;
+  // 终点的经纬度，不能超过100个
+  repeated HuaweiCoordinate destination = 4;
+  // 文字指引/描述的语种。目前只支持zh_CN和en
+  optional string language = 5;
+  // 表示计算出的路径应避免所指示的特性。取值包括：
+  //  0：速度快
+  //  1：避免收费
+  //  2：避免高速
+  //  4：距离短
+  //  8：避免轮渡
+  //  1,8：避免收费+避免轮渡
+  //  16：躲避拥堵
+  //  32：大路优先
+  //  64：智能路线
+  //  128：高速优先
+  //  256：少收费
+  // 默认值为0，目前仅支持对中国大陆地区的路线规划支持“躲避拥堵"、“大路优先”、“高速优先”、“少收费”，后续将在其他区域陆续开放这些设置项
+  repeated int32 avoid = 6;
+  // 预计出发时间。以自UTC 1970年1月1日午夜以来的秒数为单位。
+  // 必须是当前或者未来时间，不能是过去时间
+  optional int64 depart_at = 7;
+  // 时间预估模型。取值包括：
+  //  0：best guess
+  //  1：路况差于历史平均水平
+  //  2：路况优于历史平均水平
+  // 默认值为0
+  optional int32 traffic_mode =8;
+}
+
+message HuaweiDistanceMatrixPlanResp {
+  string return_code = 1;
+  string return_desc = 2;
+  repeated string origin_addresses = 3; // Origins的地址详情
+  repeated string destination_addresses = 4; // Destinations的地址详情
+  repeated HuaweiRow rows = 5; // Origins和Destinations两两进行路径规划后的计算出来的时长和距离
+}
+
+message HuaweiGetLocationByIpReq {
+  string key = 1;
+  string ip = 2;
+}
+
+message HuaweiGetLocationByIpResp {
+  string err_code = 1;
+  string error_msg = 2;
+  string status = 3;
+  HuaweiIpLocation result = 4;
+}
+
+message HuaweiAddressToLocationReq {
+  string key = 1; // key
+  string address = 2; // 地址信息
+  optional HuaweiCoordinateBounds bounds = 3; // 查询结果偏向的搜索范围
+  optional string country_code = 4; // 限制查询结果在指定的国家内，采用ISO 3166-1 alpha-2
+  optional string language = 5; // 搜索结果返回的语言
+}
+
+message HuaweiAddressToLocationResp {
+  string return_code = 1;
+  string return_desc = 2;
+  repeated HuaweiSite sites = 3;
+}
+
+message HuaweiLocationToAddrReq {
+  string key = 1;
+  HuaweiCoordinate location = 2; // 经纬度
+  optional string language = 3; // 搜索结果返回的语言
+  int32 radius = 4; // POI、门址召回范围半径，单位：米 。取值范围：[0, 50]
+  bool return_poi = 5; // 是否返回POI，默认为true
+}
+
+message HuaweiLocationToAddrResp {
+  string return_code = 1;
+  string return_desc = 2;
+  repeated HuaweiSite sites = 3;
+}
+
+message HuaweiGetTimezoneByLocationReq {
+  string key = 1;
+  // 经纬度
+  HuaweiCoordinate location = 2;
+  // 距离UTC 1970年1月1日0点0分0秒的秒数
+  int64 timestamp = 3;
+  // 搜索结果的语种
+  string language = 4;
+}
+
+message HuaweiGetTimezoneByLocationResp {
+  string return_code = 1;
+  string return_desc = 2;
+  // 夏令时的偏移量，单位：秒
+  // 如果给定的timestamp不在夏令时里，返回0
+  int32 dst_offset = 3;
+  // 给定位置与UTC的偏移量（单位：秒）
+  int32 raw_offset = 4;
+  // 时区ID
+  // 例如“ America / Los_Angeles”或“ Australia / Sydney”
+  // 这些ID由Unicode 公共区域数据存储库（CLDR）项目定义
+  string time_zone_id = 5;
+  string time_zone_name = 6;
+}

@@ -1,0 +1,210 @@
+syntax = "proto3";
+
+package enums.v1;
+
+enum PlanMode {
+  PLAN_MODE_UNSPECIFIED = 0;
+  PLAN_MODE_DRIVING = 1;
+  PLAN_MODE_WALKING = 2;
+  PLAN_MODE_BICYCLING = 3;
+  PLAN_MODE_E_BICYCLING = 4;
+}
+
+enum CarType {
+  CAR_TYPE_UNSPECIFIED = 0;
+  CAR_TYPE_OIL = 1; // 普通燃油汽车
+  CAR_TYPE_ELECTRIC = 2; // 纯电动汽车
+  CAR_TYPE_HYBRID = 3; // 混动汽车
+}
+
+enum MapType {
+  MAP_TYPE_UNSPECIFIED = 0;
+  MAP_TYPE_PERSON = 1; // 个人授权
+  MAP_TYPE_BUSINESS_NO_AUTHORIZATION = 2; // 企业试用
+  MAP_TYPE_BUSINESS_AUTHORIZATION = 3; // 企业授权
+}
+
+enum MapSource {
+  MAP_SOURCE_UNSPECIFIED = 0;
+  MAP_SOURCE_AMAP = 1; // 高德地图
+  MAP_SOURCE_TENCENT = 2; // 腾讯地图
+  MAP_SOURCE_TIAN_DI_TU = 3; // 天地图
+  MAP_SOURCE_HUAWEI = 4; // 华为地图
+}
+
+enum MapStatus {
+  MAP_STATUS_UNSPECIFIED = 0;
+  MAP_STATUS_OK = 1;
+  MAP_STATUS_EXPIRED = 2;
+  MAP_STATUS_DISABLED = 3;
+}
+
+enum MapOwnerType {
+  MAP_OWNER_TYPE_UNSPECIFIED = 0;
+  MAP_OWNER_TYPE_SELF = 1; // 自有
+  MAP_OWNER_TYPE_USER = 2;  // 用户添加
+}
+
+enum MapInterfaceType {
+  MAP_INTERFACE_TYPE_UNSPECIFIED = 0;
+  MAP_INTERFACE_TYPE_DISTRICTS = 1; // 行政区划信息
+  MAP_INTERFACE_TYPE_DISTRICTS_SEARCH = 5; // 行政区划-搜索
+  MAP_INTERFACE_TYPE_DISTRICTS_LIST = 10; // 行政区划-列表
+  MAP_INTERFACE_TYPE_DISTRICTS_CHILDREN = 15; // 行政区划-获取下级
+  MAP_INTERFACE_TYPE_LOCATION_CONVERT = 20; // 坐标转换接口
+  MAP_INTERFACE_TYPE_LOCATION_TO_ADDR = 25; // 逆地址解析接口
+  MAP_INTERFACE_TYPE_ADDR_TO_LOCATION = 30; // 地址解析接口
+  MAP_INTERFACE_TYPE_ROUTE_PLAN_WALKING = 35; // 路线规划-步行
+  MAP_INTERFACE_TYPE_ROUTE_PLAN_BICYCLING = 40; // 路线规划-骑行
+  MAP_INTERFACE_TYPE_ROUTE_PLAN_DRIVING = 45; // 路线规划-驾车
+  MAP_INTERFACE_TYPE_ROUTE_PLAN_E_BICYCLING = 50; // 路线规划-电动车
+  MAP_INTERFACE_TYPE_ROUTE_PLAN_TRANSIT = 55; // 路线规划-公交
+  MAP_INTERFACE_TYPE_MATRIX_PLAN_WALKING = 60; // 距离矩阵-步行
+  MAP_INTERFACE_TYPE_MATRIX_PLAN_BICYCLING = 65; // 距离矩阵-骑行
+  MAP_INTERFACE_TYPE_MATRIX_PLAN_DRIVING = 70; // 距离矩阵-驾车
+  MAP_INTERFACE_TYPE_GET_LOCATION_BY_IP = 75; // IP定位
+  MAP_INTERFACE_TYPE_DISTANCE_MEASURE = 80; // 距离测量
+  MAP_INTERFACE_TYPE_GET_TIMEZONE_BY_LOCATION = 85; // 根据位置获取时区
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+// tencent
+
+enum TencentRoadType {
+  TENCENT_ROAD_TYPE_UNSPECIFIED = 0;
+  TENCENT_ROAD_TYPE_ON_BRIDGE = 1; // 在桥上
+  TENCENT_ROAD_TYPE_UNDER_BRIDGE = 2; // 在桥下
+  TENCENT_ROAD_TYPE_MAIN_ROAD = 3; // 在主路
+  TENCENT_ROAD_TYPE_SIDE_ROAD = 4; // 在辅路
+  TENCENT_ROAD_TYPE_OPPOSITE = 5; // 在对面
+  TENCENT_ROAD_TYPE_UNDER_BRIDGE_MAIN = 6; // 桥下主路
+  TENCENT_ROAD_TYPE_UNDER_BRIDGE_SIDE = 7; // 桥下辅路
+}
+
+enum TencentCoordType {
+  TENCENT_COORD_TYPE_UNSPECIFIED = 0;
+  TENCENT_COORD_TYPE_GPS = 1; // GPS坐标
+  TENCENT_COORD_TYPE_SOGOU = 2; // sogou经纬度
+  TENCENT_COORD_TYPE_BAIDU = 3; // baidu经纬度
+  TENCENT_COORD_TYPE_MAP_BAR = 4; // mapbar经纬度
+  TENCENT_COORD_TYPE_SOGOU_MERCATOR = 6; // sogou墨卡托
+}
+
+enum TencentDrivingPlanPolicy {
+  TENCENT_DRIVING_PLAN_POLICY_UNSPECIFIED = 0;
+  TENCENT_DRIVING_PLAN_POLICY_REAL_TRAFFIC = 1;
+  TENCENT_DRIVING_PLAN_POLICY_LEAST_FEE = 2;
+  TENCENT_DRIVING_PLAN_POLICY_HIGHWAY_FIRST = 3;
+  TENCENT_DRIVING_PLAN_POLICY_AVOID_HIGHWAY = 4;
+  TENCENT_DRIVING_PLAN_POLICY_HIGHROAD_FIRST = 5;
+  TENCENT_DRIVING_PLAN_POLICY_NAV_POINT_FIRST = 6;
+  TENCENT_DRIVING_PLAN_POLICY_PICKUP_ADSORB = 7;
+  TENCENT_DRIVING_PLAN_POLICY_TRIP_ADSORB = 8;
+}
+
+enum TencentDrivePlanPolicyParam {
+  TENCENT_DRIVE_PLAN_POLICY_PARAM_UNSPECIFIED = 0;
+  TENCENT_DRIVE_PLAN_POLICY_PARAM_LEASE_TIME = 1; // [默认]参考实时路况，时间最短
+  TENCENT_DRIVE_PLAN_POLICY_PARAM_PICKUP = 2; // 网约车场景 – 接乘客
+  TENCENT_DRIVE_PLAN_POLICY_PARAM_TRIP = 3; // 网约车场景 – 送乘客
+  TENCENT_DRIVE_PLAN_POLICY_PARAM_SHORT_DISTANCE = 4; // 不参考路况，距离短（此策略会忽略所有单项偏好参数、车牌和车型，仅返回一条路线）
+}
+
+enum TencentReturnPolicy {
+  TENCENT_RETURN_POLICY_UNSPECIFIED = 0; // policy=1/2/3最多返回10条周边POI，policy=4/5最多返回20条
+  TENCENT_RETURN_POLICY_1 = 1; // [默认] 以地标+主要的路+近距离POI为主，着力描述当前位置
+  TENCENT_RETURN_POLICY_2 = 2; // 到家场景：筛选合适收货的POI，并会细化收货地址，精确到楼栋；
+  TENCENT_RETURN_POLICY_3 = 3; // 出行场景：过滤掉车辆不易到达的POI(如一些景区内POI)，增加道路出入口、交叉口、大区域出入口类POI，排序会根据真实API大用户的用户点击自动优化。
+  TENCENT_RETURN_POLICY_4 = 4; // 社交签到场景，针对用户签到的热门 地点进行优先排序。
+  TENCENT_RETURN_POLICY_5 = 5; // 位置共享场景，用户经常用于发送位置、位置分享等场景的热门地点优先排序
+}
+
+enum TencentTransitPlanPolicy {
+  TENCENT_TRANSIT_PLAN_POLICY_UNSPECIFIED = 0;
+  TENCENT_TRANSIT_PLAN_POLICY_RECOMMEND = 1; // 推荐策略，结合步行、换乘、耗时等多方面综合排序结果（与腾讯地图APP默认策略一致）
+  TENCENT_TRANSIT_PLAN_POLICY_LEAST_TIME = 2; // 时间短（默认）
+  TENCENT_TRANSIT_PLAN_POLICY_LEAST_TRANSFER = 3; // 少换乘
+  TENCENT_TRANSIT_PLAN_POLICY_LEAST_WALKING = 4; // 少步行
+}
+
+enum TencentTransitPlanLimit {
+  TENCENT_TRANSIT_PLAN_LIMIT_UNSPECIFIED = 0;
+  TENCENT_TRANSIT_PLAN_LIMIT_NO_SUBWAY = 1; // 不坐地铁
+  TENCENT_TRANSIT_PLAN_LIMIT_ONLY_SUBWAY = 2; // 只坐地铁
+  TENCENT_TRANSIT_PLAN_LIMIT_SUBWAY_FIRST = 3; // 地铁优先
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+// amap
+
+enum AmapCoordType {
+  AMAP_COORD_TYPE_UNSPECIFIED = 0;
+  AMAP_COORD_TYPE_GPS = 1; // GPS坐标
+  AMAP_COORD_TYPE_BAIDU = 2; // baidu经纬度
+  AMAP_COORD_TYPE_MAP_BAR = 3; // mapbar经纬度
+}
+
+enum AmapDrivingPlanStrategy {
+  AMAP_DRIVING_PLAN_STRATEGY_UNSPECIFIED = 0;
+  AMAP_DRIVING_PLAN_STRATEGY_DEFAULT = 1; // 默认，高德推荐，同高德地图APP默认
+  AMAP_DRIVING_PLAN_STRATEGY_SPEED_FIRST = 2; // 速度优先（只返回一条路线），此路线不一定距离最短
+  AMAP_DRIVING_PLAN_STRATEGY_FARE_FIRST = 3; // 费用优先（只返回一条路线），不走收费路段，且耗时最少的路线
+  AMAP_DRIVING_PLAN_STRATEGY_NORMAL_FAST = 4; // 常规最快（只返回一条路线）综合距离/耗时规划结果
+  AMAP_DRIVING_PLAN_STRATEGY_AVOID_CONGESTION = 5; // 躲避拥堵
+  AMAP_DRIVING_PLAN_STRATEGY_HIGHWAY_FIRST = 6; // 高速优先
+  AMAP_DRIVING_PLAN_STRATEGY_NO_HIGHWAY = 7; // 不走高速
+  AMAP_DRIVING_PLAN_STRATEGY_LEAST_FARE = 8; // 少收费
+  AMAP_DRIVING_PLAN_STRATEGY_HIGHROAD_FIRST = 9; // 大路优先
+  AMAP_DRIVING_PLAN_STRATEGY_FASTEST = 10; // 速度最快
+  AMAP_DRIVING_PLAN_STRATEGY_AVOID_CONGESTION_HIGHWAY_FIRST = 11; // 躲避拥堵＋高速优先
+  AMAP_DRIVING_PLAN_STRATEGY_AVOID_CONGESTION_NO_HIGHWAY = 12; // 躲避拥堵＋不走高速
+  AMAP_DRIVING_PLAN_STRATEGY_AVOID_CONGESTION_LEAST_FARE = 13; // 躲避拥堵＋少收费
+  AMAP_DRIVING_PLAN_STRATEGY_LEAST_FARE_NO_HIGHWAY = 14; // 少收费＋不走高速
+  AMAP_DRIVING_PLAN_STRATEGY_AVOID_CONGESTION_LEAST_FARE_NO_HIGHWAY = 15; // 躲避拥堵＋少收费＋不走高速
+  AMAP_DRIVING_PLAN_STRATEGY_AVOID_CONGESTION_HIGHROAD_FIRST = 16; // 躲避拥堵＋大路优先
+  AMAP_DRIVING_PLAN_STRATEGY_AVOID_CONGESTION_FASTEST = 17; // 躲避拥堵＋速度最快
+}
+
+enum AmapTransitPlanPolicy {
+  AMAP_TRANSIT_PLAN_POLICY_UNSPECIFIED = 0;
+  AMAP_TRANSIT_PLAN_POLICY_RECOMMEND = 1;  // 推荐模式，综合权重，同高德APP默认
+  AMAP_TRANSIT_PLAN_POLICY_LEAST_FEE = 2; // 最经济模式，票价最低
+  AMAP_TRANSIT_PLAN_POLICY_LEAST_TRANSFER = 3; // 最少换乘模式，换乘次数少
+  AMAP_TRANSIT_PLAN_POLICY_LEAST_WALKING = 4; // 最少步行模式，尽可能减少步行距离
+  AMAP_TRANSIT_PLAN_POLICY_MOST_COMFORTABLE = 5; // 最舒适模式，尽可能乘坐空调车
+  AMAP_TRANSIT_PLAN_POLICY_NO_SUBWAY = 6; // 不乘地铁模式，不乘坐地铁路线
+  AMAP_TRANSIT_PLAN_POLICY_SUBWAY = 7; // 地铁图模式，起终点都是地铁站（地铁图模式下 originpoi 及 destinationpoi 为必填项）
+  AMAP_TRANSIT_PLAN_POLICY_SUBWAY_FIRST = 8; // 地铁优先模式，步行距离不超过4KM
+  AMAP_TRANSIT_PLAN_POLICY_LEAST_TIME = 9; // 时间短模式，方案花费总时间最少
+}
+
+enum AmapDistanceMeasureType {
+  AMAP_DISTANCE_MEASURE_TYPE_UNSPECIFIED = 0;
+  // 驾车导航距离（仅支持国内坐标）
+  // 必须指出，当为1时会考虑路况，故在不同时间请求返回结果可能不同。
+  //  此策略和驾车路径规划接口的 strategy=4策略基本一致，策略为“ 躲避拥堵的路线，但是可能会存在绕路的情况，耗时可能较长 ”
+  //  若需要实现高德地图客户端效果，可以考虑使用驾车路径规划接口
+  AMAP_DISTANCE_MEASURE_TYPE_DRIVING = 1;
+  // 3：步行规划距离（仅支持5km之间的距离）
+  AMAP_DISTANCE_MEASURE_TYPE_WALKING = 2;
+  // // 直线距离
+  AMAP_DISTANCE_MEASURE_TYPE_STRAIGHT = 3;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+// TianDiTu
+
+enum TianDiTuRoutePlanStyle {
+  TIAN_DI_TU_ROUTE_PLAN_STYLE_UNSPECIFIED = 0;
+  TIAN_DI_TU_ROUTE_PLAN_STYLE_FASTEST = 1; // 最快路线
+  TIAN_DI_TU_ROUTE_PLAN_STYLE_LEAST_DISTANCE = 2; // 最短路线
+  TIAN_DI_TU_ROUTE_PLAN_STYLE_AVOID_HIGHWAY = 3; // 避开高速
+  TIAN_DI_TU_ROUTE_PLAN_STYLE_WALKING = 4; // 步行
+}
+
+enum TianDiTuTransitType {
+  TIAN_DI_TU_TRANSIT_TYPE_UNSPECIFIED = 0;
+  TIAN_DI_TU_TRANSIT_TYPE_PLAN = 1; // 公交规划
+  TIAN_DI_TU_TRANSIT_TYPE_LINE = 2; // 路线信息
+  TIAN_DI_TU_TRANSIT_TYPE_STATION = 3; // 站点信息
+}

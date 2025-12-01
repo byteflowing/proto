@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package msg.v1;
+
+import "msg/v1/sms.proto";
+import "msg/v1/mail.proto";
+import "msg/v1/captcha.proto";
+
+message MessageConfig {
+  msg.v1.SmsConfig sms = 1;
+  msg.v1.MailConfig mail = 2;
+  msg.v1.CaptchaConfig captcha = 3;
+}
+
+service MessageService {
+  rpc SendSms(msg.v1.SendSmsReq) returns (msg.v1.SendSmsResp);
+  rpc SendSmsWithoutLimit(msg.v1.SendSmsReq) returns (msg.v1.SendSmsResp);
+  rpc QuerySmsStatistics(QuerySmsStatisticsReq) returns (QuerySmsStatisticsResp);
+  rpc QuerySmsSendDetail(QuerySmsSendDetailReq) returns (QuerySmsSendDetailResp);
+  rpc GetSmsAccounts(GetSmsAccountsReq) returns (GetSmsAccountsResp);
+  rpc SendMail(msg.v1.SendMailReq) returns (msg.v1.SendMailResp);
+  rpc SendMailWithoutLimit(msg.v1.SendMailReq) returns (msg.v1.SendMailResp);
+  rpc QueryMailSendStatistics(QueryMailSendStatisticsReq) returns (QueryMailSendStatisticsResp);
+  rpc QueryMailSendDetails(QueryMailSendDetailsReq) returns (QueryMailSendDetailsResp);
+  rpc QueryMailSendTracks(QueryMailTracksReq) returns (QueryMailTracksResp);
+  rpc GetMailAccounts(GetMailAccountsReq) returns (GetMailAccountsResp);
+  rpc SendCaptcha(msg.v1.SendCaptchaReq) returns (msg.v1.SendCaptchaResp);
+  rpc VerifyCaptcha(msg.v1.VerifyCaptchaReq) returns (msg.v1.VerifyCaptchaResp);
+}

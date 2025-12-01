@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package config.v1;
+
+message LocalCacheConfig {
+  uint64 local_cache_capacity = 1; // 本地缓存容量 type为LOCAL时有效 单位：bytes
+}

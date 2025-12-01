@@ -2,33 +2,28 @@ syntax = "proto3";
 
 package types.v1;
 
-import "validation/v1/predefined_rules.proto";
-import "buf/validate/validate.proto";
+import "google/protobuf/duration.proto";
 
 message PhoneNumber {
-  // 国家编号
-  string country_code = 1 [
-    (buf.validate.field).string = {
-      min_len: 1
-      max_len: 4
-    }
-  ];
-  // 手机号码
-  string number = 2 [
-    (buf.validate.field).string = {
-      min_len: 6
-      max_len: 11
-    }
-  ];
+  string country_code = 1; // 国家编号
+  string number = 2; // 手机号码
 }
 
 message AdminRegion {
-  // 国家编码
-  string country_code = 1 [(buf.validate.field).string.(validation.v1.required_10) = true];
-  // 省编码
-  string province_code = 2 [(buf.validate.field).string.(validation.v1.required_10) = true];
-  // 市编码
-  string city_code = 3 [(buf.validate.field).string.(validation.v1.required_10) = true];
-  // 区编码
-  string district_code = 4 [(buf.validate.field).string.(validation.v1.required_10) = true];
+  string country_code = 1;  // 国家编码
+  string province_code = 2;  // 省编码
+  string city_code = 3; // 市编码
+  string district_code = 4; // 区编码
+}
+
+message Location {
+  double lat = 1; // 维度
+  double lng = 2; // 经度
+}
+
+message QuotaResult {
+  int32 quota = 1; // 限额值
+  int32 current = 2; // 当前达到值
+  google.protobuf.Duration window = 3; // 限制时长
+  google.protobuf.Duration retry_after = 4; // 还需要等待时长
 }
